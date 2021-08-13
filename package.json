@@ -1,13 +1,16 @@
 {
-  "name": "weddly",
+  "name": "fete",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@babel/code-frame": "^7.14.5",
-    "babel": "^6.23.0",
     "@testing-library/react-hooks": "^7.0.1",
     "axios": "^0.21.1",
+    "babel": "^6.23.0",
     "classnames": "^2.3.1",
+    "cors": "^2.8.5",
+    "jquery": "^3.6.0",
+    "jsonwebtoken": "^8.5.1",
     "node": "^16.6.1",
     "normalize.css": "^8.0.1",
     "react": "^16.9.0",

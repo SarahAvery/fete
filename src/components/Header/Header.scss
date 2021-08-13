@@ -1,7 +1,7 @@
 header {
   width: 100%;
-  background: #eb7a46;
-  background: #46baeb;
+  background: rgb(121, 133, 95);
+  font-family: "Merriweather", serif;
 }
 
 .header {
@@ -23,6 +23,7 @@ i {
 
 .header-logo {
   font-size: 48px;
+  font-style: italic;
 }
 
 .nav {

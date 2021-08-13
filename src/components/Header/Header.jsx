@@ -9,7 +9,7 @@ const Header = (props) => {
     <header>
       <div className="header wrapper">
         <div className="header-logo">
-          <Link to="/">Weddly</Link>
+          <Link to="/">Fete</Link>
         </div>
         <div className="nav">
           <nav>

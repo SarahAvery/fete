@@ -1,19 +1,20 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // import Header from "../components/Header/Header";
 import "./Application.scss";
 import Header from "./Header/Header";
 import Login from "./Login-Signup/Login";
 import Signup from "./Login-Signup/Signup";
-
-// const Nav = (props) => {
-//   return <nav className="sidebar__menu">{props.children}</nav>;
-// };
-// const Hr = () => <hr className="sidebar__separator sidebar--centered" />;
-// const Image = (props) => <img className={props.className} src={props.src} alt={props.alt} />;
-// const Section = (props) => <section className={props.className}>{props.children}</section>;
+import Dashboard from "../components/Dashboard/Dashboard";
+import Preferences from "../components/Preferences/Preferences";
 
 export default function Application(props) {
+  // const [token, setToken] = useState();
+
+  // if (!token) {
+  //   return <Login setToken={setToken} />;
+  // }
+
   return (
     <Fragment>
       <Router>
@@ -25,9 +26,24 @@ export default function Application(props) {
               {/* <Home /> */}
             </Route>
 
-            <Route exact path="/Signup" component={Signup}></Route>
+            <Route exact path="/signup" component={Signup}></Route>
+            {/* render={<Signup />} */}
+            {/* setToken={setToken} */}
 
-            <Route exact path="/login" component={Login}></Route>
+            {/* <Route exact path="/login" render={(props) => (<Login (props) isAuthed={true}/>)} /> */}
+
+            <Route exact path="/login" component={Login} />
+            {/* render={<Login />} */}
+            {/* setToken={setToken} */}
+
+            <Route exact path="/dashboard">
+              <Dashboard />
+            </Route>
+            <Route exact path="/preferences">
+              <Preferences />
+            </Route>
+            {/* onLogin={login} */}
+
             {/* 
             <Route exact path="/superheros">
               <Superheros superheros={state.superheros} loading={state.loading} />

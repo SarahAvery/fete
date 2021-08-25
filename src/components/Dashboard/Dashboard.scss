@@ -1,0 +1,67 @@
+// Dashboard
+
+// Dashboard Items
+li.DashbordItem {
+  list-style: none;
+  border: 1px solid rgb(121, 133, 95);
+  border-radius: 10px;
+  max-width: 300px;
+}
+
+.DashboardItem__content {
+  padding: 10px;
+  padding-bottom: 0;
+}
+
+.DashboardItem__titleBox {
+  display: flex;
+  justify-content: flex-end;
+
+  h3 {
+    text-align: center;
+    flex-grow: 1;
+    border-bottom: 1px solid rgb(121, 133, 95);
+    padding-bottom: 4px;
+  }
+  i {
+    color: black;
+    text-align: right;
+    padding-left: 8px;
+    cursor: pointer;
+  }
+}
+.DashboardItems__info {
+  // background-color: bisque;
+  border-bottom: 1px solid rgb(121, 133, 95);
+  padding: 10px 0;
+
+  .info-section {
+    display: flex;
+
+    p {
+      padding: 4px 0;
+      width: 100%;
+    }
+    p.subtitle {
+      font-weight: bolder;
+      width: 85px;
+    }
+  }
+}
+
+.DashboardItems__progress {
+  width: 100%;
+
+  svg {
+    margin: 0 auto;
+    width: 100%;
+
+    g {
+      transform: translate(34px, -25px);
+    }
+  }
+}
+
+.pie {
+  margin: 0 auto;
+}

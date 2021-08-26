@@ -16,6 +16,9 @@
 # .env.test.local
 # .env.production.local
 
+# Notes specific to running react and storybooks on Matt's system
+MBNotes.md
+
 .vscode/
 
 npm-debug.log*

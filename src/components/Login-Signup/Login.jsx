@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 
 // This will need to become a useEffect hook
 async function loginUser(credentials) {
-  return fetch("http://localhost:8080/login", {
+  return fetch("http://localhost:8002/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -56,8 +56,8 @@ const Login = ({ setToken }) => {
             </p>
           </div>
           <div className="btn-container">
-            {/* <Button onClick={() => validate()}></Button> */}
-            <button type="submit">login</button>
+            {<Button onClick={() => loginUser({ email, password })}>Login</Button>}
+            {/* <button type="submit">login</button> */}
           </div>
         </div>
       </form>

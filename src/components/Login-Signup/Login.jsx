@@ -5,8 +5,10 @@ import Header from "../Header/Header";
 // import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
+
 // This will need to become a useEffect hook
 async function loginUser(credentials) {
+  console.log('credentials: ', credentials)
   return fetch("http://localhost:8002/login", {
     method: "POST",
     headers: {

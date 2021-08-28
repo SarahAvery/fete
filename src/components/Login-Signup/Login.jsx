@@ -4,17 +4,31 @@ import Header from "../Header/Header";
 // import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import { Redirect } from "react-router-dom";
+
 
 // This will need to become a useEffect hook
 async function loginUser(credentials) {
-  return fetch("http://localhost:8080/login", {
+  return fetch("http://localhost:8002/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(credentials),
-  }).then((data) => data.json());
+  })
+    .then((res) => {
+      if (res.status == 200) {
+        return res.json();
+      } else {
+        throw Error(res.statusText);
+      }
+    })
+    .then((data) => {
+      localStorage.setItem("token", data.accessToken);
+      console.log("loginResponse", `localStorage set with token value: ${data.accessToken}`);
+    });
 }
+
 
 const Login = ({ setToken }) => {
   const [email, setEmail] = useState();
@@ -32,7 +46,7 @@ const Login = ({ setToken }) => {
   return (
     <div className="login-container wrapper">
       <h2>Login</h2>
-      <form autoComplete="off" onSubmit={(event) => event.preventDefault()}>
+      <form autoComplete="off" onSubmit={(e) => e.preventDefault()}>
         <div className="form-group">
           <div>
             <label for="email">email:</label>
@@ -50,14 +64,13 @@ const Login = ({ setToken }) => {
           <div>
             <label for="password">password: </label>
             <input type="password" name="password" required onChange={(e) => setPassword(e.target.value)} />
-
             <p id="error-msg">
               <span className="error">Incorrect password</span>
             </p>
           </div>
           <div className="btn-container">
-            {/* <Button onClick={() => validate()}></Button> */}
-            <button type="submit">login</button>
+            {<Button onClick={() => loginUser({ email, password })}>Login</Button>}
+            {/* <button type="submit">login</button> */}
           </div>
         </div>
       </form>

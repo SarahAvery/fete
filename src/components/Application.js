@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
 // import Header from "../components/Header/Header";
 import "./Application.scss";
 import Header from "./Header/Header";
@@ -55,14 +55,22 @@ const events = [
 
 
 export default function Application(props) {
+  // Could not get this system working. The authguard helper method is working for Dashboard though.
   // const [token, setToken] = useState();
   // const token = getToken();
-
-  const { token, setToken } = useToken();
-
+  // const { token, setToken } = useToken();
+  // console.log('token: ', token)
   // if (!token) {
   //   return <Login setToken={setToken} />;
   // }
+
+  const authGuard = (Component) => () => {
+    return localStorage.getItem("token") ? (
+      <Component />
+    ) : (
+      <Redirect to="/login" />
+    )
+  }
 
 
   return (
@@ -86,9 +94,11 @@ export default function Application(props) {
             {/* render={<Login />} */}
             {/* setToken={setToken} */}
 
-            <Route exact path="/dashboard">
+            {/* <Route exact path="/dashboard">
               <Dashboard events={events} />
-            </Route>
+            </Route> */}
+            <Route path="/dashboard" render={authGuard(Dashboard)} />
+
             <Route exact path="/preferences">
               <Preferences />
             </Route>

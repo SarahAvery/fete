@@ -6,8 +6,10 @@ import Header from "./Header/Header";
 import Login from "./Login-Signup/Login";
 import Signup from "./Login-Signup/Signup";
 import Dashboard from "../components/Dashboard/Dashboard";
+import EventBoard from "../components/Event-Board/EventBoard";
 import Preferences from "../components/Preferences/Preferences";
 
+// Dashboard
 const events = [
   {
     id: 1,
@@ -49,6 +51,73 @@ const events = [
   },
 ];
 
+// Events (Kanban)
+const data = [
+  {
+    swim_id: 1,
+    swim_title: "Open",
+    items: [
+      {
+        item_id: 1,
+        item_title: "flowers",
+        item_content:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae pariatur ex dicta adipisci illo.",
+      },
+      {
+        item_id: 2,
+        item_title: "dress",
+        item_content:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae pariatur ex dicta adipisci illo.",
+      },
+    ],
+  },
+
+  {
+    swim_id: 2,
+    swim_title: "in-progress",
+    items: [
+      {
+        item_id: 3,
+        item_title: "cake tasting",
+        item_content:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae pariatur ex dicta adipisci illo.",
+      },
+    ],
+  },
+
+  {
+    swim_id: 3,
+    swim_title: "feedback",
+    items: [
+      {
+        item_id: 4,
+        item_title: "seating chart",
+        item_content:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae pariatur ex dicta adipisci illo.",
+      },
+      {
+        item_id: 5,
+        item_title: "invitations",
+        item_content:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae pariatur ex dicta adipisci illo.",
+      },
+    ],
+  },
+
+  {
+    swim_id: 4,
+    swim_title: "complete",
+    items: [
+      {
+        item_id: 6,
+        item_title: "venue",
+        item_content:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae pariatur ex dicta adipisci illo.",
+      },
+    ],
+  },
+];
+
 export default function Application(props) {
   // const [token, setToken] = useState();
 
@@ -80,6 +149,11 @@ export default function Application(props) {
             <Route exact path="/dashboard">
               <Dashboard events={events} />
             </Route>
+
+            <Route exact path="/board">
+              <EventBoard data={data} />
+            </Route>
+
             <Route exact path="/preferences">
               <Preferences />
             </Route>

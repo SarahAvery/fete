@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
 // import Header from "../components/Header/Header";
 import "./Application.scss";
@@ -8,7 +8,6 @@ import Signup from "./Login-Signup/Signup";
 import Dashboard from "../components/Dashboard/Dashboard";
 import Preferences from "../components/Preferences/Preferences";
 import useToken from '../hooks/useToken';
-
 
 
 const events = [
@@ -56,9 +55,7 @@ const events = [
 export default function Application(props) {
   // Could not get this system working. The authguard helper method is working for Dashboard though.
   // const [token, setToken] = useState();
-  // const token = getToken();
   // const { token, setToken } = useToken();
-  // console.log('token: ', token)
   // if (!token) {
   //   return <Login setToken={setToken} />;
   // }
@@ -70,6 +67,12 @@ export default function Application(props) {
       <Redirect to="/login" />
     )
   }
+
+  const { token, setToken } = useToken();
+  useEffect(() => {
+    console.log('token in Application: ', token)
+  },[token])
+
 
 
   return (
@@ -88,7 +91,6 @@ export default function Application(props) {
             {/* setToken={setToken} */}
 
             {/* <Route exact path="/login" render={(props) => (<Login (props) isAuthed={true}/>)} /> */}
-
             <Route exact path="/login" component={Login} />
             {/* render={<Login />} */}
             {/* setToken={setToken} */}
@@ -96,21 +98,12 @@ export default function Application(props) {
             {/* <Route exact path="/dashboard">
               <Dashboard events={events} />
             </Route> */}
-            <Route path="/dashboard" render={authGuard(Dashboard)} />
+            <Route exact path="/dashboard" render={authGuard(Dashboard)} />
 
             <Route exact path="/preferences">
               <Preferences />
             </Route>
             {/* onLogin={login} */}
-
-            {/* 
-            <Route exact path="/superheros">
-              <Superheros superheros={state.superheros} loading={state.loading} />
-            </Route>
-
-            <Route path="/superheros/:id">
-              <SuperheroPage superheros={state.superheros} />
-            </Route> */}
 
             <Route path="*">
               <h3>404 not found</h3>

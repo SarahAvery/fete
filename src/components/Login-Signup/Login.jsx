@@ -4,8 +4,8 @@ import Header from "../Header/Header";
 // import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import { Redirect } from "react-router-dom";
 
-// const jwt = require('jsonwebtoken')
 
 // This will need to become a useEffect hook
 async function loginUser(credentials) {
@@ -29,19 +29,6 @@ async function loginUser(credentials) {
     });
 }
 
-/*
-const authenticateToken = (req, res, next) => {
-  const authHeader = req.headers['authorization']
-  const token = authHeader && authHeader.split(' ')[1]
-  if (token == null) return res.sendStatus(401)
-
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, tokenData) => {
-    if (err) return res.sendStatus(403)
-    req.user = tokenData
-    next()
-  })
-}
-*/
 
 const Login = ({ setToken }) => {
   const [email, setEmail] = useState();

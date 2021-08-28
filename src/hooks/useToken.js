@@ -19,25 +19,27 @@ const authenticateToken = (req, res, next) => {
 */
 
 export default function useToken() {
-
   const getToken = () => {
     const tokenString = localStorage.getItem('token');
-    console.log('tokenString: ', tokenString)
+    // PROCESS.ENV is not currently returning any value
+    // console.log('process.env.ACCESS_TOKEN_SECRET: ', process.env.ACCESS_TOKEN_SECRET)
 
-    // jwt.verify(tokenString, process.env.ACCESS_TOKEN_SECRET, (err, tokenData) => {
-    jwt.verify(tokenString, secret, (err, tokenData) => {
+    // const verified = jwt.verify(tokenString, process.env.ACCESS_TOKEN_SECRET, (err, tokenData) => {
+    const verified = jwt.verify(tokenString, secret, (err, tokenData) => {
       // if (err) return res.sendStatus(403)
       if (err){
-        console.log('error: ', err)
-        return
+        return err.sendStatus(401)
       } else {
-        console.log('tokenData: ', tokenData)
+        return tokenData
+        // console.log('tokenData: ', tokenData)
       }
-      return tokenData
     })
+    console.log('verfied: ', verified)
+    return verified
   };
 
   const [token, setToken] = useState(getToken());
+  // const token = getToken() || "no token"
 
   const saveToken = userToken => {
     localStorage.setItem('token', JSON.stringify(userToken));
@@ -49,4 +51,3 @@ export default function useToken() {
     token
   }
 }
-

@@ -53,7 +53,6 @@ const events = [
 ];
 
 
-
 export default function Application(props) {
   // Could not get this system working. The authguard helper method is working for Dashboard though.
   // const [token, setToken] = useState();

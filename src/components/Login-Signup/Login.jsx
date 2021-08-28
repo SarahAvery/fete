@@ -15,19 +15,19 @@ async function loginUser(credentials) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(credentials),
-  }).then((res) => {
-    if (res.status == 200) {
-      return res.json()
-    } else {
-      throw Error(res.statusText)
-    }
   })
-  .then(data => {
-    localStorage.setItem("token", data.accessToken)
-    console.log("loginResponse", `localStorage set with token value: ${data.accessToken}`)
-  })
+    .then((res) => {
+      if (res.status == 200) {
+        return res.json();
+      } else {
+        throw Error(res.statusText);
+      }
+    })
+    .then((data) => {
+      localStorage.setItem("token", data.accessToken);
+      console.log("loginResponse", `localStorage set with token value: ${data.accessToken}`);
+    });
 }
-
 
 /*
 const authenticateToken = (req, res, next) => {
@@ -42,7 +42,6 @@ const authenticateToken = (req, res, next) => {
   })
 }
 */
-
 
 const Login = ({ setToken }) => {
   const [email, setEmail] = useState();
@@ -60,7 +59,7 @@ const Login = ({ setToken }) => {
   return (
     <div className="login-container wrapper">
       <h2>Login</h2>
-      <form autoComplete="off" onSubmit={(event) => event.preventDefault()}>
+      <form autoComplete="off" onSubmit={(e) => e.preventDefault()}>
         <div className="form-group">
           <div>
             <label for="email">email:</label>
@@ -78,7 +77,6 @@ const Login = ({ setToken }) => {
           <div>
             <label for="password">password: </label>
             <input type="password" name="password" required onChange={(e) => setPassword(e.target.value)} />
-
             <p id="error-msg">
               <span className="error">Incorrect password</span>
             </p>

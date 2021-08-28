@@ -5,18 +5,44 @@ import Header from "../Header/Header";
 // import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
+// const jwt = require('jsonwebtoken')
 
 // This will need to become a useEffect hook
 async function loginUser(credentials) {
-  console.log('credentials: ', credentials)
   return fetch("http://localhost:8002/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(credentials),
-  }).then((data) => data.json());
+  }).then((res) => {
+    if (res.status == 200) {
+      return res.json()
+    } else {
+      throw Error(res.statusText)
+    }
+  })
+  .then(data => {
+    localStorage.setItem("token", data.accessToken)
+    console.log("loginResponse", `localStorage set with token value: ${data.accessToken}`)
+  })
 }
+
+
+/*
+const authenticateToken = (req, res, next) => {
+  const authHeader = req.headers['authorization']
+  const token = authHeader && authHeader.split(' ')[1]
+  if (token == null) return res.sendStatus(401)
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, tokenData) => {
+    if (err) return res.sendStatus(403)
+    req.user = tokenData
+    next()
+  })
+}
+*/
+
 
 const Login = ({ setToken }) => {
   const [email, setEmail] = useState();

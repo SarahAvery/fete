@@ -7,6 +7,9 @@ import Login from "./Login-Signup/Login";
 import Signup from "./Login-Signup/Signup";
 import Dashboard from "../components/Dashboard/Dashboard";
 import Preferences from "../components/Preferences/Preferences";
+import useToken from '../hooks/useToken';
+
+
 
 const events = [
   {
@@ -49,12 +52,18 @@ const events = [
   },
 ];
 
+
+
 export default function Application(props) {
   // const [token, setToken] = useState();
+  // const token = getToken();
+
+  const { token, setToken } = useToken();
 
   // if (!token) {
   //   return <Login setToken={setToken} />;
   // }
+
 
   return (
     <Fragment>

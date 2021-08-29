@@ -6,7 +6,6 @@ import Header from "../Header/Header";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
 
-
 // This will need to become a useEffect hook
 async function loginUser(credentials) {
   return fetch("http://localhost:8002/login", {
@@ -17,7 +16,7 @@ async function loginUser(credentials) {
     body: JSON.stringify(credentials),
   })
     .then((res) => {
-      if (res.status == 200) {
+      if (res.status === 200) {
         return res.json();
       } else {
         throw Error(res.statusText);
@@ -28,7 +27,6 @@ async function loginUser(credentials) {
       console.log("loginResponse", `localStorage set with token value: ${data.accessToken}`);
     });
 }
-
 
 const Login = ({ setToken }) => {
   const [email, setEmail] = useState();

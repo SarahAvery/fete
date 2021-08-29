@@ -17,9 +17,9 @@ async function registerUser(credentials) {
     body: JSON.stringify(credentials),
   })
     .then((res) => {
-      if (res.status == 200) {
+      if (res.status === 200) {
         return res.json();
-      } else if (res.status == 403) {
+      } else if (res.status === 403) {
         return res.json();
       } else {
         throw Error(res.statusText);

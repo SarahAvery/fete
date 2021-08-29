@@ -8,8 +8,7 @@ import Signup from "./Login-Signup/Signup";
 import Dashboard from "../components/Dashboard/Dashboard";
 import EventBoard from "../components/Event-Board/EventBoard";
 import Preferences from "../components/Preferences/Preferences";
-import useToken from '../hooks/useToken';
-
+import useToken from "../hooks/useToken";
 
 // Dashboard
 const events = [
@@ -52,7 +51,6 @@ const events = [
     percent: 76,
   },
 ];
-
 
 // Events (Kanban)
 const data = [
@@ -121,7 +119,6 @@ const data = [
   },
 ];
 
-
 export default function Application(props) {
   // Could not get this system working. The authguard helper method is working for Dashboard though.
   // const [token, setToken] = useState();
@@ -130,20 +127,14 @@ export default function Application(props) {
   //   return <Login setToken={setToken} />;
   // }
 
-  const authGuard = (Component) => () => {
-    return localStorage.getItem("token") ? (
-      <Component />
-    ) : (
-      <Redirect to="/login" />
-    )
-  }
+  const authGuard = (Component, props = {}) => () => {
+    return localStorage.getItem("token") ? <Component {...props} /> : <Redirect to="/login" />;
+  };
 
   const { token, setToken } = useToken();
   useEffect(() => {
-    console.log('token in Application: ', token)
-  },[token])
-
-
+    console.log("token in Application: ", token);
+  }, [token]);
 
   return (
     <Fragment>
@@ -165,15 +156,15 @@ export default function Application(props) {
             {/* render={<Login />} */}
             {/* setToken={setToken} */}
 
-            {/* <Route exact path="/dashboard">
+            <Route exact path="/dashboard">
               <Dashboard events={events} />
-
-            </Route> */}
-            
-            <Route exact path="/board">
-              <EventBoard data={data} />
             </Route>
 
+            <Route exact path="/board" render={authGuard(EventBoard, { data })} />
+
+            {/* <Route exact path="/board">
+              <EventBoard data={data} />
+            </Route> */}
 
             <Route exact path="/preferences">
               <Preferences />

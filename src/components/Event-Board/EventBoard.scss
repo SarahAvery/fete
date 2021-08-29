@@ -14,7 +14,7 @@
 
   /* Track */
   ::-webkit-scrollbar-track {
-    background: rgb(121, 133, 95, 0.1);
+    background: rgba(121, 133, 95, 0.1);
     background-color: none;
     border: 1px solid rgb(121, 133, 95);
     border-radius: 4px;
@@ -22,7 +22,7 @@
 
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: rgb(121, 133, 95, 0.5);
+    background: rgba(121, 133, 95, 0.5);
     border: 1px solid rgb(121, 133, 95);
     border-radius: 4px;
   }

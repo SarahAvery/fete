@@ -1,49 +1,50 @@
-import React, { useState } from "react";
+import React, { useState, render, useEffect } from "react";
 import Button from "../Button";
 import Header from "../Header/Header";
-// import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Application from "../Application";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
 
-// This will need to become a useEffect hook
-async function loginUser(credentials) {
-  return fetch("http://localhost:8002/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(credentials),
-  })
-    .then((res) => {
-      if (res.status === 200) {
-        return res.json();
-      } else {
-        throw Error(res.statusText);
-      }
-    })
-    .then((data) => {
-      localStorage.setItem("token", data.accessToken);
-      console.log("loginResponse", `localStorage set with token value: ${data.accessToken}`);
-    });
-}
 
-const Login = ({ setToken }) => {
+const Login = (props) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
-  // const handleSubmit = async e => {
-  //   e.preventDefault();
-  //   const token = await loginUser({
-  //     email,
-  //     password
-  //   });
-  //   setToken(token);
-  // }
+  console.log('props: ', props)
+
+  const { isAuthed, setToken } = props
+  console.log('isAuthed: ', isAuthed)
+
+
+  async function loginUser(credentials) {
+    fetch("http://localhost:8002/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(credentials),
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          return res.json();
+        } else {
+          throw Error(res.statusText);
+        }
+      })
+      .then((data) => {
+        localStorage.setItem("token", data.accessToken);
+        console.log("loginResponse", `localStorage set with token value: ${data.accessToken}`);
+        setToken(data.accessToken)
+      });
+  }
+
 
   return (
     <div className="login-container wrapper">
       <h2>Login</h2>
+      { isAuthed ? <Redirect to="/" /> : 
       <form autoComplete="off" onSubmit={(e) => e.preventDefault()}>
         <div className="form-group">
           <div>
@@ -72,6 +73,7 @@ const Login = ({ setToken }) => {
           </div>
         </div>
       </form>
+      }
     </div>
   );
 };

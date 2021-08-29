@@ -27,27 +27,24 @@ export default function useToken() {
 
     // const verified = jwt.verify(tokenString, process.env.ACCESS_TOKEN_SECRET, (err, tokenData) => {
     const verified = jwt.verify(tokenString, secret, (err, tokenData) => {
-      // if (err) return res.sendStatus(403)
       if (err) {
-        // return err.sendStatus(401)
-        return "error client side useToken";
+        return null;
       } else {
         return tokenData;
-        // console.log('tokenData: ', tokenData)
       }
     });
-    console.log("verfied: ", verified);
     return verified;
   };
 
   const [token, setToken] = useState(getToken());
-  // const token = getToken() || "no token"
 
   const saveToken = (userToken) => {
-    localStorage.setItem("token", JSON.stringify(userToken));
-    setToken(userToken.token);
+    console.log('userToken: ', userToken)
+    localStorage.setItem("token", userToken);
+    setToken(userToken);
   };
 
+  console.log(token)
   return {
     setToken: saveToken,
     token,

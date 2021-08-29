@@ -41,7 +41,7 @@ const Signup = (props) => {
   return (
     <div className="signup-container wrapper">
       <h2>Signup</h2>
-      { isAuthed ? <Redirect to="/" /> : 
+      { isAuthed ? <Redirect to="/dashboard" /> : 
       <form autoComplete="off" onSubmit={(e) => e.preventDefault()}>
         <div className="form-group">
           <div>

@@ -1,45 +1,40 @@
 import React, { useState } from "react";
 import Button from "../Button";
-import Header from "../Header/Header";
-// import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-// import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { Redirect } from "react-router-dom";
-
-// This will need to become a useEffect hook
-async function loginUser(credentials) {
-  return fetch("http://localhost:8002/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(credentials),
-  })
-    .then((res) => {
-      if (res.status === 200) {
-        return res.json();
-      } else {
-        throw Error(res.statusText);
-      }
-    })
-    .then((data) => {
-      localStorage.setItem("token", data.accessToken);
-      console.log("loginResponse", `localStorage set with token value: ${data.accessToken}`);
-    });
-}
+import { useHistory } from "react-router-dom";
+import { useUser } from "../../contexts/UserContext";
+import { Routes } from "../../helpers/routes";
 
 const Login = ({ setToken }) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const { setUser } = useUser();
+  const history = useHistory();
 
-  // const handleSubmit = async e => {
-  //   e.preventDefault();
-  //   const token = await loginUser({
-  //     email,
-  //     password
-  //   });
-  //   setToken(token);
-  // }
+  // This will need to become a useEffect hook
+  const loginUser = (credentials) => {
+    return fetch("http://localhost:8002/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(credentials),
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          return res.json();
+        } else {
+          throw Error(res.statusText);
+        }
+      })
+      .then((data) => {
+        localStorage.setItem("token", data.accessToken);
+        console.log("loginResponse", `localStorage set with token value: ${data.accessToken}`);
+        setUser(data);
+        // redirect
+        history.push(Routes.dashboard);
+      });
+  };
 
   return (
     <div className="login-container wrapper">
@@ -47,7 +42,7 @@ const Login = ({ setToken }) => {
       <form autoComplete="off" onSubmit={(e) => e.preventDefault()}>
         <div className="form-group">
           <div>
-            <label for="email">email:</label>
+            <label htmlFor="email">email:</label>
             <input
               type="text"
               name="email"
@@ -60,7 +55,7 @@ const Login = ({ setToken }) => {
             </p>
           </div>
           <div>
-            <label for="password">password: </label>
+            <label htmlFor="password">password: </label>
             <input type="password" name="password" required onChange={(e) => setPassword(e.target.value)} />
             <p id="error-msg">
               <span className="error">Incorrect password</span>
@@ -78,7 +73,7 @@ const Login = ({ setToken }) => {
 
 Login.propTypes = {
   // onLogin: PropTypes.func,
-  setToken: PropTypes.func.isRequired,
+  // setToken: PropTypes.func.isRequired,
 };
 
 export default Login;

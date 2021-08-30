@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+// import { apiRequest } from "../utils/apiUtils";
 
 // Events (Kanban)
 const eventData = [
@@ -71,11 +72,18 @@ export const EventBoardContext = React.createContext();
 
 const EventBoardContextProvider = ({ children }) => {
   const [data, setEventBoardData] = useState([]);
+  // const { location } = useLocation();
 
   useEffect(() => {
-    console.log("fetch data", EventBoardContext);
-
-    // fetch eventData from api
+    // TODO: uncomment once API supports event board data retreival
+    // let params = new URLSearchParams(document.location.search.substring(1));
+    // let eventId = params.get("eventId");
+    // apiRequest({ url: `${process.env.REACT_APP_API_URL}/board/${eventId}`, method: "GET" })
+    //   .then((res) => res.json())
+    //   .then((eventData) => {
+    //     // fetch eventData from api
+    //     setEventBoardData(eventData);
+    //   });
     setEventBoardData(eventData);
   }, []);
 

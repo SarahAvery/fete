@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { isLoggedIn } from "../../utils/authUtils";
+import { authManager, isLoggedIn } from "../../utils/authUtils";
 import "./Header.scss";
+import { RouteList } from "../Routes";
 
 // import PropTypes from "prop-types";
 
 const Header = () => {
   const isAuthed = isLoggedIn();
-  console.log("header");
 
   return (
     <header>
@@ -18,10 +18,15 @@ const Header = () => {
         <div className="nav">
           <nav>
             <ul>
-              <li>{!isAuthed && <Link to="/signup">Signup</Link>}</li>
+              <li>{!isAuthed && <Link to={RouteList.signup}>Signup</Link>}</li>
               <li>
-                {!isAuthed && <Link to="/login">Login</Link>}
-                {isAuthed && <Link to="/logout">Logout</Link>}
+                {!isAuthed && <Link to={RouteList.login}>Login</Link>}
+                {isAuthed && <Link to={RouteList.dashboard}>Dashboard</Link>}
+                {isAuthed && (
+                  <button className="logout-btn" onClick={() => authManager.logout()}>
+                    Logout
+                  </button>
+                )}
               </li>
             </ul>
           </nav>

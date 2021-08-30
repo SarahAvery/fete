@@ -17,8 +17,15 @@ header {
 }
 
 a,
-i {
+i,
+.logout-btn {
   color: white;
+}
+
+button.logout-btn {
+  font-size: 24px;
+  font-family: "Merriweather", serif;
+  font-weight: normal;
 }
 
 .header-logo {

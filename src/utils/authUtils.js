@@ -1,6 +1,8 @@
-import { history, Routes } from "../components/Application";
+import { history } from "../components/Application";
+import { RouteList } from "../components/Routes";
+import { apiRequest } from "./apiUtils";
 
-const getToken = () => localStorage.getItem("Fete.authorization");
+export const getToken = () => localStorage.getItem("Fete.authorization");
 const setToken = (token) => {
   if (token !== null && token !== undefined) {
     localStorage.setItem("Fete.authorization", token);
@@ -13,11 +15,8 @@ class AuthManager {
    * Retreives user data from the api using the token in localStorage
    */
   getUser = () => {
-    const token = getToken();
-
-    return fetch("/api/user/me", {
+    return apiRequest(`${process.env.REACT_APP_API_URL}/user/me`, {
       method: "GET",
-      headers: { authorization: `Bearer: ${token}` },
     }).then((res) => {
       if (res.status === 200) {
         return res.json();
@@ -52,7 +51,7 @@ class AuthManager {
    * Attempt user login with provided email/password
    */
   tryUserLogin = (email, password) => {
-    return fetch("http://localhost:8002/login", {
+    return fetch(`${process.env.REACT_APP_API_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -69,12 +68,11 @@ class AuthManager {
 
   logout = () => {
     localStorage.clear("Fete.authorization");
-    history.replace(Routes.home);
-    return true;
+    history.replace(RouteList.home);
   };
 
   tryUserRegistration = (email, password) => {
-    return fetch("http://localhost:8002/register", {
+    return fetch(`${process.env.REACT_APP_API_URL}/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

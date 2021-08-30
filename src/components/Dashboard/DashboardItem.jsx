@@ -1,6 +1,9 @@
 import React, { Fragment } from "react";
+import PropTypes from "prop-types";
+
 import Pie from "./Circle";
 import "./Dashboard.scss";
+import { Link } from "react-router-dom";
 <link
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
@@ -50,8 +53,30 @@ export default function DashboardItem(props) {
           <div className="DashboardItems__progress">
             <Pie className="pie" percentage={props.percent} colour="rgb(121, 133, 95)" />
           </div>
+          <Link to={`/board?eventId=${props.id}`}>View Board</Link>
         </div>
       </li>
     </Fragment>
   );
 }
+
+DashboardItem.propTypes = {
+  events: PropTypes.array,
+  id: PropTypes.number,
+  title: PropTypes.string,
+  first_name: PropTypes.string,
+  second_name: PropTypes.string,
+  weekday: PropTypes.string,
+  month: PropTypes.string,
+  day: PropTypes.number,
+  year: PropTypes.number,
+  email: PropTypes.string,
+  phone: PropTypes.number,
+  unit: PropTypes.number,
+  street_number: PropTypes.number,
+  street_name: PropTypes.string,
+  type: PropTypes.string,
+  postal: PropTypes.string,
+  city: PropTypes.string,
+  percent: PropTypes.number,
+};

@@ -5,17 +5,24 @@ import "../Login-Signup/Forms.scss";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
 import { authManager, isLoggedIn } from "../../utils/authUtils";
+import { history } from "../Application";
+import { RouteList } from "../Routes";
+import { useUser } from "../../contexts/UserContext";
 
 const Signup = (props) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const { setUser } = useUser();
 
   const isAuthed = isLoggedIn();
 
   async function registerUser({ email, password }) {
     authManager
       .tryUserRegistration(email, password)
-      .then((data) => {})
+      .then((data) => {
+        setUser(data);
+        history.push(RouteList.dashboard);
+      })
       .catch((err) => {
         console.log("Error in Register API call: ", err);
       });
@@ -25,7 +32,7 @@ const Signup = (props) => {
     <div className="signup-container wrapper">
       <h2>Signup</h2>
       {isAuthed ? (
-        <Redirect to="/dashboard" />
+        <Redirect to={RouteList.dashboard} />
       ) : (
         <form autoComplete="off" onSubmit={(e) => e.preventDefault()}>
           <div className="form-group">

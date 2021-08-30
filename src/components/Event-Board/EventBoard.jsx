@@ -100,54 +100,55 @@ const EventBoard = () => {
         <div className="drag-n-drop scrollbar">
           {/* swim, and swim index => for each swimlane create swimlane
            */}
-          {list.map((swim, swimI) => {
-            return (
-              // when there are no cards in the group...
-              // if we are dragging, swimlane has no items -> add listener (dragEnter)
-              // sent event, {swimIndex, and itemIndex default to zero (as there is no item yet)}
-              <div
-                className="swimlane"
-                onDragEnter={dragging && !swim.items.length ? (e) => handleDragEnter(e, { swimI, itemI: 0 }) : null}
-                key={swim.swim_id}
-              >
-                <div className="swim-title">{swim.swim_title}</div>
-                {/* item, itemIndex => inside the swimlane, iterate through all our items */}
-                {swim.items.map((item, itemI) => {
-                  return (
-                    // pass the event, swimIndex and itemIndex (coordinates [0,0])
-                    <div
-                      draggable
-                      onDragStart={(e) => {
-                        handleDragStart(e, { swimI, itemI });
-                      }}
-                      onDragEnter={
-                        dragging
-                          ? (e) => {
-                              handleDragEnter(e, { swimI, itemI });
-                            }
-                          : null
-                      }
-                      // className="item"
-                      className={dragging ? getStyles({ swimI, itemI }) : "item"}
-                      key={item.item_id}
-                    >
-                      <div className="item__container">
-                        <p className="item__title">{item.item_title}</p>
-                        <p className="item__desc">{item.item_content} </p>
+          {!!list?.length &&
+            list.map((swim, swimI) => {
+              return (
+                // when there are no cards in the group...
+                // if we are dragging, swimlane has no items -> add listener (dragEnter)
+                // sent event, {swimIndex, and itemIndex default to zero (as there is no item yet)}
+                <div
+                  className="swimlane"
+                  onDragEnter={dragging && !swim.items.length ? (e) => handleDragEnter(e, { swimI, itemI: 0 }) : null}
+                  key={swim.swim_id}
+                >
+                  <div className="swim-title">{swim.swim_title}</div>
+                  {/* item, itemIndex => inside the swimlane, iterate through all our items */}
+                  {swim.items.map((item, itemI) => {
+                    return (
+                      // pass the event, swimIndex and itemIndex (coordinates [0,0])
+                      <div
+                        draggable
+                        onDragStart={(e) => {
+                          handleDragStart(e, { swimI, itemI });
+                        }}
+                        onDragEnter={
+                          dragging
+                            ? (e) => {
+                                handleDragEnter(e, { swimI, itemI });
+                              }
+                            : null
+                        }
+                        // className="item"
+                        className={dragging ? getStyles({ swimI, itemI }) : "item"}
+                        key={item.item_id}
+                      >
+                        <div className="item__container">
+                          <p className="item__title">{item.item_title}</p>
+                          <p className="item__desc">{item.item_content} </p>
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
 
-                {/* <div className="add-item-container">
+                  {/* <div className="add-item-container">
                   <button onClick={(e) => openForm((e.target = swimI))}>
                     <FontAwesomeIcon icon={faPlus} className="add-item-button" />
                     {form.visible && form.swim === swimI ? <ItemForm /> : null}
                   </button>
                 </div> */}
-              </div>
-            );
-          })}
+                </div>
+              );
+            })}
         </div>
       </div>
     </Fragment>

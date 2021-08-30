@@ -1,11 +1,31 @@
-import React, { Fragment, useState, useRef } from "react";
-// import PropTypes from "prop-types";
+import React, { Fragment, useState, useRef, useEffect } from "react";
+import PropTypes from "prop-types";
+// import ItemForm from "./Item-Form";
 import "./EventBoard.scss";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useEventBoard, withEventBoard } from "../../contexts/EventBoardContext";
 
 // data for this board is in App.js
 
-export default function EventBoard({ data }) {
+const EventBoard = () => {
+  // Form
+  const [form, setForm] = useState({ visible: false, swim: null });
+
+  const openForm = (swimId) => {
+    console.log("clicked", swimId);
+    setForm({ visible: true, swim: swimId });
+  };
+
+  console.log(form);
+  // Initial data
+  const { data } = useEventBoard();
   const [list, setList] = useState(data);
+
+  // When event data gets updated, set the list state
+  useEffect(() => {
+    setList(data);
+  }, [data]);
 
   // are we currently dragging the item?
   const [dragging, setDragging] = useState(false);
@@ -68,9 +88,9 @@ export default function EventBoard({ data }) {
     const currItem = dragItem.current;
     // if current swimIndex = params swimIndex, & current itemIndex = params itemIndex, return className
     if (currItem.swimI === params.swimI && currItem.itemI === params.itemI) {
-      return "dnd-item current";
+      return "item current";
     }
-    return "dnd-item";
+    return "item";
   };
 
   return (
@@ -78,80 +98,77 @@ export default function EventBoard({ data }) {
       <h1>Board Title</h1>
       <div className="board-container">
         <div className="drag-n-drop scrollbar">
-          {/* swim, and swim index => for each swimlane create dnd-group*/}
-          {list.map((swim, swimI) => {
-            return (
-              // when there are no cards in the group...
-              // if we are dragging, swimlane has no items -> add listener (dragEnter)
-              // sent event, {swimIndex, and itemIndex default to zero (as there is no item yet)}
-              <div
-                className="dnd-group "
-                onDragEnter={dragging && !swim.items.length ? (e) => handleDragEnter(e, { swimI, itemI: 0 }) : null}
-                key={swim.swim_id}
-              >
-                <div className="dnd-title">{swim.swim_title}</div>
-                {/* item, itemIndex => inside the swimlane, iterate through all our items */}
-                {swim.items.map((item, itemI) => {
-                  return (
-                    // pass the event, swimIndex and itemIndex (coordinates [0,0])
-                    <div
-                      draggable
-                      onDragStart={(e) => {
-                        handleDragStart(e, { swimI, itemI });
-                      }}
-                      onDragEnter={
-                        dragging
-                          ? (e) => {
-                              handleDragEnter(e, { swimI, itemI });
-                            }
-                          : null
-                      }
-                      // className="dnd-item"
-                      className={dragging ? getStyles({ swimI, itemI }) : "dnd-item"}
-                      key={item.item_id}
-                    >
-                      <div className="dnd-item__container">
-                        <p className="dnd-item__title">{item.item_title}</p>
-                        <p className="dnd-item__desc">{item.item_content} </p>
+          {/* swim, and swim index => for each swimlane create swimlane
+           */}
+          {!!list?.length &&
+            list.map((swim, swimI) => {
+              return (
+                // when there are no cards in the group...
+                // if we are dragging, swimlane has no items -> add listener (dragEnter)
+                // sent event, {swimIndex, and itemIndex default to zero (as there is no item yet)}
+                <div
+                  className="swimlane"
+                  onDragEnter={dragging && !swim.items.length ? (e) => handleDragEnter(e, { swimI, itemI: 0 }) : null}
+                  key={swim.swim_id}
+                >
+                  <div className="swim-title">{swim.swim_title}</div>
+                  {/* item, itemIndex => inside the swimlane, iterate through all our items */}
+                  {swim.items.map((item, itemI) => {
+                    return (
+                      // pass the event, swimIndex and itemIndex (coordinates [0,0])
+                      <div
+                        draggable
+                        onDragStart={(e) => {
+                          handleDragStart(e, { swimI, itemI });
+                        }}
+                        onDragEnter={
+                          dragging
+                            ? (e) => {
+                                handleDragEnter(e, { swimI, itemI });
+                              }
+                            : null
+                        }
+                        // className="item"
+                        className={dragging ? getStyles({ swimI, itemI }) : "item"}
+                        key={item.item_id}
+                      >
+                        <div className="item__container">
+                          <p className="item__title">{item.item_title}</p>
+                          <p className="item__desc">{item.item_content} </p>
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
-              </div>
-            );
-          })}
+                    );
+                  })}
+
+                  {/* <div className="add-item-container">
+                  <button onClick={(e) => openForm((e.target = swimI))}>
+                    <FontAwesomeIcon icon={faPlus} className="add-item-button" />
+                    {form.visible && form.swim === swimI ? <ItemForm /> : null}
+                  </button>
+                </div> */}
+                </div>
+              );
+            })}
         </div>
       </div>
     </Fragment>
   );
-}
+};
 
-EventBoard.propTypes = {};
+EventBoard.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      swim_id: PropTypes.number,
+      swim_title: PropTypes.string,
+      items: PropTypes.arrayOf(
+        PropTypes.shape({
+          item_id: PropTypes.number,
+          item_title: PropTypes.string,
+          item_content: PropTypes.string,
+        })
+      ),
+    })
+  ),
+};
 
-// Props
-// board title
-// swimlane title
-// item title
-// item content
-
-/* group = swimlane 
-           <div className="dnd-group">
-            <div className="dnd-title">to-do</div>
-            {/* item = item  */
-/* <div className="dnd-item">
-              <div className="dnd-item__container">
-                <p className="dnd-item__title">Item Title</p>
-                <p className="dnd-item__desc">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae pariatur ex dicta adipisci illo.
-                </p>
-              </div>
-            </div>
-            <div className="dnd-item">
-              <div className="dnd-item__container">
-                <p className="dnd-item__title">Item Title</p>
-                <p className="dnd-item__desc">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae pariatur ex dicta adipisci illo.
-                </p>
-              </div>
-            </div>
-          </div>  */
+export default withEventBoard(EventBoard);

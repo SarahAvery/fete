@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Redirect, Route, Switch, withRouter } from "react-router-dom";
 // import Header from "../components/Header/Header";
 import "./Application.scss";
 import Header from "./Header/Header";
@@ -8,7 +8,21 @@ import Signup from "./Login-Signup/Signup";
 import Dashboard from "../components/Dashboard/Dashboard";
 import EventBoard from "../components/Event-Board/EventBoard";
 import Preferences from "../components/Preferences/Preferences";
-import useToken from "../hooks/useToken";
+import { createBrowserHistory } from "history";
+import { authManager, isLoggedIn } from "../utils/authUtils";
+import { withUser } from "../contexts/UserContext";
+import RouterRoot from "./RouterRoot";
+
+export const Routes = {
+  dashboard: "/dashboard",
+  signup: "/signup",
+  home: "/",
+  login: "/login",
+  board: "/board",
+  preferences: "/preferences",
+};
+
+export const history = createBrowserHistory();
 
 // Dashboard
 const events = [
@@ -52,140 +66,49 @@ const events = [
   },
 ];
 
-// Events (Kanban)
-const data = [
-  {
-    swim_id: 1,
-    swim_title: "Open",
-    items: [
-      {
-        item_id: 1,
-        item_title: "flowers",
-        item_content:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae pariatur ex dicta adipisci illo.",
-      },
-      {
-        item_id: 2,
-        item_title: "dress",
-        item_content:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae pariatur ex dicta adipisci illo.",
-      },
-    ],
-  },
+const ProtectedRoute = ({ path, component }) => {
+  const isAuthenticated = isLoggedIn();
 
-  {
-    swim_id: 2,
-    swim_title: "in-progress",
-    items: [
-      {
-        item_id: 3,
-        item_title: "cake tasting",
-        item_content:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae pariatur ex dicta adipisci illo.",
-      },
-    ],
-  },
+  return isAuthenticated ? <Route exact path={Routes.board} component={EventBoard} /> : <Redirect to={Routes.login} />;
+};
 
-  {
-    swim_id: 3,
-    swim_title: "feedback",
-    items: [
-      {
-        item_id: 4,
-        item_title: "seating chart",
-        item_content:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae pariatur ex dicta adipisci illo.",
-      },
-      {
-        item_id: 5,
-        item_title: "invitations",
-        item_content:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae pariatur ex dicta adipisci illo.",
-      },
-    ],
-  },
-
-  {
-    swim_id: 4,
-    swim_title: "complete",
-    items: [
-      {
-        item_id: 6,
-        item_title: "venue",
-        item_content:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae pariatur ex dicta adipisci illo.",
-      },
-    ],
-  },
-];
-
-export default function Application(props) {
-
-  const authGuard = (Component, props = {}) => () => {
-    return localStorage.getItem("token") ? <Component {...props} /> : <Redirect to="/login" />;
-  };
-
-  const { token, setToken } = useToken();
-
-  const logout = () => {
-    setToken(null)
-    localStorage.clear("token")
-  }
-
-
+const Application = (props) => {
   return (
     <Fragment>
-      <Router>
-        <Header isAuthed={token} />
+      <Router history={history}>
+        <RouterRoot>
+          <Header />
+          <main className="layout">
+            <Switch>
+              <Route exact path={Routes.home} />
+              <Route exact path={Routes.signup} component={Signup} />
+              <Route exact path={Routes.login} component={Login} />
 
-        <main className="layout">
-          <Switch>
-            <Route exact path="/">
-              {/* <Home /> */}
-            </Route>
+              {/* Protected Routes */}
+              <ProtectedRoute path={Routes.board} component={EventBoard} />
+              <Route exact path={Routes.dashboard}>
+                <Dashboard events={events} />
+              </Route>
+              <Route exact path={Routes.preferences}>
+                <Preferences />
+              </Route>
+              {/* onLogin={login} */}
 
-            <Route exact path="/signup" component={Signup}>
-              <Signup isAuthed={token} setToken={setToken} />
-            </Route>
-            {/* render={<Signup />} */}
-            {/* setToken={setToken} */}
+              <Route exact path="/logout">
+                {() => authManager.logout() && <Redirect to="/" />}
+              </Route>
 
-            {/* <Route exact path="/login" render={(props) => (<Login (props) isAuthed={true}/>)} /> */}
-            {/* <Route exact path="/login" isAuthed="test" component={Login} /> */}
-            <Route exact path="/login" >
-              <Login isAuthed={token} setToken={setToken} />
-            </Route>
-
-            {/* render={<Login />} */}
-            {/* setToken={setToken} */}
-
-            <Route exact path="/dashboard">
-              <Dashboard events={events} />
-            </Route>
-
-            <Route exact path="/board" render={authGuard(EventBoard, { data })} />
-
-            {/* <Route exact path="/board">
-              <EventBoard data={data} />
-            </Route> */}
-
-            <Route exact path="/preferences">
-              <Preferences />
-            </Route>
-            {/* onLogin={login} */}
-
-            <Route exact path="/logout" >
-              {() => logout() && <Redirect to="/" />}
-            </Route>
-
-            <Route path="*">
-              <h3>404 not found</h3>
-              {/* can call error component */}
-            </Route>
-          </Switch>
-        </main>
-        <footer></footer>
+              <Route path="*">
+                <h3>404 not found</h3>
+                {/* can call error component */}
+              </Route>
+            </Switch>
+          </main>
+          <footer></footer>
+        </RouterRoot>
       </Router>
     </Fragment>
   );
-}
+};
+
+export default withUser(Application);

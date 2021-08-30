@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { isLoggedIn } from "../../utils/authUtils";
 import "./Header.scss";
-
 
 // import PropTypes from "prop-types";
 
-const Header = (props) => {
-  const { isAuthed } = props
+const Header = () => {
+  const isAuthed = isLoggedIn();
+  console.log("header");
 
   return (
     <header>
@@ -17,12 +18,10 @@ const Header = (props) => {
         <div className="nav">
           <nav>
             <ul>
+              <li>{!isAuthed && <Link to="/signup">Signup</Link>}</li>
               <li>
-                { !isAuthed && <Link to="/signup">Signup</Link> }
-              </li>
-              <li>
-                { !isAuthed && <Link to="/login">Login</Link> }
-                { isAuthed && <Link to="/logout">Logout</Link> }
+                {!isAuthed && <Link to="/login">Login</Link>}
+                {isAuthed && <Link to="/logout">Logout</Link>}
               </li>
             </ul>
           </nav>

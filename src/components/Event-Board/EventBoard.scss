@@ -39,7 +39,7 @@
     align-items: flex-start;
   }
 
-  .dnd-group {
+  .swimlane {
     min-width: 250px;
     border: 1px solid rgb(121, 133, 95);
     border-radius: 4px;
@@ -50,7 +50,7 @@
     min-height: 100px;
   }
 
-  .dnd-title {
+  .swim-title {
     background-color: rgb(121, 133, 95);
     text-align: center;
     color: whitesmoke;
@@ -59,7 +59,7 @@
     text-transform: capitalize;
   }
 
-  .dnd-item {
+  .item {
     margin: 5px;
     height: auto;
     overflow-wrap: break-word;
@@ -68,14 +68,14 @@
     // background-color: rgba(121, 133, 95, 0.1);
   }
 
-  .dnd-item__container {
+  .item__container {
     white-space: pre-line;
     padding: 5px;
     border: 1px solid rgb(121, 133, 95);
     border-radius: 4px;
   }
 
-  .dnd-item__title {
+  .item__title {
     font-size: 18px;
     width: 100%;
     font-weight: bold;
@@ -86,8 +86,21 @@
     background-color: #fff;
     color: #fff;
 
-    .dnd-item__container {
+    .item__container {
       border: none;
+    }
+  }
+
+  .add-item-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    button {
+      svg {
+        color: rgb(121, 133, 95);
+        // color: rgb(0, 0, 0);
+      }
     }
   }
 }

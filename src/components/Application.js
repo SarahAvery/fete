@@ -120,26 +120,23 @@ const data = [
 ];
 
 export default function Application(props) {
-  // Could not get this system working. The authguard helper method is working for Dashboard though.
-  // const [token, setToken] = useState();
-  // const { token, setToken } = useToken();
-  // if (!token) {
-  //   return <Login setToken={setToken} />;
-  // }
 
   const authGuard = (Component, props = {}) => () => {
     return localStorage.getItem("token") ? <Component {...props} /> : <Redirect to="/login" />;
   };
 
   const { token, setToken } = useToken();
-  useEffect(() => {
-    console.log("token in Application: ", token);
-  }, [token]);
+
+  const logout = () => {
+    setToken(null)
+    localStorage.clear("token")
+  }
+
 
   return (
     <Fragment>
       <Router>
-        <Header />
+        <Header isAuthed={token} />
 
         <main className="layout">
           <Switch>
@@ -147,12 +144,18 @@ export default function Application(props) {
               {/* <Home /> */}
             </Route>
 
-            <Route exact path="/signup" component={Signup}></Route>
+            <Route exact path="/signup" component={Signup}>
+              <Signup isAuthed={token} setToken={setToken} />
+            </Route>
             {/* render={<Signup />} */}
             {/* setToken={setToken} */}
 
             {/* <Route exact path="/login" render={(props) => (<Login (props) isAuthed={true}/>)} /> */}
-            <Route exact path="/login" component={Login} />
+            {/* <Route exact path="/login" isAuthed="test" component={Login} /> */}
+            <Route exact path="/login" >
+              <Login isAuthed={token} setToken={setToken} />
+            </Route>
+
             {/* render={<Login />} */}
             {/* setToken={setToken} */}
 
@@ -170,6 +173,10 @@ export default function Application(props) {
               <Preferences />
             </Route>
             {/* onLogin={login} */}
+
+            <Route exact path="/logout" >
+              {() => logout() && <Redirect to="/" />}
+            </Route>
 
             <Route path="*">
               <h3>404 not found</h3>

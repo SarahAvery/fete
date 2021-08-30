@@ -3,41 +3,45 @@ import Button from "../Button";
 
 import "../Login-Signup/Forms.scss";
 import PropTypes from "prop-types";
+import { Redirect } from "react-router-dom";
 
 // import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // import { Link } from "react-router-dom";
-
-// This will need to become a useEffect hook
-async function registerUser(credentials) {
-  return fetch("http://localhost:8002/register", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(credentials),
-  })
-    .then((res) => {
-      if (res.status === 200) {
-        return res.json();
-      } else if (res.status === 403) {
-        return res.json();
-      } else {
-        throw Error(res.statusText);
-      }
-    })
-    .then((data) => {
-      localStorage.setItem("token", data.accessToken);
-      console.log("loginResponse", `localStorage set with token value: ${data.accessToken}`);
-    });
-}
 
 const Signup = (props) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
+  const { isAuthed, setToken } = props
+
+  async function registerUser(credentials) {
+    return fetch("http://localhost:8002/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(credentials),
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          return res.json();
+        } else if (res.status === 403) {
+          return res.json();
+        } else {
+          throw Error(res.statusText);
+        }
+      })
+      .then((data) => {
+        localStorage.setItem("token", data.accessToken);
+        console.log("loginResponse", `localStorage set with token value: ${data.accessToken}`);
+        setToken(data.accessToken)
+      });
+  }
+
   return (
     <div className="signup-container wrapper">
       <h2>Signup</h2>
+      { isAuthed ? <Redirect to="/dashboard" /> : 
       <form autoComplete="off" onSubmit={(e) => e.preventDefault()}>
         <div className="form-group">
           <div>
@@ -48,7 +52,7 @@ const Signup = (props) => {
               placeholder="email@email.com"
               required
               onChange={(e) => setEmail(e.target.value)}
-            />
+              />
             <p id="error-msg">
               <span className="error">This email is already registered. Please login.</span>
             </p>
@@ -70,6 +74,7 @@ const Signup = (props) => {
           </div>
         </div>
       </form>
+      }
     </div>
   );
 };

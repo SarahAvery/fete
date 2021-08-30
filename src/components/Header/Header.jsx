@@ -2,9 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Header.scss";
 
+
 // import PropTypes from "prop-types";
 
 const Header = (props) => {
+  const { isAuthed } = props
+
   return (
     <header>
       <div className="header wrapper">
@@ -15,10 +18,11 @@ const Header = (props) => {
           <nav>
             <ul>
               <li>
-                <Link to="/signup">Signup</Link>
+                { !isAuthed && <Link to="/signup">Signup</Link> }
               </li>
               <li>
-                <Link to="/login">Login</Link>
+                { !isAuthed && <Link to="/login">Login</Link> }
+                { isAuthed && <Link to="/logout">Logout</Link> }
               </li>
             </ul>
           </nav>

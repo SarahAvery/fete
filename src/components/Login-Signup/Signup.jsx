@@ -12,20 +12,31 @@ import { useUser } from "../../contexts/UserContext";
 const Signup = (props) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [passConfirm, setPassConfirm] = useState();
+  const [passError, setPassError] = useState();
   const { setUser } = useUser();
-
   const isAuthed = isLoggedIn();
 
+  const checkPasswordsMatch = (pass1 = password, pass2 = passConfirm) => {
+    return pass1 === pass2 ? true : false
+  };
+
   async function registerUser({ email, password }) {
-    authManager
+    const passMatch = checkPasswordsMatch()
+    if (passMatch) {
+      authManager
       .tryUserRegistration(email, password)
       .then((data) => {
         setUser(data);
         history.push(RouteList.dashboard);
+        console.log("Data in API call: ", data);
       })
       .catch((err) => {
         console.log("Error in Register API call: ", err);
       });
+    } else {
+      setPassError(true)
+    }
   }
 
   return (
@@ -45,20 +56,18 @@ const Signup = (props) => {
                 required
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <p id="error-msg">
-                <span className="error">This email is already registered. Please login.</span>
-              </p>
             </div>
+            <span className="error">This email is already registered. Please login.</span>
             <div>
               <label htmlFor="password">password: </label>
-              <input type="password" name="password" required />
+              <input type="password" name="password" onChange={(e) => setPassword(e.target.value)} required />
             </div>
             <div>
               <label htmlFor="confirm-password">confirm password: </label>
-              <input type="password" name="confirm-password" required onChange={(e) => setPassword(e.target.value)} />
-              <p id="error-msg">
-                <span className="error">Password does not match</span>
-              </p>
+              <input type="password" name="confirm-password" required onChange={(e) => setPassConfirm(e.target.value)} />
+              {/* <p id="error-msg"> */}
+                { passError && <span className="error">Password does not match</span> }
+              {/* </p> */}
             </div>
             <div className="btn-container">
               {<Button onClick={() => registerUser({ email, password })}>Register</Button>}

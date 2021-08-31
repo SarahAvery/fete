@@ -10,5 +10,9 @@ export const apiRequest = (url, options) => {
     headers: { authorization: `Bearer: ${getToken()}` },
   };
 
-  return fetch(url || defaultUrl, { ...defaultOptions, ...options });
+  return fetch(url || defaultUrl, {
+    ...defaultOptions,
+    ...options,
+    headers: { ...defaultOptions.headers, ...options.headers },
+  });
 };

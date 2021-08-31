@@ -31,9 +31,7 @@ export default function DashboardItem(props) {
             </div>
             <div className="info-section">
               <p className="subtitle">Date:</p>
-              <p>
-                {props.weekday}, {props.month} {props.day}, {props.year}
-              </p>
+              <p>{props.event_date}</p>
             </div>
             <div className="info-section">
               <p className="subtitle">Email:</p>
@@ -46,14 +44,15 @@ export default function DashboardItem(props) {
             <div className="info-section">
               <p className="subtitle">Address:</p>
               <p>
-                {props.unit} {props.street_number}, {props.street_name} {props.type}, {props.postal}, {props.city}
+                {props.unit} {props.street_number}, {props.street_name} {props.street_type}, {props.postal_code},{" "}
+                {props.city}
               </p>
             </div>
           </div>
           <div className="DashboardItems__progress">
             <Pie className="pie" percentage={props.percent} colour="rgb(121, 133, 95)" />
           </div>
-          <Link to={`/board?eventId=${props.id}`}>View Board</Link>
+          <Link to={`/board?eventId=${props.event_id}`}>View Board</Link>
         </div>
       </li>
     </Fragment>
@@ -66,17 +65,14 @@ DashboardItem.propTypes = {
   title: PropTypes.string,
   first_name: PropTypes.string,
   second_name: PropTypes.string,
-  weekday: PropTypes.string,
-  month: PropTypes.string,
-  day: PropTypes.number,
-  year: PropTypes.number,
+  event_date: PropTypes.string,
   email: PropTypes.string,
-  phone: PropTypes.number,
-  unit: PropTypes.number,
-  street_number: PropTypes.number,
+  phone: PropTypes.string,
+  unit: PropTypes.string,
+  street_number: PropTypes.string,
   street_name: PropTypes.string,
-  type: PropTypes.string,
-  postal: PropTypes.string,
+  street_type: PropTypes.string,
+  postal_code: PropTypes.string,
   city: PropTypes.string,
   percent: PropTypes.number,
 };

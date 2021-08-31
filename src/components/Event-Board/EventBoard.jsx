@@ -17,7 +17,7 @@ const EventBoard = () => {
     setForm({ visible: true, swim: swimId });
   };
 
-  console.log(form);
+  // console.log(form);
   // Initial data
   const { data } = useEventBoard();
   const [list, setList] = useState(data);

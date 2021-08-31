@@ -7,7 +7,7 @@ const UserContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    console.log("fetch user", UserContext);
+    // console.log("fetch user", UserContext);
 
     authManager.tryLogin().then((data) => setUser(data));
   }, []);

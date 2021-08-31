@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 import Pie from "./Circle";
 import "./Dashboard.scss";
+import { RouteList } from "../Routes";
 import { Link } from "react-router-dom";
 <link
   rel="stylesheet"
@@ -13,12 +14,23 @@ import { Link } from "react-router-dom";
 />;
 
 export default function DashboardItem(props) {
+  console.log('props in DashboardItem: ', props)
+  // const { eventId } = props.id
+  let string = '/eventId=1'
+  let eventId = '1'
+
+  const setPath = (eventId) => {
+    // location.assign(eventId)
+  }
+
   return (
     <Fragment>
-      <li className="DashbordItem">
+      <li className="DashboardItem">
         <div className="DashboardItem__content">
           <div className="DashboardItem__titleBox">
-            <h3>{props.title}</h3>
+            {/* add link to the event's dashboard */}
+            <Link to={RouteList.board} onClick={setPath}><h3>{props.title}</h3></Link>
+            {/* <h3>{props.title}</h3> */}
             <i className="fas fa-ellipsis-h"></i>
             {/* i will need to be an onclick to open 'edit' and 'delete' */}
           </div>

@@ -1,15 +1,13 @@
 import React, { Fragment, useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
-import ItemForm from "./Item-Form";
+import ItemForm from "./ItemForm";
 import "./EventBoard.scss";
 import Swimlane from "./Swimlane";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useEventBoard, withEventBoard } from "../../contexts/EventBoardContext";
 import SwimlaneItem from "./SwimlaneItem";
 
-// data for this board is in App.js
 let onLoad = false;
 
 const EventBoard = () => {
@@ -49,7 +47,6 @@ const EventBoard = () => {
 
   useEffect(() => {
     if (!dragging && onLoad) {
-      console.log("How many items are we firing this!@?");
       updateSwimlanes(data.items);
     }
     if (!onLoad) onLoad = true;
@@ -73,6 +70,7 @@ const EventBoard = () => {
     [handleDragEnd]
   );
 
+  // Need to update what swimlane the task is in
   const updateTasksOrderKeys = (swimlanes) => {
     return swimlanes.map((swimlane) => {
       const items = swimlane.items.map((task, index) => {
@@ -99,11 +97,8 @@ const EventBoard = () => {
         // remove current item from current swimIndex
         newList[params.swimI].items.splice(params.itemI, 0, newList[currItem.swimI].items.splice(currItem.itemI, 1)[0]);
 
-        dragItem.current = params;
         // the current item is not longer the current item, it is now the target item
-
-        // console.log("newList ", newList);
-        // newList[]
+        dragItem.current = params;
 
         // update the order keys on each task
         const newListWithOrderKeysModified = updateTasksOrderKeys(newList);
@@ -164,11 +159,11 @@ const EventBoard = () => {
                     );
                   })}
 
-                  <div className="add-item-container">
-                    <button onClick={(e) => openForm((e.target = swimI))}>
+                  <div className="add-btn-container">
+                    <div className="add-btn" onClick={(e) => openForm((e.target = swimI))}>
                       <FontAwesomeIcon icon={faPlus} className="add-item-button" />
-                      {form.visible && form.swim === swimI ? <ItemForm /> : null}
-                    </button>
+                    </div>
+                    {form.visible && form.swim === swimI ? <ItemForm columnId={swimI} /> : null}
                   </div>
                 </Swimlane>
               );

@@ -1,11 +1,23 @@
 // Dashboard
 
+.Dashboard {
+  ul {
+    display: flex;
+  }
+}
 // Dashboard Items
 li.DashbordItem {
   list-style: none;
   border: 1px solid rgb(121, 133, 95);
   border-radius: 10px;
   max-width: 300px;
+  a {
+    background-color: cornflowerblue;
+    color: #fff;
+    padding: 10px;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
 }
 
 .DashboardItem__content {

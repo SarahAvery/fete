@@ -120,7 +120,14 @@ const NewEvent = () => {
 
               <div className="contact-info">
                 <label htmlFor="phone">Phone: </label>
-                <input type="text" name="phone" required onChange={(e) => setPhone(e.target.value)} />
+                <input
+                  type="tel"
+                  name="phone"
+                  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                  placeholder="123-456-7890"
+                  required
+                  onChange={(e) => setPhone(e.target.value)}
+                />
               </div>
             </div>
 

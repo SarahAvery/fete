@@ -22,37 +22,44 @@ export default function DashboardItem(props) {
             <i className="fas fa-ellipsis-h"></i>
             {/* i will need to be an onclick to open 'edit' and 'delete' */}
           </div>
-          <div className="DashboardItems__info">
-            <div className="info-section">
-              <p className="subtitle">Names:</p>
-              <p>
-                {props.first_name} & {props.second_name}
-              </p>
+          <div className="DashboardItems__container">
+            <div className="DashboardItems__info">
+              <div className="info-section">
+                <p className="subtitle">Names:</p>
+                <p>
+                  {props.first_name} & {props.second_name}
+                </p>
+              </div>
+              <div className="info-section">
+                <p className="subtitle">Date:</p>
+                <p>{props.event_date}</p>
+              </div>
+              <div className="info-section">
+                <p className="subtitle">Email:</p>
+                <p>{props.email}</p>
+              </div>
+              <div className="info-section">
+                <p className="subtitle">Phone:</p>
+                <p>{props.phone}</p>
+              </div>
+              <div className="info-section">
+                <p className="subtitle">Address:</p>
+                <p>
+                  {props.unit} {props.street_number}, {props.street_name} {props.street_type}, {props.postal_code},{" "}
+                  {props.city}
+                </p>
+              </div>
             </div>
-            <div className="info-section">
-              <p className="subtitle">Date:</p>
-              <p>{props.event_date}</p>
+
+            <div className="DashboardItems__progress">
+              <Pie className="pie" percentage={props.percent || 45} colour="rgb(121, 133, 95)" />
             </div>
-            <div className="info-section">
-              <p className="subtitle">Email:</p>
-              <p>{props.email}</p>
-            </div>
-            <div className="info-section">
-              <p className="subtitle">Phone:</p>
-              <p>{props.phone}</p>
-            </div>
-            <div className="info-section">
-              <p className="subtitle">Address:</p>
-              <p>
-                {props.unit} {props.street_number}, {props.street_name} {props.street_type}, {props.postal_code},{" "}
-                {props.city}
-              </p>
+            <div className="btn-container">
+              <Link className="button" to={`/board?eventId=${props.event_id}`}>
+                View Board
+              </Link>
             </div>
           </div>
-          <div className="DashboardItems__progress">
-            <Pie className="pie" percentage={props.percent} colour="rgb(121, 133, 95)" />
-          </div>
-          <Link to={`/board?eventId=${props.event_id}`}>View Board</Link>
         </div>
       </li>
     </Fragment>

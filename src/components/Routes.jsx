@@ -6,6 +6,7 @@ import Signup from "./Login-Signup/Signup";
 import Dashboard from "./Dashboard/Dashboard";
 import EventBoard from "./Event-Board/EventBoard";
 import Preferences from "./Preferences/Preferences";
+import NewEvent from "./Dashboard/NewEvent";
 import ProtectedRoute from "./ProtectedRoute";
 import CoreRoute from "./CoreRoute";
 
@@ -16,6 +17,7 @@ export const RouteList = {
   login: "/login",
   board: "/board",
   preferences: "/preferences",
+  newevent: "/newevent",
 };
 
 export default (
@@ -28,6 +30,7 @@ export default (
     <ProtectedRoute path={RouteList.board} component={EventBoard} />
     <ProtectedRoute path={RouteList.dashboard} component={Dashboard} />
     <ProtectedRoute path={RouteList.preferences} component={Preferences} />
+    <ProtectedRoute path={RouteList.newevent} component={NewEvent} />
 
     {/* <Route exact path="/logout">
       {() => authManager.logout() && <Redirect to="/" />}

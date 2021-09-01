@@ -74,7 +74,7 @@ const NewEvent = () => {
               <label htmlFor="event_title">Event Title:</label>
               <input
                 type="text"
-                name="first_name"
+                name="event_title"
                 placeholder="X & X are tying the knot"
                 required
                 onChange={(e) => setEventTitle(e.target.value)}

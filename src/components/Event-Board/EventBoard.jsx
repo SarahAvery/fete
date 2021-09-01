@@ -10,11 +10,10 @@ import { useEventBoard, withEventBoard } from "../../contexts/EventBoardContext"
 import SwimlaneItem from "./SwimlaneItem";
 import Modal from "../Modal";
 
-let onLoad = false;
-
 const EventBoard = () => {
   // Form
   const [form, setForm] = useState({ visible: false, column: null });
+  const hasBeenDragged = useRef(false);
 
   const openForm = (columnId) => {
     setForm({ visible: true, column: columnId });
@@ -44,10 +43,9 @@ const EventBoard = () => {
   }, []);
 
   useEffect(() => {
-    if (!dragging && onLoad) {
-      updateColumns(data.items);
+    if (!dragging && hasBeenDragged.current) {
+      updateColumns(formatDataForApiUpdate(data.items));
     }
-    if (!onLoad) onLoad = true;
   }, [dragging, data.items, updateColumns]);
 
   // drag event
@@ -63,16 +61,20 @@ const EventBoard = () => {
       dragNode.current.addEventListener("dragend", handleDragEnd);
       setTimeout(() => {
         setDragging(true);
+        hasBeenDragged.current = true;
       }, 0);
     },
-    [handleDragEnd]
+    [handleDragEnd, hasBeenDragged]
   );
 
   // Need to update what column the task is in
-  const updateTasksOrderKeys = (columns) => {
+  const formatDataForApiUpdate = (columns) => {
     return columns.map((column) => {
       const items = column.items.map((task, index) => {
-        if (task) task.order = index;
+        if (task) {
+          task.columnId = column.id;
+          task.order = index;
+        }
         return task;
       });
       column.items = items;
@@ -103,9 +105,9 @@ const EventBoard = () => {
         dragItem.current = params;
 
         // update the order keys on each task
-        const newListWithOrderKeysModified = updateTasksOrderKeys(newList);
+        // const newListWithOrderKeysModified = formatDataForApiUpdate(newList);
 
-        return { ...oldList, items: newListWithOrderKeysModified };
+        return { ...oldList, items: newList };
       });
     }
   };

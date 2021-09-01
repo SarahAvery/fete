@@ -1,6 +1,13 @@
 // Dashboard
 
 .Dashboard {
+  .new-event-btn {
+    background-color: cornflowerblue;
+    display: inline-block;
+    color: #fff;
+    padding: 5px;
+    margin-bottom: 10px;
+  }
   ul {
     display: flex;
   }

@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useUser } from "../../contexts/UserContext";
 import { apiRequest } from "../../utils/apiUtils";
+import { RouteList } from "../Routes";
+import { Link } from "react-router-dom";
 // import PropTypes from "prop-types";
 import DashboardItem from "./DashboardItem";
 
@@ -20,6 +22,7 @@ export default function Dashboard(props) {
   return (
     <div className="Dashboard">
       <h1>Dashboard</h1>
+      <Link to={RouteList.newevent}><h3 class="new-event-btn">New Event</h3></Link>
       <ul>
         {events?.map((event) => (
           <DashboardItem key={event.event_id} {...event} />

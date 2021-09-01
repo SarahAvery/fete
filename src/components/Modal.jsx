@@ -24,7 +24,9 @@ const Modal = ({ children, onClose, isOpen }) => {
         ReactDOM.createPortal(
           <div className="modal-container">
             <div className="modal">
-              <button onClick={onModalClose}>X</button>
+              <button onClick={onModalClose} className="close-btn">
+                X
+              </button>
               {children}
             </div>
           </div>,

@@ -1,5 +1,6 @@
 .signup-container,
-.login-container {
+.login-container,
+.add-item-container {
   // display: flex;
   // justify-content: center;
   flex-wrap: wrap;
@@ -30,11 +31,14 @@
     margin: 10px 0;
     width: 100%;
   }
-  label {
+
+  label,
+  .label {
     margin-top: 16px;
   }
 
-  input {
+  input,
+  textarea {
     margin-top: 5px;
     padding: 2px;
     width: 100%;
@@ -42,6 +46,11 @@
     outline: none;
     border: 1px solid rgb(121, 133, 95);
     padding: 6px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+
+  .optional {
+    color: grey;
   }
 
   .btn-container {

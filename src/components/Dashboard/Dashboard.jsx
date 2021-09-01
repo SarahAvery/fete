@@ -7,10 +7,18 @@ import { RouteList } from "../Routes";
 import { Link } from "react-router-dom";
 // import PropTypes from "prop-types";
 import DashboardItem from "./DashboardItem";
+import NewEvent from "./NewEvent";
+import Modal from "../Modal";
+
 
 export default function Dashboard(props) {
+  const [form, setForm] = useState({ visible: false });
+
+  const openForm = () => {
+    setForm({ visible: true });
+  };
+
   const { user } = useUser();
-  console.log("user ", user);
 
   const [events, setEvents] = useState();
   useEffect(() => {
@@ -22,7 +30,17 @@ export default function Dashboard(props) {
   return (
     <div className="Dashboard">
       <h1>Dashboard</h1>
-      <Link to={RouteList.newevent}><h3 class="new-event-btn">New Event</h3></Link>
+      {/* <Link to={RouteList.newevent}>
+        <h3 class="new-event-btn">New Event</h3>
+      </Link> */}
+      <div>
+        <h3 class="new-event-btn" onClick={() => openForm()}>New Event</h3>
+      </div>
+      <div>
+        <Modal isOpen={form.visible} onClose={() => setForm({ ...form, visible: false })}>
+          <NewEvent />
+        </Modal>
+      </div>
       <ul>
         {events?.map((event) => (
           <DashboardItem key={event.event_id} {...event} />

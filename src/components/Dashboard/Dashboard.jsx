@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useUser } from "../../contexts/UserContext";
+// import { useUser } from "../../contexts/UserContext";
 import { apiRequest } from "../../utils/apiUtils";
 import DashboardItem from "./DashboardItem";
 import NewEvent from "./NewEvent";
@@ -14,7 +14,7 @@ export default function Dashboard(props) {
     setForm({ visible: true });
   };
 
-  const { user } = useUser();
+  // const { user } = useUser();
 
   const [events, setEvents] = useState();
   useEffect(() => {
@@ -27,11 +27,8 @@ export default function Dashboard(props) {
     <div className="wrapper">
       <div className="Dashboard ">
         <h1>Dashboard</h1>
-
         <div className="add-event-btn-container">
-          <button class="new-event-btn button" onClick={() => openForm()}>
-            New Event
-          </button>
+          <button class="new-event-btn button" onClick={() => openForm()}>New Event</button>
         </div>
         <div>
           <Modal isOpen={form.visible} onClose={() => setForm({ ...form, visible: false })}>

@@ -1,33 +1,32 @@
 import React, { Fragment, useState, useRef, useEffect } from "react";
+// import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-import ItemForm from "./Item-Form";
+import ItemForm from "./ItemForm";
 import "./EventBoard.scss";
 import Swimlane from "./Swimlane";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useEventBoard, withEventBoard } from "../../contexts/EventBoardContext";
 import SwimlaneItem from "./SwimlaneItem";
+import Modal from "../Modal";
 
-// data for this board is in App.js
 let onLoad = false;
 
 const EventBoard = () => {
   // Form
-  const [form, setForm] = useState({ visible: false, swim: null });
+  const [form, setForm] = useState({ visible: false, column: null });
 
-  const openForm = (swimId) => {
-    console.log("clicked", swimId);
-    setForm({ visible: true, swim: swimId });
+  const openForm = (columnId) => {
+    setForm({ visible: true, column: columnId });
   };
 
   // Initial data
-  const { data, updateSwimlanes, setEventBoardData } = useEventBoard();
-  // const [swimlanes, setSwimlanes] = useState(data?.items);
+  const { data, updateColumns, setEventBoardData } = useEventBoard();
+  // const [columns, setColumns] = useState(data?.items);
 
   // When event data gets updated, set the list state
   // useEffect(() => {
-  //   setSwimlanes(data?.items);
+  //   setColumns(data?.items);
   // }, [data]);
 
   // are we currently dragging the item?
@@ -36,24 +35,20 @@ const EventBoard = () => {
   const dragNode = useRef();
 
   // clean up dragStart
-  const handleDragEnd = React.useCallback(
-    (evt) => {
-      console.log("ending drag");
-      setDragging(false);
-      dragNode.current.removeEventListener("dragend", handleDragEnd);
-      dragItem.current = null;
-      dragNode.current = null;
-    },
-    [data.items]
-  );
+  const handleDragEnd = React.useCallback((evt) => {
+    console.log("ending drag");
+    setDragging(false);
+    dragNode.current.removeEventListener("dragend", handleDragEnd);
+    dragItem.current = null;
+    dragNode.current = null;
+  }, []);
 
   useEffect(() => {
     if (!dragging && onLoad) {
-      console.log("How many items are we firing this!@?");
-      updateSwimlanes(data.items);
+      updateColumns(data.items);
     }
     if (!onLoad) onLoad = true;
-  }, [dragging, data.items, updateSwimlanes]);
+  }, [dragging, data.items, updateColumns]);
 
   // drag event
   // useRef keeps stays constant between renders
@@ -73,14 +68,15 @@ const EventBoard = () => {
     [handleDragEnd]
   );
 
-  const updateTasksOrderKeys = (swimlanes) => {
-    return swimlanes.map((swimlane) => {
-      const items = swimlane.items.map((task, index) => {
+  // Need to update what column the task is in
+  const updateTasksOrderKeys = (columns) => {
+    return columns.map((column) => {
+      const items = column.items.map((task, index) => {
         if (task) task.order = index;
         return task;
       });
-      swimlane.items = items;
-      return swimlane;
+      column.items = items;
+      return column;
     });
   };
 
@@ -94,16 +90,17 @@ const EventBoard = () => {
       setEventBoardData((oldList) => {
         // deep copy
         let newList = JSON.parse(JSON.stringify(oldList.items));
-        // splice -> if we take our params.itemI at zero
+        // splice -> if we take our params.itemIndex at zero
         // make sure same group
-        // remove current item from current swimIndex
-        newList[params.swimI].items.splice(params.itemI, 0, newList[currItem.swimI].items.splice(currItem.itemI, 1)[0]);
+        // remove current item from current columnIndex
+        newList[params.columnIndex].items.splice(
+          params.itemIndex,
+          0,
+          newList[currItem.columnIndex].items.splice(currItem.itemIndex, 1)[0]
+        );
 
-        dragItem.current = params;
         // the current item is not longer the current item, it is now the target item
-
-        // console.log("newList ", newList);
-        // newList[]
+        dragItem.current = params;
 
         // update the order keys on each task
         const newListWithOrderKeysModified = updateTasksOrderKeys(newList);
@@ -116,8 +113,8 @@ const EventBoard = () => {
   const getStyles = (params) => {
     // get the current item
     const currItem = dragItem.current;
-    // if current swimIndex = params swimIndex, & current itemIndex = params itemIndex, return className
-    if (currItem.swimI === params.swimI && currItem.itemI === params.itemI) {
+    // if current columnIndex = params columnIndex, & current itemIndex = params itemIndex, return className
+    if (currItem.columnIndex === params.columnIndex && currItem.itemIndex === params.itemIndex) {
       return "item current";
     }
     return "item";
@@ -128,47 +125,54 @@ const EventBoard = () => {
       <h1>{data?.title}</h1>
       <div className="board-container">
         <div className="drag-n-drop scrollbar">
-          {/* swim, and swim index => for each swimlane create swimlane
+          {/* column, and column index => for each column create column
            */}
           {!!data.items?.length &&
-            data.items.map((swim, swimI) => {
+            data.items.map((column, columnIndex) => {
               return (
                 // when there are no cards in the group...
-                // if we are dragging, swimlane has no items -> add listener (dragEnter)
-                // sent event, {swimIndex, and itemIndex default to zero (as there is no item yet)}
+                // if we are dragging, column has no items -> add listener (dragEnter)
+                // sent event, {columnIndex, and itemIndex default to zero (as there is no item yet)}
                 <Swimlane
-                  onDragEnter={dragging && !swim.items.length ? (e) => handleDragEnter(e, { swimI, itemI: 0 }) : null}
-                  key={swim.id}
-                  title={swim.title}
+                  onDragEnter={
+                    dragging && !column.items.length ? (e) => handleDragEnter(e, { columnIndex, itemIndex: 0 }) : null
+                  }
+                  key={column.id}
+                  title={column.title}
                 >
-                  {/* item, itemIndex => inside the swimlane, iterate through all our items */}
-                  {swim.items.map((item, itemI) => {
+                  {/* item, itemIndex => inside the column, iterate through all our items */}
+                  {column.items.map((item, itemIndex) => {
                     return (
-                      // pass the event, swimIndex and itemIndex (coordinates [0,0])
+                      // pass the event, columnIndex and itemIndex (coordinates [0,0])
                       <SwimlaneItem
                         item={item}
                         draggable
                         onDragStart={(e) => {
-                          handleDragStart(e, { swimI, itemI });
+                          handleDragStart(e, { columnIndex, itemIndex });
                         }}
                         onDragEnter={
                           dragging
                             ? (e) => {
-                                handleDragEnter(e, { swimI, itemI });
+                                handleDragEnter(e, { columnIndex, itemIndex });
                               }
                             : null
                         }
-                        className={dragging ? getStyles({ swimI, itemI }) : "item"}
-                        key={item?.id || itemI}
+                        className={dragging ? getStyles({ columnIndex, itemIndex }) : "item"}
+                        key={item?.id || itemIndex}
                       />
                     );
                   })}
 
-                  <div className="add-item-container">
-                    <button onClick={(e) => openForm((e.target = swimI))}>
+                  <div className="add-btn-container">
+                    <div className="add-btn" onClick={(e) => openForm((e.target = columnIndex))}>
                       <FontAwesomeIcon icon={faPlus} className="add-item-button" />
-                      {form.visible && form.swim === swimI ? <ItemForm /> : null}
-                    </button>
+                    </div>
+                    <Modal
+                      isOpen={form.visible && form.column === columnIndex}
+                      onClose={() => setForm({ ...form, visible: false })}
+                    >
+                      <ItemForm columnId={column.id} column={column.items} />
+                    </Modal>
                   </div>
                 </Swimlane>
               );
@@ -182,8 +186,8 @@ const EventBoard = () => {
 EventBoard.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
-      swim_id: PropTypes.number,
-      swim_title: PropTypes.string,
+      column_id: PropTypes.number,
+      column_title: PropTypes.string,
       items: PropTypes.arrayOf(
         PropTypes.shape({
           item_id: PropTypes.number,

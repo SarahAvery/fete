@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "../Button";
 
 import "../Login-Signup/Forms.scss";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
 import { authManager, isLoggedIn } from "../../utils/authUtils";
 import { history } from "../Application";

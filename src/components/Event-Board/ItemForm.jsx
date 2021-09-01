@@ -1,11 +1,23 @@
 import React, { useState } from "react";
 import Button from "../Button";
+import { useEventBoard } from "../../contexts/EventBoardContext";
 
-export default function ItemForm(props) {
-  console.log(props.swimI);
+const ItemForm = ({ columnId, column }) => {
+  console.log("column ", column.length);
+  const { addTask } = useEventBoard();
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+
+  console.log("columnId ", columnId);
+  // const id = columnId;
+
+  async function add(title = "", content) {
+    console.log(`New Task: task_order: ${column.length} columnId: ${columnId}, title: ${title}, content: ${content}`);
+    const data = [column.length, columnId, 1, title, content];
+    // task_order, column_id(columnId), status(1), title, content, due_date(optional)
+    addTask(data);
+  }
 
   // const reset = () => {
   //   setTitle("");
@@ -60,7 +72,7 @@ export default function ItemForm(props) {
             {/* {error.authenticated && <span className="error">Incorrect password</span>} */}
           </div>
           <div className="btn-container">
-            <Button>Add Task</Button>
+            <Button onClick={() => add(title, content)}>Add Task</Button>
           </div>
           {/* <button danger onClick={cancel}>
             Cancel
@@ -72,4 +84,6 @@ export default function ItemForm(props) {
       </form>
     </div>
   );
-}
+};
+
+export default ItemForm;

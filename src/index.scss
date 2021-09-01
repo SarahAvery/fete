@@ -73,3 +73,14 @@ h6 {
 * {
   line-height: 1.3;
 }
+
+.modal-container {
+  z-index: 10;
+  position: absolute;
+  top: 200px;
+
+  .modal {
+    margin: 0 auto;
+    background-color: cornsilk;
+  }
+}

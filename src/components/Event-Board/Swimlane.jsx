@@ -3,8 +3,8 @@ import React from "react";
 
 export default function Swimlane({ children, onDragEnter, title }) {
   return (
-    <div className="swimlane" onDragEnter={onDragEnter}>
-      <div className="swim-title">{title}</div>
+    <div className="column" onDragEnter={onDragEnter}>
+      <div className="column-title">{title}</div>
       {children}
     </div>
   );

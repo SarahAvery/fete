@@ -7,8 +7,15 @@ import DashboardItem from "./DashboardItem";
 import NewEvent from "./NewEvent";
 import Modal from "../Modal";
 
+import DatePicker from "react-datepicker";
+
+// import "react-datepicker/dist/react-datepicker.css";
+
+
 export default function Dashboard(props) {
   const [form, setForm] = useState({ visible: false });
+  // const [date, setDate] = useState();
+
 
   const openForm = () => {
     setForm({ visible: true });
@@ -27,6 +34,9 @@ export default function Dashboard(props) {
     <div className="wrapper">
       <div className="Dashboard ">
         <h1>Dashboard</h1>
+        {/* <DatePicker wrapperClassName="datePicker" selected={date} onChange={(date) => setDate(date)} showTimeSelect dateFormat="Pp" /> */}
+
+
         <div className="add-event-btn-container">
           <button class="new-event-btn button" onClick={() => openForm()}>New Event</button>
         </div>

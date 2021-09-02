@@ -1,14 +1,11 @@
-
 import React, { useState, useEffect } from "react";
 import { apiRequest } from "../../src/utils/apiUtils";
 
-
 export const DashboardContext = React.createContext();
-console.log('FDSJKLAFDLJKSFDSJKLFDJKL;SADFJKSL')
 
 const DashboardContextProvider = ({ children }) => {
-  // const [data, setDashboardData] = useState();
   const [events, setEvents] = useState();
+  const [data, setDashboardData] = useState();
 
   useEffect(() => {
     getEvents();
@@ -17,13 +14,9 @@ const DashboardContextProvider = ({ children }) => {
   const getEvents = () => {
     apiRequest(`${process.env.REACT_APP_API_URL}/events`, { method: "GET" })
       .then((res) => res.json())
-      .then((data) => {
-        console.log('data in DashboardContext: ', data)
-        setEvents(data)});
-
+      .then((data) => setEvents(data));
   };
 
-  // *_*_*_*_*_*_*_*_*_*_*_* useState 'events' used to be called 'data' *_*_*_*_*_*_*_*_*_*_*_*
 
 
   // This was updateColumns
@@ -47,8 +40,26 @@ const DashboardContextProvider = ({ children }) => {
     // }
   };
 
-  const addEvent = async (data) => {
+  const addEvent = async (formData, user) => {
     // *_*_*_*_*_*_*_*_*_*_*_* MOVE THE LOGIC FROM NewEvent COMPONENT *_*_*_*_*_*_*_*_*_*_*_*
+
+    const userId = user.id;
+    console.log("userId inside addEvent: ", userId);
+    try {
+      await apiRequest(`${process.env.REACT_APP_API_URL}/events/add`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...formData, userId }),
+      });
+      // Figure out how to switch form state to false
+      // setFormComplete(true);
+    } catch {
+      console.log("ERROR in addEvent function inside NewEvent component");
+    }
+
+
 
     // --------------------------- Old:
     // const params = new URLSearchParams(document.location.search.substring(1));
@@ -115,7 +126,7 @@ const DashboardContextProvider = ({ children }) => {
     // --------------------------- Old:
     // <DashboardContext.Provider value={{ data, setEventBoardData, updateColumns, addTask, updateTask, deleteTask }}>
     // --------------------------- New:
-    <DashboardContext.Provider value={{ events, setEvents }}>
+    <DashboardContext.Provider value={{ events, setEvents, addEvent, updateEvent, deleteEvent }}>
       {children}
     </DashboardContext.Provider>
   );
@@ -131,7 +142,7 @@ export const useDashboard = () => {
   const context = React.useContext(DashboardContext);
 
   if (context === undefined) {
-    throw new Error("useUser must be used within a UserProvider");
+    throw new Error("useDashboard must be used within a UserProvider");
   }
 
   return context;

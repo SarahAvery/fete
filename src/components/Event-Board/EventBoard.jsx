@@ -135,6 +135,7 @@ const EventBoard = () => {
                   }
                   key={column.id}
                   title={column.title}
+                  column={column}
                 >
                   {/* item, itemIndex => inside the column, iterate through all our items */}
                   {column.items.map((item, itemIndex) => {
@@ -162,7 +163,9 @@ const EventBoard = () => {
                   <div className="add-btn-container">
                     <div className="add-btn" onClick={(e) => openForm((e.target = columnIndex))}>
                       <FontAwesomeIcon icon={faPlus} className="add-item-button" />
+                      <p>Add Task</p>
                     </div>
+
                     <Modal
                       isOpen={form.visible && form.column === columnIndex}
                       onClose={() => setForm({ ...form, visible: false })}

@@ -14,26 +14,26 @@
 
   /* Track */
   ::-webkit-scrollbar-track {
-    background: rgba(121, 133, 95, 0.1);
+    // background: rgba(121, 133, 95, 0.1);
     background: rgba(130, 156, 167, 0.1);
     background-color: none;
-    border: 1px solid rgb(121, 133, 95);
+    // border: 1px solid rgb(121, 133, 95);
     border: 1px solid rgb(150, 150, 150);
     border-radius: 4px;
   }
 
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: rgba(121, 133, 95, 0.5);
+    // background: rgba(121, 133, 95, 0.5);
     background: rgb(130, 156, 167);
-    border: 1px solid rgb(121, 133, 95);
+    // border: 1px solid rgb(121, 133, 95);
     border: 1px solid rgb(150, 150, 150);
     border-radius: 4px;
   }
 
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: rgb(121, 133, 95);
+    // background: rgb(121, 133, 95);
     background: rgb(130, 156, 167);
   }
 
@@ -46,10 +46,10 @@
 
   .column {
     min-width: 250px;
-    border: 1px solid rgb(121, 133, 95);
+    // border: 1px solid rgb(121, 133, 95);
     border: 1px solid rgb(150, 150, 150);
     border-radius: 4px;
-    margin: 0 2px;
+    margin: 0 5px;
     margin-bottom: 10px;
     background-color: #fff;
     min-height: 100px;
@@ -58,7 +58,8 @@
   }
 
   .column-title {
-    background-color: rgb(121, 133, 95);
+    // background-color: rgb(121, 133, 95);
+    // background-color: rgb(177, 182, 184);
     background-color: rgb(130, 156, 167);
     text-align: center;
     color: whitesmoke;
@@ -105,7 +106,7 @@
     justify-content: space-between;
 
     i {
-      color: rgb(68, 68, 68);
+      color: rgb(150, 150, 150);
       text-align: right;
       padding-left: 8px;
       cursor: pointer;
@@ -113,7 +114,7 @@
   }
 
   .item__title {
-    font-size: 18px;
+    // font-size: 18px;
     width: 100%;
     font-weight: bold;
     text-transform: capitalize;
@@ -133,12 +134,33 @@
   }
 
   .add-btn-container {
-    width: 100%;
+    width: 80%;
+    margin: 5px auto;
+    margin-top: 10px;
+    // background-color: rgb(130, 156, 167);
+    background-color: rgb(126, 140, 146);
     text-align: center;
+    border-radius: 8px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+
+    color: white;
     .add-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      margin: 0 auto;
       cursor: pointer;
+      padding: 5px 0;
+
+      p,
+      svg {
+        margin: 0 4px;
+        font-weight: bold;
+      }
       svg {
         color: rgb(0, 0, 0);
+        color: white;
       }
     }
   }

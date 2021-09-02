@@ -5,9 +5,12 @@
 .modify-task-container {
   flex-wrap: wrap;
   width: 80%;
+  justify-content: center;
+  // border: 1px solid rgb(130, 156, 167);
 
   h2 {
-    color: rgb(121, 133, 95);
+    // color: rgb(121, 133, 95);
+    color: black;
     padding: 20px 0;
     width: 100%;
     text-align: center;
@@ -44,6 +47,8 @@
     border-radius: 4px;
     outline: none;
     border: 1px solid rgb(121, 133, 95);
+    border: 1px solid rgb(130, 156, 167);
+    box-shadow: 2px 2px 2px 1px rgba(130, 156, 167, 0.2);
     padding: 6px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
   }
@@ -58,12 +63,21 @@
   }
 
   button {
-    background: rgb(121, 133, 95);
+    background-color: rgb(130, 156, 167);
     color: rgb(255, 255, 255);
+  }
+  button.add-task-btn {
+    background-color: rgb(130, 156, 167);
   }
 
   button.delete-btn {
-    background-color: red;
+    background-color: rgb(228, 97, 97);
+    width: 70px !important;
+  }
+
+  button.save-btn {
+    background-color: rgb(110, 160, 110);
+    width: 70px !important;
   }
 
   #error-msg {
@@ -78,6 +92,19 @@
     color: #cc0033;
     font-size: 16px;
     margin: 0;
+  }
+}
+
+// Modify Task
+.modify-task-container {
+  .btn-container {
+    display: flex;
+    width: auto;
+
+    button {
+      margin: 0 10px;
+      width: auto;
+    }
   }
 }
 

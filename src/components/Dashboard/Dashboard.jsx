@@ -13,7 +13,6 @@ const Dashboard = () => {
   const [form, setForm] = useState({ visible: false });
   const { events, updateEvents, setEvents } = useDashboard();
 
-
   const openForm = () => {
     setForm({ visible: true });
   };
@@ -31,11 +30,13 @@ const Dashboard = () => {
             New Event
           </button>
         </div>
-        { form && <div>
-          <Modal isOpen={form.visible} onClose={() => setForm({ ...form, visible: false })}>
-            <NewEvent closeForm={closeForm} />
-          </Modal>
-        </div>}
+        {form && (
+          <div>
+            <Modal isOpen={form.visible} onClose={() => setForm({ ...form, visible: false })}>
+              <NewEvent closeForm={closeForm} />
+            </Modal>
+          </div>
+        )}
         <ul>
           {events?.map((event) => (
             <DashboardItem key={event.event_id} {...event} />
@@ -44,7 +45,7 @@ const Dashboard = () => {
       </div>
     </div>
   );
-}
+};
 
 // Dashboard.propTypes = {
 //   events: PropTypes.array,

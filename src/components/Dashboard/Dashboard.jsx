@@ -1,13 +1,13 @@
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useUser } from "../../contexts/UserContext";
-// import { apiRequest } from "../../utils/apiUtils";
 import DashboardItem from "./DashboardItem";
 import { useDashboard, withDashboard } from "../../contexts/DashboardContext";
 import NewEvent from "./NewEvent";
 import Modal from "../Modal";
 
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const Dashboard = () => {
   const [form, setForm] = useState({ visible: false });
@@ -44,6 +44,8 @@ const Dashboard = () => {
     <div className="wrapper">
       <div className="Dashboard ">
         <h1>Dashboard</h1>
+        {/* <DatePicker wrapperClassName="datePicker" selected={date} onChange={(date) => setDate(date)} showTimeSelect dateFormat="Pp" /> */}
+
 
         <div className="add-event-btn-container">
           <button className="new-event-btn button" onClick={() => openForm()}>

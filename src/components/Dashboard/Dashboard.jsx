@@ -2,26 +2,43 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useUser } from "../../contexts/UserContext";
-import { apiRequest } from "../../utils/apiUtils";
+// import { apiRequest } from "../../utils/apiUtils";
 import DashboardItem from "./DashboardItem";
+import { useDashboard, withDashboard } from "../../contexts/DashboardContext";
 import NewEvent from "./NewEvent";
 import Modal from "../Modal";
 
-export default function Dashboard(props) {
+
+const Dashboard = () => {
   const [form, setForm] = useState({ visible: false });
+  const { events, updateEvents, setEvents } = useDashboard();
 
   const openForm = () => {
     setForm({ visible: true });
   };
 
-  const { user } = useUser();
 
-  const [events, setEvents] = useState();
-  useEffect(() => {
-    apiRequest(`${process.env.REACT_APP_API_URL}/events`, { method: "GET" })
-      .then((res) => res.json())
-      .then((data) => setEvents(data));
-  }, []);
+
+  // BEGIN Examples From EventBoard:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // END Examples From EventBoard:
+
 
   return (
     <div className="wrapper">
@@ -54,3 +71,4 @@ export default function Dashboard(props) {
 //   key: PropTypes.number,
 
 // };
+export default withDashboard(Dashboard);

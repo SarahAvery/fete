@@ -71,7 +71,9 @@ const ModifyForm = ({ task }) => {
             {error && <span className="error">{error}</span>}
           </div>
           <div className="btn-container">
-            <button onClick={() => validate(title, content)}>Save</button>
+            <button className="save-btn" onClick={() => validate(title, content)}>
+              Save
+            </button>
             <button className="delete-btn" onClick={() => onDelete()}>
               Delete
             </button>

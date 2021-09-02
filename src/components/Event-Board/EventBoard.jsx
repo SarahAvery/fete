@@ -21,14 +21,11 @@ const EventBoard = () => {
 
   // Initial data
   const { data, updateColumns, setEventBoardData } = useEventBoard();
-  // const [columns, setColumns] = useState(data?.items);
-
-  // When event data gets updated, set the list state
-  // useEffect(() => {
-  //   setColumns(data?.items);
-  // }, [data]);
 
   // are we currently dragging the item?
+  // drag event
+  // useRef keeps stays constant between renders
+  // event drag event, we save the coordiantes to the current (useRef)
   const [dragging, setDragging] = useState(false);
   const dragItem = useRef();
   const dragNode = useRef();
@@ -48,9 +45,6 @@ const EventBoard = () => {
     }
   }, [dragging, data.items, updateColumns]);
 
-  // drag event
-  // useRef keeps stays constant between renders
-  // event drag event, we save the coordiantes to the current (useRef)
   const handleDragStart = React.useCallback(
     (e, params) => {
       console.log("drag starting...", params);

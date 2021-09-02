@@ -28,7 +28,14 @@ const EventBoardContextProvider = ({ children }) => {
         // Sort the column tasks based on the task.order key from the api
         const columns = columnData.items;
         const columnsSorted = columns.map((column) => {
+          // if no items in column
+          if (column.items.includes(null)) {
+            column.items = [];
+            column.items.order = 0;
+          }
+
           const tasks = column.items;
+
           const tasksSorted = tasks.reduce((acc, curr) => {
             acc[curr.order] = curr;
             return acc;

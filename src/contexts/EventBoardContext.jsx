@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { apiRequest } from "../utils/apiUtils";
 
-// app.post('/board/:boardId/add')
-// api/board/${boardId}/add
-// { columnId: 2, item: item }
-
-// on drag end
-// app.post('/board/:boardId/update')
-// { columnId: 3, items: items }
-
 export const EventBoardContext = React.createContext();
 
 const EventBoardContextProvider = ({ children }) => {
@@ -68,7 +60,7 @@ const EventBoardContextProvider = ({ children }) => {
     const eventId = params.get("eventId");
 
     try {
-      await apiRequest(`${process.env.REACT_APP_API_URL}/board/${eventId}/add`, {
+      await apiRequest(`${process.env.REACT_APP_API_URL}/task/${eventId}/add`, {
         body: JSON.stringify(data),
         headers: { "Content-Type": "application/json" },
       });
@@ -112,8 +104,26 @@ const EventBoardContextProvider = ({ children }) => {
     }
   };
 
+  const updateColumnName = async (data) => {
+    const params = new URLSearchParams(document.location.search.substring(1));
+    const eventId = params.get("eventId");
+
+    try {
+      console.log(data);
+      await apiRequest(`${process.env.REACT_APP_API_URL}/board/${eventId}/updateCol`, {
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" },
+      });
+      getColumns();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
-    <EventBoardContext.Provider value={{ data, setEventBoardData, updateColumns, addTask, updateTask, deleteTask }}>
+    <EventBoardContext.Provider
+      value={{ data, setEventBoardData, updateColumns, addTask, updateTask, deleteTask, updateColumnName }}
+    >
       {children}
     </EventBoardContext.Provider>
   );

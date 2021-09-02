@@ -1,20 +1,27 @@
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useUser } from "../../contexts/UserContext";
+// import { useUser } from "../../contexts/UserContext";
 import { apiRequest } from "../../utils/apiUtils";
 import DashboardItem from "./DashboardItem";
 import NewEvent from "./NewEvent";
 import Modal from "../Modal";
 
+import DatePicker from "react-datepicker";
+
+// import "react-datepicker/dist/react-datepicker.css";
+
+
 export default function Dashboard(props) {
   const [form, setForm] = useState({ visible: false });
+  // const [date, setDate] = useState();
+
 
   const openForm = () => {
     setForm({ visible: true });
   };
 
-  const { user } = useUser();
+  // const { user } = useUser();
 
   const [events, setEvents] = useState();
   useEffect(() => {
@@ -27,6 +34,8 @@ export default function Dashboard(props) {
     <div className="wrapper">
       <div className="Dashboard ">
         <h1>Dashboard</h1>
+        {/* <DatePicker wrapperClassName="datePicker" selected={date} onChange={(date) => setDate(date)} showTimeSelect dateFormat="Pp" /> */}
+
 
         <div className="add-event-btn-container">
           <button className="new-event-btn button" onClick={() => openForm()}>

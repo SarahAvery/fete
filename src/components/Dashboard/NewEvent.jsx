@@ -83,7 +83,7 @@ const NewEvent = () => {
 
             <div className="couple container">
               <p className="label">To Be Married:</p>
-              <label htmlFor="first_name" class="visually-hidden">
+              <label htmlFor="first_name" className="visually-hidden">
                 Person 1:
               </label>
               <input
@@ -93,7 +93,7 @@ const NewEvent = () => {
                 required
                 onChange={(e) => setFirstName(e.target.value)}
               />
-              <label htmlFor="second_name" class="visually-hidden">
+              <label htmlFor="second_name" className="visually-hidden">
                 Person 2:
               </label>
               <span>&</span>

@@ -74,7 +74,9 @@ const TaskForm = ({ columnId, column }) => {
             {error && <span className="error">{error}</span>}
           </div>
           <div className="btn-container">
-            <Button onClick={() => validate(title, content)}>Add Task</Button>
+            <button className="add-task-btn" onClick={() => validate(title, content)}>
+              Add Task
+            </button>
           </div>
           {/* <button danger onClick={cancel}>
             Cancel

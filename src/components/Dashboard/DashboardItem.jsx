@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import PropTypes from "prop-types";
 
 import Pie from "./Circle";
@@ -13,13 +13,16 @@ import { Link } from "react-router-dom";
 />;
 
 export default function DashboardItem(props) {
+  const [isOpen, setIsOpen] = useState(false);
+
+
   return (
     <Fragment>
       <li className="DashbordItem">
         <div className="DashboardItem__content">
           <div className="DashboardItem__titleBox">
             <h3>{props.title}</h3>
-            <i className="fas fa-ellipsis-h"></i>
+            <i className="fas fa-ellipsis-h" onClick={() => setIsOpen(true)}></i>
             {/* i will need to be an onclick to open 'edit' and 'delete' */}
           </div>
           <div className="DashboardItems__container">

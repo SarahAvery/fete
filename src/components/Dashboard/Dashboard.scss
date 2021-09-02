@@ -62,12 +62,13 @@ li.DashbordItem {
 .DashboardItem__titleBox {
   display: flex;
   justify-content: flex-end;
+  border-bottom: 1px solid rgb(121, 133, 95);
 
   h3 {
     text-align: center;
     flex-grow: 1;
-    border-bottom: 1px solid rgb(121, 133, 95);
     padding-bottom: 4px;
+    padding-left: 24px;
   }
   i {
     color: black;

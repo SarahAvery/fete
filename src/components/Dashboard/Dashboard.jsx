@@ -38,7 +38,9 @@ export default function Dashboard(props) {
 
 
         <div className="add-event-btn-container">
-          <button class="new-event-btn button" onClick={() => openForm()}>New Event</button>
+          <button className="new-event-btn button" onClick={() => openForm()}>
+            New Event
+          </button>
         </div>
         <div>
           <Modal isOpen={form.visible} onClose={() => setForm({ ...form, visible: false })}>

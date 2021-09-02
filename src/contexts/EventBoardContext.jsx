@@ -72,8 +72,41 @@ const EventBoardContextProvider = ({ children }) => {
     }
   };
 
+  const updateTask = async (data) => {
+    const params = new URLSearchParams(document.location.search.substring(1));
+    const eventId = params.get("eventId");
+
+    try {
+      console.log(data);
+      await apiRequest(`${process.env.REACT_APP_API_URL}/task/${eventId}/update`, {
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" },
+      });
+      getColumns();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const deleteTask = async (data) => {
+    const params = new URLSearchParams(document.location.search.substring(1));
+    const eventId = params.get("eventId");
+
+    try {
+      console.log("Deleted ", data);
+      await apiRequest(`${process.env.REACT_APP_API_URL}/task/${eventId}/delete`, {
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" },
+      });
+      // setEventBoardData(data);
+      getColumns();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
-    <EventBoardContext.Provider value={{ data, setEventBoardData, updateColumns, addTask }}>
+    <EventBoardContext.Provider value={{ data, setEventBoardData, updateColumns, addTask, updateTask, deleteTask }}>
       {children}
     </EventBoardContext.Provider>
   );

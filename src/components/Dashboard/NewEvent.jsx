@@ -72,10 +72,47 @@ const NewEvent = () => {
       ) : (
         <div className="new-event-container wrapper">
           <h2>Add New Event</h2>
-          <form autoComplete="off" onSubmit={(e) => e.preventDefault()}>
-            <div className="form-group">
-              <div className="event-title container">
-                <label htmlFor="event_title">Event Title:</label>
+        <form autoComplete="off" onSubmit={(e) => e.preventDefault()}>
+          <div className="form-group">
+            <div className="event-title container">
+              <label htmlFor="event_title">Event Title:</label>
+              <input
+                type="text"
+                name="event_title"
+                placeholder="X & X are tying the knot"
+                required
+                onChange={(e) => setEventTitle(e.target.value)}
+              />
+            </div>
+
+            <div className="couple container">
+              <p className="label">To Be Married:</p>
+              <label htmlFor="first_name" className="visually-hidden">
+                Person 1:
+              </label>
+              <input
+                type="text"
+                name="first_name"
+                placeholder="Full Name"
+                required
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+              <label htmlFor="second_name" className="visually-hidden">
+                Person 2:
+              </label>
+              <span>&</span>
+              <input
+                type="text"
+                name="second_name"
+                placeholder="Full Name"
+                required
+                onChange={(e) => setSecondName(e.target.value)}
+              />
+            </div>
+
+            <div className="contact container">
+              <div className="contact-info">
+                <label htmlFor="email">Email:</label>
                 <input
                   type="text"
                   name="event_title"

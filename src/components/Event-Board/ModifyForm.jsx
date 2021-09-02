@@ -3,42 +3,39 @@ import Button from "../Button";
 import { useEventBoard } from "../../contexts/EventBoardContext";
 import "../Login-Signup/Forms.scss";
 
-const ItemForm = ({ columnId, column }) => {
-  console.log("column ", column.length);
-  const { addTask } = useEventBoard();
-
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+const ModifyForm = ({ task }) => {
+  const { updateTask, deleteTask } = useEventBoard();
+  const [title, setTitle] = useState(task.title);
+  const [content, setContent] = useState(task.content);
   const [error, setError] = useState("");
 
-  console.log("columnId ", columnId);
-  // const id = columnId;
-
-  async function add(title = "", content) {
-    console.log(`New Task: task_order: ${column.length} columnId: ${columnId}, title: ${title}, content: ${content}`);
-    const data = [column.length, columnId, 1, title, content];
-    // task_order, column_id(columnId), status(1), title, content, due_date(optional)
-    addTask(data);
+  const save = () => {
+    const data = { id: task.id, title, content };
+    updateTask(data);
     reset();
-  }
+  };
 
   const reset = () => {
     setTitle("");
     setContent("");
   };
 
-  function validate(title, content) {
+  const validate = (title, content) => {
     if (!content) {
       setError("Please add a description");
       return;
     }
     setError("");
-    add(title, content);
-  }
+    save(title, content);
+  };
+
+  const onDelete = () => {
+    deleteTask({ id: task.id });
+  };
 
   return (
-    <div className="add-item-container wrapper">
-      {/* <h2>Add New Task</h2> */}
+    <div className="modify-task-container wrapper">
+      <h2>Edit Task</h2>
       <form autoComplete="off" onSubmit={(e) => e.preventDefault()}>
         <div className="form-group">
           <div>
@@ -74,7 +71,10 @@ const ItemForm = ({ columnId, column }) => {
             {error && <span className="error">{error}</span>}
           </div>
           <div className="btn-container">
-            <Button onClick={() => validate(title, content)}>Add Task</Button>
+            <button onClick={() => validate(title, content)}>Save</button>
+            <button className="delete-btn" onClick={() => onDelete()}>
+              Delete
+            </button>
           </div>
           {/* <button danger onClick={cancel}>
             Cancel
@@ -88,4 +88,4 @@ const ItemForm = ({ columnId, column }) => {
   );
 };
 
-export default ItemForm;
+export default ModifyForm;

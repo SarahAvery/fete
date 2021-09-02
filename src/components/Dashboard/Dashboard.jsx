@@ -29,7 +29,7 @@ export default function Dashboard(props) {
         <h1>Dashboard</h1>
 
         <div className="add-event-btn-container">
-          <button class="new-event-btn button" onClick={() => openForm()}>
+          <button className="new-event-btn button" onClick={() => openForm()}>
             New Event
           </button>
         </div>

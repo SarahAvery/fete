@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useRef, useEffect } from "react";
 // import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-import ItemForm from "./ItemForm";
+import TaskForm from "./TaskForm";
 import "./EventBoard.scss";
 import Swimlane from "./Swimlane";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -160,7 +160,7 @@ const EventBoard = () => {
                             : null
                         }
                         className={dragging ? getStyles({ columnIndex, itemIndex }) : "item"}
-                        key={item?.id || itemIndex}
+                        key={item.id}
                       />
                     );
                   })}
@@ -173,7 +173,7 @@ const EventBoard = () => {
                       isOpen={form.visible && form.column === columnIndex}
                       onClose={() => setForm({ ...form, visible: false })}
                     >
-                      <ItemForm columnId={column.id} column={column.items} />
+                      <TaskForm columnId={column.id} column={column.items} />
                     </Modal>
                   </div>
                 </Swimlane>

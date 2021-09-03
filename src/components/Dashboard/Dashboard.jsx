@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DashboardItem from "./DashboardItem";
 import { useDashboard, withDashboard } from "../../contexts/DashboardContext";
 import NewEvent from "./NewEvent";
@@ -10,7 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const Dashboard = () => {
   const [form, setForm] = useState({ visible: false });
-  const { events, updateEvents, setEvents } = useDashboard();
+  const { events, getEvents } = useDashboard();
 
   const openForm = () => {
     setForm({ visible: true });
@@ -19,6 +19,10 @@ const Dashboard = () => {
   const closeForm = () => {
     setForm({ visible: false });
   };
+
+  useEffect(() => {
+    getEvents()
+  }, [events]);
 
   return (
     <div className="Dashboard ">
@@ -35,7 +39,7 @@ const Dashboard = () => {
         {form && (
           <div>
             <Modal isOpen={form.visible} onClose={() => setForm({ ...form, visible: false })}>
-              <NewEvent closeForm={closeForm} />
+              <NewEvent close={closeForm} />
             </Modal>
           </div>
         )}

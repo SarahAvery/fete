@@ -5,7 +5,7 @@ export const DashboardContext = React.createContext();
 
 const DashboardContextProvider = ({ children }) => {
   const [events, setEvents] = useState();
-  const [data, setDashboardData] = useState();
+  // const [data, setDashboardData] = useState();
 
   useEffect(() => {
     getEvents();
@@ -58,7 +58,7 @@ const DashboardContextProvider = ({ children }) => {
   };
 
   return (
-    <DashboardContext.Provider value={{ events, setEvents, addEvent, updateEvent, deleteEvent }}>
+    <DashboardContext.Provider value={{ events, getEvents, setEvents, addEvent, updateEvent, deleteEvent }}>
       {children}
     </DashboardContext.Provider>
   );

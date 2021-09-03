@@ -1,13 +1,12 @@
 import React, { useState, Fragment } from "react";
 import PropTypes from "prop-types";
-import NewEvent from "../Dashboard/NewEvent";
 import Modal from "../Modal";
 import ModifyEventForm from "../Dashboard/ModifyEventForm";
-
 
 import Pie from "./Circle";
 import "./Dashboard.scss";
 import { Link } from "react-router-dom";
+
 <link
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
@@ -25,8 +24,15 @@ const ModifyModal = ({ isOpen, onClose, children }) => {
 };
 
 export default function DashboardItem(props) {
-  const [isOpen, setIsOpen] = useState(false);
-  // console.log('props for DashboardItem: ', props)
+  const [isOpen, setIsOpen] = useState({ visible: false });
+
+  const openForm = () => {
+    setIsOpen({ visible: true });
+  };
+
+  const closeForm = () => {
+    setIsOpen({ visible: false });
+  };
 
   return (
     <Fragment>
@@ -34,9 +40,9 @@ export default function DashboardItem(props) {
         <div className="DashboardItem__content">
           <div className="DashboardItem__titleBox">
             <h3>{props.title}</h3>
-            <i className="fas fa-ellipsis-h" onClick={() => setIsOpen(true)}></i>
-            <ModifyModal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-              <ModifyEventForm event={props} />
+            <i className="fas fa-ellipsis-h" onClick={() => openForm()}></i>
+            <ModifyModal isOpen={isOpen.visible} onClose={() => setIsOpen({ ...isOpen, visible: false })}>
+              <ModifyEventForm event={props} close={closeForm} />
             </ModifyModal>
           </div>
           <div className="DashboardItems__container">

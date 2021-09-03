@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { authManager, isLoggedIn } from "../../utils/authUtils";
 import "./Header.scss";
@@ -14,7 +14,7 @@ const Header = () => {
       <header>
         <div className="header wrapper">
           <div className="header-logo">
-            <Link to="/">Fete</Link>
+            <Link to={RouteList.home}>Fete</Link>
           </div>
           <div className="nav">
             <nav>

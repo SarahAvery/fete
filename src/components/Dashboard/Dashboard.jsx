@@ -22,14 +22,17 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="wrapper">
-      <div className="Dashboard ">
-        <h1>Dashboard</h1>
-        <div className="add-event-btn-container">
-          <button className="new-event-btn button" onClick={() => openForm()}>
-            New Event
-          </button>
+    <div className="Dashboard ">
+      <div className="wrapper">
+        <div className="header-banner">
+          <h1>Dashboard</h1>
+          <div className="add-event-btn-container">
+            <button className="new-event-btn button" onClick={() => openForm()}>
+              New Event
+            </button>
+          </div>
         </div>
+
         {form && (
           <div>
             <Modal isOpen={form.visible} onClose={() => setForm({ ...form, visible: false })}>
@@ -37,6 +40,7 @@ const Dashboard = () => {
             </Modal>
           </div>
         )}
+
         <ul>
           {events?.map((event) => (
             <DashboardItem key={event.event_id} {...event} />

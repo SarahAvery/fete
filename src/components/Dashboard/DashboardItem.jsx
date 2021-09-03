@@ -15,7 +15,6 @@ import { Link } from "react-router-dom";
 export default function DashboardItem(props) {
   const [isOpen, setIsOpen] = useState(false);
 
-
   return (
     <Fragment>
       <li className="DashbordItem">
@@ -55,13 +54,14 @@ export default function DashboardItem(props) {
             </div>
 
             <div className="DashboardItems__progress">
-              <Pie className="pie" percentage={props.percent || 45} colour="rgb(121, 133, 95)" />
+              <Pie className="pie" percentage={props.percent || 73} colour="rgb(130, 156, 167)" />
             </div>
-            <div className="btn-container">
-              <Link className="button" to={`/board?eventId=${props.event_id}`}>
-                View Board
-              </Link>
-            </div>
+          </div>
+
+          <div className="btn-container">
+            <Link className="button" to={`/board?eventId=${props.event_id}`}>
+              View Board
+            </Link>
           </div>
         </div>
       </li>

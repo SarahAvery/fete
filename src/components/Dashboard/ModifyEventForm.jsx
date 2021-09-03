@@ -22,6 +22,14 @@ const ModifyEventForm = (props) => {
     return hyphenNum
   }
 
+  const formatDateState = (date) => {
+    // Format the date so the datepicker can re-open with that selected
+    console.log('date: ', date) // => 2016-06-23T02:10:25.000Z
+    const formatted = date.slice(0, 10)
+    console.log('formatted: ', formatted) // => 2016-06-23
+    return formatted
+  }
+
   // state for form entry fields
   const [eventTitle, setEventTitle] = useState(event.title);
   const [firstName, setFirstName] = useState(event.first_name);
@@ -36,9 +44,10 @@ const ModifyEventForm = (props) => {
   const [city, setCity] = useState(event.city);
 
 
+  const [date, setDate] = useState(formatDateState(event.event_date));
   // const [date, setDate] = useState(event.event_date);
   // Above is currently an error - Being returned to the form as a timestamptz 
-  const [date, setDate] = useState();
+  // const [date, setDate] = useState();
 
 
   const formData = {
@@ -173,9 +182,9 @@ const ModifyEventForm = (props) => {
             <label htmlFor="date">Event Date:</label>
             <DatePicker
               wrapperClassName="datePicker"
-              selected={date}
+              selected={this.date}
               onChange={(date) => setDate(date)}
-              dateFormat="Pp"
+              dateFormat="yyyy-mm-dd"
               value={date}
             />
           </div>

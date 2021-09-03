@@ -139,7 +139,7 @@ const NewEvent = (props) => {
               wrapperClassName="datePicker"
               selected={date}
               onChange={(date) => setDate(date)}
-              dateFormat="Pp"
+              dateFormat="yyyy-mm-dd"
             />
           </div>
           <div className="btn-container">

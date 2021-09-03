@@ -1,34 +1,29 @@
-import React, { useState, render, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "../Button";
-import { useUser } from "../../contexts/UserContext";
-import { useDashboard, withDashboard } from "../../contexts/DashboardContext";
+import { useDashboard } from "../../contexts/DashboardContext";
 import DatePicker from "react-datepicker";
-
 
 import "react-datepicker/dist/react-datepicker.css";
 
 const ModifyEventForm = (props) => {
   const { updateEvent, deleteEvent } = useDashboard();
-  const event = props.event
-  // console.log('event in ModifyEventForm: ', event)
-
-  // Close form on button submit - not implemented currently
-  const closeForm = event.close
-  
+  const event = props.event;
+  const closeForm = props.close;
 
   // Format phone number when it's returned to the form for editing
   const formatPhoneState = (phone) => {
-    const hyphenNum = `${phone.slice(0, 3)}-${phone.slice(3, 6)}-${phone.slice(6, 10)}`
-    return hyphenNum
-  }
+    const hyphenNum = `${phone.slice(0, 3)}-${phone.slice(3, 6)}-${phone.slice(6, 10)}`;
+    return hyphenNum;
+  };
 
-  const formatDateState = (date) => {
-    // Format the date so the datepicker can re-open with that selected
-    console.log('date: ', date) // => 2016-06-23T02:10:25.000Z
-    const formatted = date.slice(0, 10)
-    console.log('formatted: ', formatted) // => 2016-06-23
-    return formatted
-  }
+  // Format the date so the datepicker can re-open with that selected
+  // This should be improved and moved to a separate func and re-used
+  const formatDateOutput = (timestamptz) => {
+    // console.log('date (timestamptz): ', timestamptz) // => 2016-06-23T02:10:25.000Z
+    const formatted = timestamptz.slice(0, 10);
+    // console.log('formatted: ', formatted) // => 2016-06-23
+    return formatted;
+  };
 
   // state for form entry fields
   const [eventTitle, setEventTitle] = useState(event.title);
@@ -42,13 +37,14 @@ const ModifyEventForm = (props) => {
   const [streetType, setStreetType] = useState(event.street_type);
   const [postal, setPostal] = useState(event.postal_code);
   const [city, setCity] = useState(event.city);
+  const [date, setDate] = useState(event.event_date);
+  const [newDate, setNewDate] = useState();
 
-
-  const [date, setDate] = useState(formatDateState(event.event_date));
-  // const [date, setDate] = useState(event.event_date);
-  // Above is currently an error - Being returned to the form as a timestamptz 
-  // const [date, setDate] = useState();
-
+  useEffect(() => {
+    if (newDate) {
+      setDate(newDate);
+    }
+  }, [newDate]);
 
   const formData = {
     eventTitle,
@@ -65,24 +61,19 @@ const ModifyEventForm = (props) => {
     city,
   };
 
-
   const validate = (formData, eventId) => {
-    // console.log('eventId in ModifyEventForm: ', eventId)
     // if (!formData) {
     //   // setError("Please fill in the missing fields");
     //   return;
     // }
-    // const data = {formData, eventId}
-    // console.log('data in ModifyEventForm: ', data)
-
     // setError("");
     updateEvent(formData, eventId);
-    closeForm()
+    closeForm();
   };
 
   const onDelete = () => {
     deleteEvent({ id: event.event_id });
-    closeForm()
+    closeForm();
   };
 
   return (
@@ -159,41 +150,73 @@ const ModifyEventForm = (props) => {
             </div>
             <div className="s-number">
               <label htmlFor="street_number">Street No.: </label>
-              <input type="text" name="street_number" required value={streetNo} onChange={(e) => setStreetNo(e.target.value)} />
+              <input
+                type="text"
+                name="street_number"
+                required
+                value={streetNo}
+                onChange={(e) => setStreetNo(e.target.value)}
+              />
             </div>
             <div className="s-name">
               <label htmlFor="street_name">Street Name: </label>
-              <input type="text" name="street_name" required value={streetName} onChange={(e) => setStreetName(e.target.value)} />
+              <input
+                type="text"
+                name="street_name"
+                required
+                value={streetName}
+                onChange={(e) => setStreetName(e.target.value)}
+              />
             </div>
             <div className="s-type">
               <label htmlFor="street_type">Street Type: </label>
-              <input type="text" name="street_type" required value={streetType} onChange={(e) => setStreetType(e.target.value)} />
+              <input
+                type="text"
+                name="street_type"
+                required
+                value={streetType}
+                onChange={(e) => setStreetType(e.target.value)}
+              />
             </div>
             <div className="postal">
               <label htmlFor="postal_code">Postal Code: </label>
-              <input type="text" name="postal_code" required value={postal} onChange={(e) => setPostal(e.target.value)} />
+              <input
+                type="text"
+                name="postal_code"
+                required
+                value={postal}
+                onChange={(e) => setPostal(e.target.value)}
+              />
             </div>
             <div className="city">
               <label htmlFor="city">City: </label>
-              <input type="text" name="city" required value={city} onChange={(e) => setCity(e.target.value)} />
+              <input
+                type="text"
+                name="city"
+                required
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+              />
             </div>
           </div>
           <div className="datepicker container">
-            <label htmlFor="date">Event Date:</label>
+            <div className="display-event-date">
+              <p>Current Event Date:</p>
+              {!newDate && <p>{formatDateOutput(date)}</p>}
+            </div>
+
+            <label htmlFor="date">Change Event Date:</label>
             <DatePicker
               wrapperClassName="datePicker"
-              selected={date}
-              onChange={(date) => setDate(date)}
+              selected={newDate}
+              onChange={(date) => setNewDate(date)}
               dateFormat="yyyy-mm-dd"
-              value={date}
             />
           </div>
           <div className="btn-container">
             {<Button onClick={() => validate(formData, event.event_id)}>Update</Button>}
           </div>
-          <div className="btn-container">
-            {<Button onClick={() => onDelete()}>Delete</Button>}
-          </div>
+          <div className="btn-container">{<Button onClick={() => onDelete()}>Delete</Button>}</div>
         </div>
       </form>
     </div>

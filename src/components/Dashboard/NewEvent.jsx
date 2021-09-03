@@ -4,12 +4,11 @@ import { useUser } from "../../contexts/UserContext";
 import { useDashboard, withDashboard } from "../../contexts/DashboardContext";
 import DatePicker from "react-datepicker";
 
-
 import "react-datepicker/dist/react-datepicker.css";
 
 const NewEvent = (props) => {
   const { addEvent } = useDashboard();
-  const { closeForm } = props
+  const { closeForm } = props;
   const { user } = useUser();
 
   // state for form entry fields
@@ -25,7 +24,6 @@ const NewEvent = (props) => {
   const [postal, setPostal] = useState();
   const [city, setCity] = useState();
   const [date, setDate] = useState();
-
 
   const formData = {
     eventTitle,
@@ -44,7 +42,7 @@ const NewEvent = (props) => {
 
   function addNewEvent(formData, user) {
     addEvent(formData, user);
-    closeForm()
+    closeForm();
   }
 
   return (
@@ -144,7 +142,13 @@ const NewEvent = (props) => {
               dateFormat="Pp"
             />
           </div>
-          <div className="btn-container">{<Button onClick={() => addNewEvent(formData, user)}>Save Event</Button>}</div>
+          <div className="btn-container">
+            {
+              <button className="save-btn" onClick={() => addNewEvent(formData, user)}>
+                Save
+              </button>
+            }
+          </div>
         </div>
       </form>
     </div>

@@ -8,9 +8,17 @@
 }
 
 body {
-  min-height: 100vh;
+  // min-height: 100vh;
   background-color: white;
   font-family: sans-serif;
+}
+
+main {
+  min-height: 100vh;
+}
+
+.layout {
+  background-color: rgba(235, 235, 235, 0.3);
 }
 
 .visually-hidden {

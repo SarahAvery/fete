@@ -2,24 +2,35 @@
 
 .Dashboard {
   width: 100%;
-
-  .add-event-btn-container {
-    width: 100%;
-    margin: 10px;
-
-    display: inline-block;
-    text-align: right;
-
-    button.new-event-btn {
-      background-color: cornflowerblue;
-      color: #fff;
-      display: inline-block;
-      margin-right: 40px;
-    }
+  // min-height: 100vh;
+  padding-bottom: 60px;
+  .wrapper {
+    flex-wrap: wrap;
   }
 
-  h1 {
-    margin: 20px 0 10px 0;
+  .header-banner {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    margin: 30px 0;
+    padding-top: 50px;
+
+    h1 {
+      font-family: "Merriweather", serif;
+    }
+
+    .add-event-btn-container {
+      text-align: right;
+
+      button.new-event-btn {
+        background-color: rgb(130, 156, 167);
+        color: #fff;
+        display: inline-block;
+        margin-right: 20px;
+        box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+      }
+    }
   }
 
   .DashboardItems__container {
@@ -35,21 +46,28 @@
 // Dashboard Items
 li.DashbordItem {
   list-style: none;
-  border: 1px solid rgb(121, 133, 95);
+  border: 1px solid rgb(130, 156, 167);
   border-radius: 10px;
   margin: 10px 0;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  background: white;
+
+  &:nth-child(2n + 1) {
+    margin-right: 15px;
+  }
 
   .btn-container {
-    width: 130px;
-    display: flex;
-    align-items: flex-end;
+    width: 100%;
+    height: auto;
+    text-align: center;
+    margin: 10px 0;
 
     a {
-      background-color: cornflowerblue;
+      background-color: rgb(130, 156, 167);
       color: #fff;
       display: inline-block;
-      margin-bottom: 10px;
       width: auto;
+      box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
     }
   }
 }
@@ -85,7 +103,7 @@ li.DashbordItem {
     display: flex;
 
     p {
-      padding: 4px 0;
+      padding: 4px;
       width: 100%;
     }
     p.subtitle {

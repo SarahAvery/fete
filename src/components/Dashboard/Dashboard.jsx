@@ -39,7 +39,7 @@ const Dashboard = () => {
         )}
         <ul>
           {events?.map((event) => (
-            <DashboardItem key={event.event_id} {...event} />
+            <DashboardItem key={event.event_id} {...event} close={closeForm} />
           ))}
         </ul>
       </div>

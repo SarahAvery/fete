@@ -17,7 +17,7 @@ const ModifyEventForm = (props) => {
   };
 
   // Format the date so the datepicker can re-open with that selected
-  // This should be improved and moved to a separate func and re-used
+  // This should be improved and moved to a separate func
   const formatDateOutput = (timestamptz) => {
     // console.log('date (timestamptz): ', timestamptz) // => 2016-06-23T02:10:25.000Z
     const formatted = timestamptz.slice(0, 10);
@@ -146,7 +146,13 @@ const ModifyEventForm = (props) => {
           <div className="address container">
             <div className="unit">
               <label htmlFor="unit">Unit: </label>
-              <input type="text" name="unit" required value={unit} onChange={(e) => setUnit(e.target.value)} />
+              <input
+                type="text"
+                name="unit"
+                required
+                value={unit}
+                onChange={(e) => setUnit(e.target.value)}
+              />
             </div>
             <div className="s-number">
               <label htmlFor="street_number">Street No.: </label>

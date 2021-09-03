@@ -1,5 +1,9 @@
 import React, { useState, Fragment } from "react";
 import PropTypes from "prop-types";
+import NewEvent from "../Dashboard/NewEvent";
+import Modal from "../Modal";
+import ModifyEventForm from "../Dashboard/ModifyEventForm";
+
 
 import Pie from "./Circle";
 import "./Dashboard.scss";
@@ -12,8 +16,17 @@ import { Link } from "react-router-dom";
   referrerpolicy="no-referrer"
 />;
 
+const ModifyModal = ({ isOpen, onClose, children }) => {
+  return (
+    <Modal isOpen={isOpen} onClose={onClose}>
+      {children}
+    </Modal>
+  );
+};
+
 export default function DashboardItem(props) {
   const [isOpen, setIsOpen] = useState(false);
+  // console.log('props for DashboardItem: ', props)
 
   return (
     <Fragment>
@@ -22,7 +35,9 @@ export default function DashboardItem(props) {
           <div className="DashboardItem__titleBox">
             <h3>{props.title}</h3>
             <i className="fas fa-ellipsis-h" onClick={() => setIsOpen(true)}></i>
-            {/* i will need to be an onclick to open 'edit' and 'delete' */}
+            <ModifyModal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+              <ModifyEventForm event={props} />
+            </ModifyModal>
           </div>
           <div className="DashboardItems__container">
             <div className="DashboardItems__info">
@@ -52,7 +67,6 @@ export default function DashboardItem(props) {
                 </p>
               </div>
             </div>
-
             <div className="DashboardItems__progress">
               <Pie className="pie" percentage={props.percent || 73} colour="rgb(130, 156, 167)" />
             </div>

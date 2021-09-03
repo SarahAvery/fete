@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-// import Button from "../Button";
 import { useEventBoard } from "../../contexts/EventBoardContext";
 import "../Login-Signup/Forms.scss";
 
 const ModifyColumnForm = ({ column }) => {
   const { updateColumnName } = useEventBoard();
   const [title, setTitle] = useState(column.title);
-  // const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [btnName, setbtnName] = useState("");
 

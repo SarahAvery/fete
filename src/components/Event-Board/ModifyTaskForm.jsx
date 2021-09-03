@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Button from "../Button";
 import { useEventBoard } from "../../contexts/EventBoardContext";
 import "../Login-Signup/Forms.scss";
 

@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import { useEffect } from "react";
 import DashboardItem from "./DashboardItem";
 import { useDashboard, withDashboard } from "../../contexts/DashboardContext";
 import NewEvent from "./NewEvent";

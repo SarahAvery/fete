@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Button from "../Button";
-// import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
 import { authManager, isLoggedIn } from "../../utils/authUtils";
 import { useUser } from "../../contexts/UserContext";

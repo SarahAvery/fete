@@ -1,19 +1,16 @@
 import React, { Fragment, useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
-// import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import TaskForm from "./TaskForm";
+import SwimlaneItem from "./SwimlaneItem";
 import Swimlane from "./Swimlane";
+import Modal from "../Modal";
 
 import "./EventBoard.scss";
-// import "./images";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import { useEventBoard, withEventBoard } from "../../contexts/EventBoardContext";
-import SwimlaneItem from "./SwimlaneItem";
-import Modal from "../Modal";
-import { RouteList } from "../Routes";
+// import { RouteList } from "../Routes";
 
 const EventBoard = () => {
   // Form

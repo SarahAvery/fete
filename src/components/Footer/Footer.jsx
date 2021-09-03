@@ -22,6 +22,9 @@ const Footer = () => {
                   <Link>who are we</Link>
                 </li>
                 <li>
+                  <Link>memberships</Link>
+                </li>
+                <li>
                   <Link>help center</Link>
                 </li>
 

@@ -33,27 +33,31 @@ const DashboardContextProvider = ({ children }) => {
     }
   };
 
-  const updateEvent = async (data) => {
-    // --------------------------- Old:
-    //
-    // const params = new URLSearchParams(document.location.search.substring(1));
-    // const eventId = params.get("eventId");
-    // try {
-    //   await apiRequest(`${process.env.REACT_APP_API_URL}/board/${eventId}/update`, {
-    //     body: JSON.stringify(data),
-    //     headers: { "Content-Type": "application/json" },
-    //   });
-    //   // setEventBoardData(data);
-    //   // getEvents();
-    // } catch (err) {
-    //   console.log(err);
-    // }
+  const updateEvent = async (data, event) => {
+    const eventId = event.id
+    try {
+      await apiRequest(`${process.env.REACT_APP_API_URL}/events/${eventId}/update`, {
+        body: JSON.stringify({ data, event }),
+        headers: { "Content-Type": "application/json" },
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const deleteEvent = async (data) => {};
+  const deleteEvent = async (data) => {
+    const eventId = data.id
+    try {
+        await apiRequest(`${process.env.REACT_APP_API_URL}/events/${eventId}/delete`, {
+          body: JSON.stringify(data),
+          headers: { "Content-Type": "application/json" },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+  };
 
   return (
-    // <DashboardContext.Provider value={{ data, setEventBoardData, updateColumns, addTask, updateTask, deleteTask }}>
     <DashboardContext.Provider value={{ events, setEvents, addEvent, updateEvent, deleteEvent }}>
       {children}
     </DashboardContext.Provider>

@@ -9,16 +9,14 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const ModifyEventForm = (props) => {
   const { updateEvent, deleteEvent } = useDashboard();
-  console.log('props in ModifyEventForm: ', {...props})
   const event = props.event
-  const { user } = useUser();
+  // console.log('event in ModifyEventForm: ', event)
 
-  // NOT CURRENTLY WORKING
+  // Close form on button submit - not implemented currently
   const closeForm = event.close
-  console.log('closeForm: ', closeForm)
   
 
-  // phone number is being returned without hyphens, making the update form fail
+  // Format phone number when it's returned to the form for editing
   const formatPhoneState = (phone) => {
     const hyphenNum = `${phone.slice(0, 3)}-${phone.slice(3, 6)}-${phone.slice(6, 10)}`
     return hyphenNum
@@ -29,7 +27,6 @@ const ModifyEventForm = (props) => {
   const [firstName, setFirstName] = useState(event.first_name);
   const [secondName, setSecondName] = useState(event.second_name);
   const [email, setEmail] = useState(event.email);
-  // const [phone, setPhone] = useState(event.phone);
   const [phone, setPhone] = useState(formatPhoneState(event.phone));
   const [unit, setUnit] = useState(event.unit);
   const [streetNo, setStreetNo] = useState(event.street_number);
@@ -37,8 +34,10 @@ const ModifyEventForm = (props) => {
   const [streetType, setStreetType] = useState(event.street_type);
   const [postal, setPostal] = useState(event.postal_code);
   const [city, setCity] = useState(event.city);
+
+
   // const [date, setDate] = useState(event.event_date);
-  // ABOVE IS CURRENTLY ERROR-ING OUT - SOMETHING ABOUT TIME ZONES
+  // Above is currently an error - Being returned to the form as a timestamptz 
   const [date, setDate] = useState();
 
 
@@ -58,32 +57,17 @@ const ModifyEventForm = (props) => {
   };
 
 
-  // const [stringPhone, setStringPhone] = useState(formatPhoneState(phone));
+  const validate = (formData, eventId) => {
+    // console.log('eventId in ModifyEventForm: ', eventId)
+    // if (!formData) {
+    //   // setError("Please fill in the missing fields");
+    //   return;
+    // }
+    // const data = {formData, eventId}
+    // console.log('data in ModifyEventForm: ', data)
 
-
-  // function addNewEvent(formData, user) {
-  //   addEvent(formData, user);
-  //   closeForm()
-  // }
-
-  // const save = () => {
-  //   const data = { id: task.id, title, content };
-  //   updateTask(data);
-  //   reset();
-  // };
-
-  // const reset = () => {
-  //   setTitle("");
-  //   setContent("");
-  // };
-
-  const validate = (formData, user) => {
-    if (!formData) {
-      // setError("Please fill in the missing fields");
-      return;
-    }
     // setError("");
-    updateEvent(formData, user);
+    updateEvent(formData, eventId);
     closeForm()
   };
 
@@ -149,7 +133,6 @@ const ModifyEventForm = (props) => {
             <div className="contact-info">
               <label htmlFor="phone">Phone: </label>
               <input
-              // state is returning the phone number without hyphens, making the entry invalid. To Fix
                 type="tel"
                 name="phone"
                 pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
@@ -197,10 +180,10 @@ const ModifyEventForm = (props) => {
             />
           </div>
           <div className="btn-container">
-            {<Button onClick={() => validate(formData, user)}>Update</Button>}
+            {<Button onClick={() => validate(formData, event.event_id)}>Update</Button>}
           </div>
           <div className="btn-container">
-            {<Button onClick={() => onDelete(formData, user)}>Delete</Button>}
+            {<Button onClick={() => onDelete()}>Delete</Button>}
           </div>
         </div>
       </form>

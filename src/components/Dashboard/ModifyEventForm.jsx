@@ -182,7 +182,7 @@ const ModifyEventForm = (props) => {
             <label htmlFor="date">Event Date:</label>
             <DatePicker
               wrapperClassName="datePicker"
-              selected={this.date}
+              selected={date}
               onChange={(date) => setDate(date)}
               dateFormat="yyyy-mm-dd"
               value={date}

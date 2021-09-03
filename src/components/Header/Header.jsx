@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { authManager, isLoggedIn } from "../../utils/authUtils";
 import "./Header.scss";
@@ -10,29 +10,34 @@ const Header = () => {
   const isAuthed = isLoggedIn();
 
   return (
-    <header>
-      <div className="header wrapper">
-        <div className="header-logo">
-          <Link to="/">Fete</Link>
+    <>
+      <header>
+        <div className="header wrapper">
+          <div className="header-logo">
+            <Link to="/">Fete</Link>
+          </div>
+          <div className="nav">
+            <nav>
+              <ul>
+                <li>
+                  {!isAuthed && <Link to={RouteList.login}>Login</Link>}{" "}
+                  {isAuthed && <Link to={RouteList.dashboard}>Dashboard</Link>}
+                </li>
+
+                <li>
+                  {!isAuthed && <Link to={RouteList.signup}>Signup</Link>}
+                  {isAuthed && <Link onClick={() => authManager.logout()}>Logout</Link>}
+                </li>
+
+                {/* <li> {isAuthed && <Link to={RouteList.dashboard}>Dashboard</Link>}</li> */}
+                {/* <li>{isAuthed && <Link onClick={() => authManager.logout()}>Logout</Link>}</li> */}
+              </ul>
+            </nav>
+          </div>
         </div>
-        <div className="nav">
-          <nav>
-            <ul>
-              <li>{!isAuthed && <Link to={RouteList.signup}>Signup</Link>}</li>
-              <li>
-                {!isAuthed && <Link to={RouteList.login}>Login</Link>}
-                {isAuthed && <Link to={RouteList.dashboard}>Dashboard</Link>}
-                {isAuthed && (
-                  <button className="logout-btn" onClick={() => authManager.logout()}>
-                    Logout
-                  </button>
-                )}
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-    </header>
+      </header>
+      <div class="rainbow"></div>
+    </>
   );
 };
 

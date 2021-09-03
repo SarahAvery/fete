@@ -8,6 +8,7 @@ const ModifyColumnForm = ({ column }) => {
   const [title, setTitle] = useState(column.title);
   // const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+  const [btnName, setbtnName] = useState("");
 
   const save = (title) => {
     const data = { id: column.id, title };
@@ -25,15 +26,17 @@ const ModifyColumnForm = ({ column }) => {
   };
 
   const saved = () => {
+    setbtnName("saved");
     setMessage("Saved!");
   };
 
   const validate = (title) => {
-    // if (!content) {
-    //   setError("Please add a description");
-    //   return;
-    // }
-    // setError("");
+    if (!title) {
+      setMessage("A column must have a title");
+      setbtnName("error");
+      return;
+    }
+    setMessage("");
     save(title);
   };
 
@@ -47,12 +50,7 @@ const ModifyColumnForm = ({ column }) => {
       <form autoComplete="off" onSubmit={(e) => e.preventDefault()}>
         <div className="form-group">
           <div>
-            <label htmlFor="column-title">
-              Title:
-              <span className="optional">
-                <em> (optional)</em>
-              </span>
-            </label>
+            <label htmlFor="column-title">Title:</label>
 
             <input
               className="create-input"
@@ -63,7 +61,8 @@ const ModifyColumnForm = ({ column }) => {
               value={title}
               data-testid="col-title-input"
             />
-            <p>{message && <span className="saved">{message}</span>}</p>
+            <p>{message && <span className={btnName}>{message}</span>}</p>
+            {/* <p>{error && <span className="error">{error}</span>}</p> */}
             {/* {message && <span className="saved">{message}</span>} */}
           </div>
           <div className="btn-container">

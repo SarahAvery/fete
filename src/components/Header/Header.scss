@@ -1,8 +1,10 @@
 header {
   width: 100%;
-  background: rgb(121, 133, 95);
   background: rgb(130, 156, 167);
+  // background: #a7a082;
   font-family: "Merriweather", serif;
+  border-bottom: 1px solid rgb(130, 156, 167);
+  color: rgb(130, 156, 167);
 }
 
 .header {
@@ -12,7 +14,8 @@ header {
 a,
 i,
 .logout-btn {
-  color: white;
+  color: rgb(255, 255, 255);
+  // color: rgb(130, 156, 167);
 }
 
 button.logout-btn {
@@ -45,7 +48,36 @@ button.logout-btn {
     }
 
     li {
-      margin-left: 40px;
+      margin-right: 20px;
+      font-weight: bold;
+      width: auto;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    li:nth-last-of-type(1) {
+      margin-right: 0;
     }
   }
+}
+
+.rainbow {
+  height: 3px;
+
+  background: linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 1) 0%,
+    rgba(255, 154, 0, 1) 10%,
+    rgba(208, 222, 33, 1) 20%,
+    rgba(79, 220, 74, 1) 30%,
+    rgba(63, 218, 216, 1) 40%,
+    rgba(47, 201, 226, 1) 50%,
+    rgba(28, 127, 238, 1) 60%,
+    rgba(95, 21, 242, 1) 70%,
+    rgba(186, 12, 248, 1) 80%,
+    rgba(251, 7, 217, 1) 90%,
+    rgba(255, 0, 0, 1) 100%
+  );
 }

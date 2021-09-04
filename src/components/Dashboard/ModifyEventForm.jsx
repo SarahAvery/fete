@@ -12,8 +12,7 @@ const ModifyEventForm = (props) => {
 
   // Format phone number when it's returned to the form for editing
   const formatPhoneState = (phone) => {
-    const hyphenNum = `${phone.slice(0, 3)}-${phone.slice(3, 6)}-${phone.slice(6, 10)}`;
-    return hyphenNum;
+    return phone.includes('-') ? phone : `${phone.slice(0, 3)}-${phone.slice(3, 6)}-${phone.slice(6, 10)}`
   };
 
   // Format the date so the datepicker can re-open with that selected
@@ -208,7 +207,7 @@ const ModifyEventForm = (props) => {
           <div className="datepicker container">
             <div className="display-event-date">
               <p>Current Event Date:</p>
-              {!newDate && <p>{formatDateOutput(date)}</p>}
+              {!newDate && <p>{() => formatDateOutput(date)}</p>}
             </div>
 
             <label htmlFor="date">Change Event Date:</label>

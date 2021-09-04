@@ -110,61 +110,33 @@ const NewEvent = (props) => {
           <div className="address container">
             <div className="unit">
               <label htmlFor="unit">Unit: </label>
-              <input 
-                type="text" 
-                name="unit" 
-                required 
-                onChange={(e) => setUnit(e.target.value)}
-              />
+              <input type="text" name="unit" required onChange={(e) => setUnit(e.target.value)} />
             </div>
             <div className="s-number">
               <label htmlFor="street_number">Street No.: </label>
-              <input
-                type="text"
-                name="street_number"
-                required
-                onChange={(e) => setStreetNo(e.target.value)}
-              />
+              <input type="text" name="street_number" required onChange={(e) => setStreetNo(e.target.value)} />
             </div>
             <div className="s-name">
               <label htmlFor="street_name">Street Name: </label>
-              <input
-                type="text"
-                name="street_name"
-                required
-                onChange={(e) => setStreetName(e.target.value)}
-              />
+              <input type="text" name="street_name" required onChange={(e) => setStreetName(e.target.value)} />
             </div>
             <div className="s-type">
               <label htmlFor="street_type">Street Type: </label>
-              <input
-                type="text"
-                name="street_type"
-                required
-                onChange={(e) => setStreetType(e.target.value)}
-              />
+              <input type="text" name="street_type" required onChange={(e) => setStreetType(e.target.value)} />
             </div>
             <div className="postal">
               <label htmlFor="postal_code">Postal Code: </label>
-              <input
-                type="text"
-                name="postal_code"
-                required
-                onChange={(e) => setPostal(e.target.value)}
-              />
+              <input type="text" name="postal_code" required onChange={(e) => setPostal(e.target.value)} />
             </div>
             <div className="city">
               <label htmlFor="city">City: </label>
-              <input
-                type="text"
-                name="city"
-                required
-                onChange={(e) => setCity(e.target.value)}
-              />
+              <input type="text" name="city" required onChange={(e) => setCity(e.target.value)} />
             </div>
           </div>
-          <div className="datepicker container">
-            <label htmlFor="date">Event Date:</label>
+          <div className="datepicker-container">
+            <label className="date-label" htmlFor="date">
+              Event Date:
+            </label>
             <DatePicker
               wrapperClassName="datePicker"
               selected={date}

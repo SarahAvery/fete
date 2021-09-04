@@ -46,7 +46,7 @@ const NewEvent = (props) => {
 
   return (
     <div className="new-event-container wrapper">
-      <h2>Add New Event</h2>
+      <h2>New Event</h2>
       <form autoComplete="off" onSubmit={(e) => e.preventDefault()}>
         <div className="form-group">
           <div className="event-title container">

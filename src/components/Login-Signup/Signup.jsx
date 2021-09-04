@@ -28,7 +28,6 @@ const Signup = (props) => {
       authManager
         .tryUserRegistration(email, password)
         .then((data) => {
-          console.log('data: ', data)
           if (data.authenticated) {
             // email exists but password doesn't match
             setEmailError(true)

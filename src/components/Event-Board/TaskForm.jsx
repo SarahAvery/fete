@@ -3,18 +3,17 @@ import { useEventBoard } from "../../contexts/EventBoardContext";
 import "../Login-Signup/Forms.scss";
 
 const TaskForm = ({ columnId, column }) => {
-  console.log("column ", column.length);
+  // console.log("column ", column.length);
   const { addTask } = useEventBoard();
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [error, setError] = useState("");
 
-  console.log("columnId ", columnId);
-  // const id = columnId;
+  // console.log("columnId ", columnId);
 
   function add(title = "", content) {
-    console.log(`New Task: task_order: ${column.length} columnId: ${columnId}, title: ${title}, content: ${content}`);
+    // console.log(`New Task: task_order: ${column.length} columnId: ${columnId}, title: ${title}, content: ${content}`);
     const data = [column.length, columnId, 1, title, content];
     // task_order, column_id(columnId), status(1), title, content, due_date(optional)
     addTask(data);

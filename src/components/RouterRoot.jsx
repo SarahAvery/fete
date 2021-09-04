@@ -10,7 +10,7 @@ class RouterRoot extends React.Component {
     const { location } = this.props;
     const { location: locationPrev } = prevProps;
 
-    console.log(location, locationPrev);
+    // console.log(location, locationPrev);
 
     if (!isLoggedIn) {
       this.context.setUser({});

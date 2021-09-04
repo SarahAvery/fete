@@ -76,7 +76,6 @@ const EventBoardContextProvider = ({ children }) => {
     const eventId = params.get("eventId");
 
     try {
-      console.log(data);
       await apiRequest(`${process.env.REACT_APP_API_URL}/task/${eventId}/update`, {
         body: JSON.stringify(data),
         headers: { "Content-Type": "application/json" },
@@ -92,7 +91,7 @@ const EventBoardContextProvider = ({ children }) => {
     const eventId = params.get("eventId");
 
     try {
-      console.log("Deleted ", data);
+      // console.log("Deleted ", data);
       await apiRequest(`${process.env.REACT_APP_API_URL}/task/${eventId}/delete`, {
         body: JSON.stringify(data),
         headers: { "Content-Type": "application/json" },

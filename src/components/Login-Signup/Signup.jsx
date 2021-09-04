@@ -14,28 +14,34 @@ const Signup = (props) => {
   const [password, setPassword] = useState();
   const [passConfirm, setPassConfirm] = useState();
   const [passError, setPassError] = useState();
+  const [emailError, setEmailError] = useState(false);
   const { setUser } = useUser();
   const isAuthed = isLoggedIn();
 
   const checkPasswordsMatch = (pass1 = password, pass2 = passConfirm) => {
-    return pass1 === pass2 ? true : false
+    return pass1 === pass2 ? true : false;
   };
 
   async function registerUser({ email, password }) {
-    const passMatch = checkPasswordsMatch()
+    const passMatch = checkPasswordsMatch();
     if (passMatch) {
       authManager
-      .tryUserRegistration(email, password)
-      .then((data) => {
-        setUser(data);
-        history.push(RouteList.dashboard);
-        console.log("Data in API call: ", data);
-      })
-      .catch((err) => {
-        console.log("Error in Register API call: ", err);
-      });
+        .tryUserRegistration(email, password)
+        .then((data) => {
+          console.log('data: ', data)
+          if (data.authenticated) {
+            // email exists but password doesn't match
+            setEmailError(true)
+            return
+          }
+          setUser(data);
+          history.push(RouteList.dashboard);
+        })
+        .catch((err) => {
+          console.log("Error in Register API call: ", err);
+        });
     } else {
-      setPassError(true)
+      setPassError(true);
     }
   }
 
@@ -57,21 +63,31 @@ const Signup = (props) => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <span className="error">This email is already registered. Please login.</span>
+            { emailError && <span className="error">This email is already registered. Please login.</span>}
             <div>
               <label htmlFor="password">password: </label>
-              <input type="password" name="password" onChange={(e) => setPassword(e.target.value)} required />
+              <input 
+                type="password" 
+                name="password" 
+                onChange={(e) => setPassword(e.target.value)} 
+                required 
+              />
             </div>
             <div>
               <label htmlFor="confirm-password">confirm password: </label>
-              <input type="password" name="confirm-password" required onChange={(e) => setPassConfirm(e.target.value)} />
-              {/* <p id="error-msg"> */}
-                { passError && <span className="error">Password does not match</span> }
-              {/* </p> */}
+              <input
+                type="password"
+                name="confirm-password"
+                required
+                onChange={(e) => setPassConfirm(e.target.value)}
+              />
+              {passError && <span className="error">Password does not match</span>}
             </div>
             <div className="btn-container">
-              {<Button onClick={() => registerUser({ email, password })}>Register</Button>}
-              {/* <button type="submit">sign up</button> */}
+              {<Button 
+                onClick={() => registerUser({ email, password })}>
+                Register
+                </Button>}
             </div>
           </div>
         </form>

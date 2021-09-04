@@ -7,7 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const ModifyEventForm = (props) => {
   const { updateEvent, deleteEvent } = useDashboard();
-  const { closeForm } = props
+  const { closeForm } = props;
   const event = props.event;
   const formatDate = props.dateFormat;
   const formatPhone = props.phoneFormat;
@@ -65,7 +65,7 @@ const ModifyEventForm = (props) => {
 
   return (
     <div className="new-event-container wrapper">
-      <h2>Modify Event</h2>
+      <h2>Update Event</h2>
       <form autoComplete="off" onSubmit={(e) => e.preventDefault()}>
         <div className="form-group">
           <div className="event-title container">
@@ -133,13 +133,7 @@ const ModifyEventForm = (props) => {
           <div className="address container">
             <div className="unit">
               <label htmlFor="unit">Unit: </label>
-              <input
-                type="text"
-                name="unit"
-                required
-                value={unit}
-                onChange={(e) => setUnit(e.target.value)}
-              />
+              <input type="text" name="unit" required value={unit} onChange={(e) => setUnit(e.target.value)} />
             </div>
             <div className="s-number">
               <label htmlFor="street_number">Street No.: </label>
@@ -183,28 +177,26 @@ const ModifyEventForm = (props) => {
             </div>
             <div className="city">
               <label htmlFor="city">City: </label>
-              <input
-                type="text"
-                name="city"
-                required
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-              />
+              <input type="text" name="city" required value={city} onChange={(e) => setCity(e.target.value)} />
             </div>
           </div>
-          <div className="datepicker container">
+          <div className="datepicker-container">
             <div className="display-event-date">
-              <p>Current Event Date:</p>
-              {!newDate && <p>{formatDate(date)}</p>}
-            </div>
+              <div className="current-date-container">
+                <p>Current Date:</p>
+                {!newDate && <p>{formatDate(date)}</p>}
+              </div>
 
-            <label htmlFor="date">Change Event Date:</label>
-            <DatePicker
-              wrapperClassName="datePicker"
-              selected={newDate}
-              onChange={(date) => setNewDate(date)}
-              dateFormat="yyyy-mm-dd"
-            />
+              <div className="new-date-container">
+                <label htmlFor="date">New Date:</label>
+                <DatePicker
+                  wrapperClassName="datePicker"
+                  selected={newDate}
+                  onChange={(date) => setNewDate(date)}
+                  dateFormat="yyyy-mm-dd"
+                />
+              </div>
+            </div>
           </div>
           <div className="btn-container">
             {<Button onClick={() => validate(formData, event.event_id)}>Update</Button>}

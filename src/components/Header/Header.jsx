@@ -36,7 +36,6 @@ const Header = () => {
           </div>
         </div>
       </header>
-      <div class="rainbow"></div>
     </>
   );
 };

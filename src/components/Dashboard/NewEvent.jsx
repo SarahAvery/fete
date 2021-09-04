@@ -163,14 +163,18 @@ const NewEvent = (props) => {
               />
             </div>
           </div>
-          <div className="datepicker container">
-            <label htmlFor="date">Event Date:</label>
-            <DatePicker
-              wrapperClassName="datePicker"
-              selected={date}
-              onChange={(date) => setDate(date)}
-              dateFormat="yyyy-mm-dd"
-            />
+          <div className="datepicker container date-output">
+            <div className="test">
+            <label className="test" htmlFor="date">Event Date:</label>
+            <div>
+              <DatePicker
+                wrapperClassName="datePicker"
+                selected={date}
+                onChange={(date) => setDate(date)}
+                dateFormat="yyyy-mm-dd"
+                />
+            </div>
+            </div>
           </div>
           <div className="btn-container">
             {

@@ -5,11 +5,11 @@ export const DashboardContext = React.createContext();
 
 const DashboardContextProvider = ({ children }) => {
   const [events, setEvents] = useState();
-  // const [data, setDashboardData] = useState();
+  const [data, setDashboardData] = useState();
 
   useEffect(() => {
     getEvents();
-  }, []);
+  }, [data]);
 
   const getEvents = () => {
     apiRequest(`${process.env.REACT_APP_API_URL}/events`, { method: "GET" })
@@ -27,33 +27,36 @@ const DashboardContextProvider = ({ children }) => {
         },
         body: JSON.stringify({ ...formData, userId }),
       });
+      setDashboardData(formData);
     } catch {
       console.log("ERROR in addEvent function inside NewEvent component");
     }
   };
 
   const updateEvent = async (data, event) => {
-    const eventId = event.id
+    const eventId = event.id;
     try {
       await apiRequest(`${process.env.REACT_APP_API_URL}/events/${eventId}/update`, {
         body: JSON.stringify({ data, event }),
         headers: { "Content-Type": "application/json" },
       });
+      setDashboardData(data);
     } catch (err) {
       console.log(err);
     }
   };
 
   const deleteEvent = async (data) => {
-    const eventId = data.id
+    const eventId = data.id;
     try {
-        await apiRequest(`${process.env.REACT_APP_API_URL}/events/${eventId}/delete`, {
-          body: JSON.stringify(data),
-          headers: { "Content-Type": "application/json" },
-        });
-      } catch (err) {
-        console.log(err);
-      }
+      await apiRequest(`${process.env.REACT_APP_API_URL}/events/${eventId}/delete`, {
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" },
+      });
+      setDashboardData(data);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

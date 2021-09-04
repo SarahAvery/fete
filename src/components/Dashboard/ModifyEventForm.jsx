@@ -12,20 +12,6 @@ const ModifyEventForm = (props) => {
   const formatDate = props.dateFormat;
   const formatPhone = props.phoneFormat;
 
-  // Format phone number when it's returned to the form for editing
-  // const formatPhoneState = (phone) => {
-  //   return phone.includes('-') ? phone : `${phone.slice(0, 3)}-${phone.slice(3, 6)}-${phone.slice(6, 10)}`
-  // };
-
-  // Format the date so the datepicker can re-open with that selected
-  // This should be improved and moved to a separate func
-  // const formatDateOutput = (timestamptz) => {
-  //   // console.log('date (timestamptz): ', timestamptz) // => 2016-06-23T02:10:25.000Z
-  //   const formatted = timestamptz.slice(0, 10);
-  //   // console.log('formatted: ', formatted) // => 2016-06-23
-  //   return formatted;
-  // };
-
   // state for form entry fields
   const [eventTitle, setEventTitle] = useState(event.title);
   const [firstName, setFirstName] = useState(event.first_name);

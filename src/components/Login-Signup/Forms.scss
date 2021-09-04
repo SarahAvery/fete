@@ -237,6 +237,23 @@
       margin-right: 10px;
     }
   }
+
+  .date-output {
+    .test {
+      display: flex;
+      flex-direction: row;
+      label {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        margin: 0;
+        width: 150px;
+      }
+      div {
+        margin-right: 10px;
+      }
+    }
+  }
 }
 
 // $datepicker__background-color: #f0f0f0 !default;

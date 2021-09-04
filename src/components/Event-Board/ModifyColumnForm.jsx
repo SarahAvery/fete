@@ -10,7 +10,7 @@ const ModifyColumnForm = ({ column }) => {
 
   const save = (title) => {
     const data = { id: column.id, title };
-    console.log(data);
+    // console.log(data);
     updateColumnName(data);
     saved();
     reset();

@@ -7,8 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const NewEvent = (props) => {
   const { addEvent } = useDashboard();
-  const closeForm = props.close;
-  // console.log('props: ', props)
+  const closeForm = props.closeForm;
   const { user } = useUser();
 
   // state for form entry fields
@@ -163,14 +162,18 @@ const NewEvent = (props) => {
               />
             </div>
           </div>
-          <div className="datepicker container">
-            <label htmlFor="date">Event Date:</label>
-            <DatePicker
-              wrapperClassName="datePicker"
-              selected={date}
-              onChange={(date) => setDate(date)}
-              dateFormat="yyyy-mm-dd"
-            />
+          <div className="datepicker container date-output">
+            <div className="test">
+            <label className="test" htmlFor="date">Event Date:</label>
+            <div>
+              <DatePicker
+                wrapperClassName="datePicker"
+                selected={date}
+                onChange={(date) => setDate(date)}
+                dateFormat="yyyy-mm-dd"
+                />
+            </div>
+            </div>
           </div>
           <div className="btn-container">
             {

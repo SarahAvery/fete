@@ -19,10 +19,10 @@ const Dashboard = () => {
   const closeForm = () => {
     setForm({ visible: false });
   };
-
-  useEffect(() => {
-    getEvents()
-  }, [events]);
+  
+  // useEffect(() => {
+  //   getEvents()
+  // }, [events]);
 
   return (
     <div className="Dashboard ">
@@ -39,14 +39,14 @@ const Dashboard = () => {
         {form && (
           <div>
             <Modal isOpen={form.visible} onClose={() => setForm({ ...form, visible: false })}>
-              <NewEvent close={closeForm} />
+              <NewEvent closeForm={closeForm} />
             </Modal>
           </div>
         )}
 
         <ul>
           {events?.map((event) => (
-            <DashboardItem key={event.event_id} {...event} close={closeForm} />
+            <DashboardItem key={event.event_id} {...event} closeForm={closeForm} openForm={openForm} />
           ))}
         </ul>
       </div>

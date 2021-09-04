@@ -16,7 +16,6 @@ const Login = () => {
       .tryUserLogin(email, password)
       .then((data) => {
         if (!data.accessToken) {
-          console.log("Data in API call: ", data);
           setError(data);
         }
         setUser(data);

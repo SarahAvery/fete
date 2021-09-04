@@ -37,9 +37,7 @@ const Signup = (props) => {
           setUser(data);
           history.push(RouteList.dashboard);
         })
-        .catch((err) => {
-          console.log("Error in Register API call: ", err);
-        });
+        .catch((err) => console.log("Error in Register API call: ", err));
     } else {
       setPassError(true);
     }

@@ -36,9 +36,7 @@ export default function DashboardItem(props) {
 
   const formatDateOutput = (timestamptz) => {
     // console.log('date (timestamptz): ', timestamptz) // => 2016-06-23T02:10:25.000Z
-    const formatted = timestamptz.slice(0, 10);
-    // console.log('formatted: ', formatted) // => 2016-06-23
-    return formatted;
+    return new Date(timestamptz).toDateString()
   };
 
   const formatPhoneState = (phone) => {
@@ -53,7 +51,13 @@ export default function DashboardItem(props) {
             <h3>{props.title}</h3>
             <i className="fas fa-ellipsis-h" onClick={() => openForm()}></i>
             <ModifyModal isOpen={isOpen.visible} onClose={() => setIsOpen({ ...isOpen, visible: false })}>
-              <ModifyEventForm event={props} closeForm={closeForm} openForm={openForm} dateFormat={formatDateOutput} phoneFormat={formatPhoneState} />
+              <ModifyEventForm 
+                event={props} 
+                closeForm={closeForm} 
+                openForm={openForm} 
+                dateFormat={formatDateOutput} 
+                phoneFormat={formatPhoneState} 
+              />
             </ModifyModal>
           </div>
           <div className="DashboardItems__container">

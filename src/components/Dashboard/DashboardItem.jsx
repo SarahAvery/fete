@@ -34,6 +34,17 @@ export default function DashboardItem(props) {
     setIsOpen({ visible: false });
   };
 
+  const formatDateOutput = (timestamptz) => {
+    // console.log('date (timestamptz): ', timestamptz) // => 2016-06-23T02:10:25.000Z
+    const formatted = timestamptz.slice(0, 10);
+    // console.log('formatted: ', formatted) // => 2016-06-23
+    return formatted;
+  };
+
+  const formatPhoneState = (phone) => {
+    return phone.includes('-') ? phone : `${phone.slice(0, 3)}-${phone.slice(3, 6)}-${phone.slice(6, 10)}`
+  };
+
   return (
     <Fragment>
       <li className="DashbordItem">
@@ -42,7 +53,7 @@ export default function DashboardItem(props) {
             <h3>{props.title}</h3>
             <i className="fas fa-ellipsis-h" onClick={() => openForm()}></i>
             <ModifyModal isOpen={isOpen.visible} onClose={() => setIsOpen({ ...isOpen, visible: false })}>
-              <ModifyEventForm event={props} close={closeForm} />
+              <ModifyEventForm event={props} closeForm={closeForm} openForm={openForm} dateFormat={formatDateOutput} phoneFormat={formatPhoneState} />
             </ModifyModal>
           </div>
           <div className="DashboardItems__container">
@@ -55,7 +66,7 @@ export default function DashboardItem(props) {
               </div>
               <div className="info-section">
                 <p className="subtitle">Date:</p>
-                <p>{props.event_date}</p>
+                <p>{formatDateOutput(props.event_date)}</p>
               </div>
               <div className="info-section">
                 <p className="subtitle">Email:</p>

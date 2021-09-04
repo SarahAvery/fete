@@ -6,7 +6,7 @@ import CoreLayout from "./CoreLayout";
 
 const CoreRoute = ({ path, component, exact = false }) => {
   useEffect(() => {
-    console.log(path);
+    // console.log(path);
   }, [path]);
   return <Route exact={exact} path={path} render={(props) => <CoreLayout {...props} component={component} />} />;
 };

@@ -7,8 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const NewEvent = (props) => {
   const { addEvent } = useDashboard();
-  const closeForm = props.close;
-  // console.log('props: ', props)
+  const closeForm = props.closeForm;
   const { user } = useUser();
 
   // state for form entry fields

@@ -461,6 +461,14 @@
     .react-datepicker__header {
       background-color: #829ca7;
       color: white;
+
+      .react-datepicker__current-month {
+        color: white;
+      }
+
+      .react-datepicker__day-names {
+        color: white;
+      }
     }
 
     .react-datepicker__month {

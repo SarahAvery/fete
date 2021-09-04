@@ -92,7 +92,8 @@ class AuthManager {
         setToken(data.accessToken);
 
         return this.getUser();
-      });
+      })
+      .catch(e => console.log('Error: tryUserRegistration'))
   };
 }
 

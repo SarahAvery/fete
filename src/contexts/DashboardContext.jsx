@@ -19,7 +19,6 @@ const DashboardContextProvider = ({ children }) => {
 
   const addEvent = async (formData, user) => {
     const userId = user.id;
-    console.log("userId inside addEvent: ", userId);
     try {
       await apiRequest(`${process.env.REACT_APP_API_URL}/events/add`, {
         method: "POST",

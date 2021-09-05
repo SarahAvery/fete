@@ -16,7 +16,7 @@ const NewEvent = (props) => {
   const [secondName, setSecondName] = useState();
   const [email, setEmail] = useState();
   const [phone, setPhone] = useState();
-  const [unit, setUnit] = useState();
+  const [unit, setUnit] = useState("");
   const [streetNo, setStreetNo] = useState();
   const [streetName, setStreetName] = useState();
   const [streetType, setStreetType] = useState();
@@ -109,7 +109,7 @@ const NewEvent = (props) => {
           <div className="address container">
             <div className="unit">
               <label htmlFor="unit">Unit: </label>
-              <input type="text" name="unit" required onChange={(e) => setUnit(e.target.value)} />
+              <input type="text" name="unit" onChange={(e) => setUnit(e.target.value)} />
             </div>
             <div className="s-number">
               <label htmlFor="street_number">Street No.: </label>

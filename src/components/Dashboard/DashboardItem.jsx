@@ -24,6 +24,8 @@ const ModifyModal = ({ isOpen, onClose, children }) => {
 };
 
 export default function DashboardItem(props) {
+  const percent = Math.round((parseInt(props.completed_tasks) / parseInt(props.total_tasks)) * 100);
+
   const [isOpen, setIsOpen] = useState({ visible: false });
 
   const openForm = () => {
@@ -36,11 +38,11 @@ export default function DashboardItem(props) {
 
   const formatDateOutput = (timestamptz) => {
     // console.log('date (timestamptz): ', timestamptz) // => 2016-06-23T02:10:25.000Z
-    return new Date(timestamptz).toDateString()
+    return new Date(timestamptz).toDateString();
   };
 
   const formatPhoneState = (phone) => {
-    return phone.includes('-') ? phone : `${phone.slice(0, 3)}-${phone.slice(3, 6)}-${phone.slice(6, 10)}`
+    return phone.includes("-") ? phone : `${phone.slice(0, 3)}-${phone.slice(3, 6)}-${phone.slice(6, 10)}`;
   };
 
   return (
@@ -51,12 +53,12 @@ export default function DashboardItem(props) {
             <h3>{props.title}</h3>
             <i className="fas fa-ellipsis-h" onClick={() => openForm()}></i>
             <ModifyModal isOpen={isOpen.visible} onClose={() => setIsOpen({ ...isOpen, visible: false })}>
-              <ModifyEventForm 
-                event={props} 
-                closeForm={closeForm} 
-                openForm={openForm} 
-                dateFormat={formatDateOutput} 
-                phoneFormat={formatPhoneState} 
+              <ModifyEventForm
+                event={props}
+                closeForm={closeForm}
+                openForm={openForm}
+                dateFormat={formatDateOutput}
+                phoneFormat={formatPhoneState}
               />
             </ModifyModal>
           </div>
@@ -88,8 +90,9 @@ export default function DashboardItem(props) {
                 </p>
               </div>
             </div>
+
             <div className="DashboardItems__progress">
-              <Pie className="pie" percentage={props.percent || 73} colour="rgb(130, 156, 167)" />
+              <Pie className="pie" percentage={percent} colour="rgb(130, 156, 167)" />
             </div>
           </div>
 

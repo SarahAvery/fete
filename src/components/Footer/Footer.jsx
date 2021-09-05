@@ -7,13 +7,13 @@ const Footer = () => {
   return (
     <>
       <footer>
-        <div class="footer-inner wrapper">
-          <div class="header-logo">
+        <div className="footer-inner wrapper">
+          <div className="header-logo">
             <Link to={RouteList.home}>Fete</Link>
           </div>
 
-          <div class="footer-menus">
-            <div class="about">
+          <div className="footer-menus">
+            <div className="about">
               <h3>
                 <span>about us</span>
               </h3>
@@ -33,7 +33,7 @@ const Footer = () => {
                 </li>
               </ul>
             </div>
-            <div class="policy">
+            <div className="policy">
               <h3>
                 <span>our policies</span>
               </h3>
@@ -51,10 +51,10 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div class="copyright">
+        <div className="copyright">
           &copy;<span>Fete</span>
         </div>
-        <div class="rainbow"></div>
+        <div className="rainbow"></div>
       </footer>
     </>
   );

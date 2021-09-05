@@ -121,7 +121,8 @@ li.DashbordItem {
     width: 100%;
 
     g {
-      transform: translate(0px, -25px);
+      transform-origin: center;
+      transform: rotate(-90deg) translate(0px, -25px);
     }
   }
 }

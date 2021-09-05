@@ -3,7 +3,6 @@ import { useEventBoard } from "../../contexts/EventBoardContext";
 import "../Login-Signup/Forms.scss";
 
 const TaskForm = ({ columnId, column }) => {
-  // console.log("column ", column.length);
   const { addTask } = useEventBoard();
 
   const [title, setTitle] = useState("");
@@ -12,10 +11,7 @@ const TaskForm = ({ columnId, column }) => {
   const [expenseActual, setExpenseActual] = useState();
   const [error, setError] = useState("");
 
-  // console.log("columnId ", columnId);
-
   function add(title = "", content, expenseBudget, expenseActual) {
-    // console.log(`New Task: task_order: ${column.length} columnId: ${columnId}, title: ${title}, content: ${content}`);
     const data = [column.length, columnId, 1, title, content, expenseBudget, expenseActual];
     // task_order, column_id(columnId), status(1), title, content, due_date(optional)
     addTask(data);
@@ -25,8 +21,8 @@ const TaskForm = ({ columnId, column }) => {
   const reset = () => {
     setTitle("");
     setContent("");
-    setExpenseBudget();
-    setExpenseActual();
+    setExpenseBudget("");
+    setExpenseActual("");
   };
 
   function validate(title, content, expenseBudget, expenseActual) {
@@ -40,7 +36,6 @@ const TaskForm = ({ columnId, column }) => {
 
   return (
     <div className="add-item-container wrapper">
-      {/* <h2>Add New Task</h2> */}
       <form autoComplete="off" onSubmit={(e) => e.preventDefault()}>
         <div className="form-group">
           <div>
@@ -72,10 +67,8 @@ const TaskForm = ({ columnId, column }) => {
               value={content}
               data-testid="task-content-input"
             ></textarea>
-
             {error && <span className="error">{error}</span>}
           </div>
-
           <div className="budget container">
             <div className="task_expense_budget">
               <label htmlFor="task_expense_budget">Budget: </label>
@@ -86,7 +79,6 @@ const TaskForm = ({ columnId, column }) => {
                 onChange={(e) => setExpenseBudget(e.target.value)}
               />
             </div>
-
             <div className="task_expense_actual">
               <label htmlFor="task_expense_actual">True Cost: </label>
               <input
@@ -97,18 +89,11 @@ const TaskForm = ({ columnId, column }) => {
               />
             </div>
           </div>
-
           <div className="btn-container">
             <button className="add-task-btn" onClick={() => validate(title, content, expenseBudget, expenseActual)}>
               Add Task
             </button>
           </div>
-          {/* <button danger onClick={cancel}>
-            Cancel
-          </button>
-          <button confirm onClick={validate}>
-            Save
-          </button> */}
         </div>
       </form>
     </div>

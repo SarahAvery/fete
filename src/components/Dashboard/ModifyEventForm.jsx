@@ -18,7 +18,7 @@ const ModifyEventForm = (props) => {
   const [secondName, setSecondName] = useState(event.second_name);
   const [email, setEmail] = useState(event.email);
   const [phone, setPhone] = useState(formatPhone(event.phone));
-  const [unit, setUnit] = useState(event.unit);
+  const [unit, setUnit] = useState(event.unit || "");
   const [streetNo, setStreetNo] = useState(event.street_number);
   const [streetName, setStreetName] = useState(event.street_name);
   const [streetType, setStreetType] = useState(event.street_type);
@@ -141,7 +141,7 @@ const ModifyEventForm = (props) => {
           <div className="address container">
             <div className="unit">
               <label htmlFor="unit">Unit: </label>
-              <input type="text" name="unit" required value={unit} onChange={(e) => setUnit(e.target.value)} />
+              <input type="text" name="unit" value={unit} onChange={(e) => setUnit(e.target.value)} />
             </div>
             <div className="s-number">
               <label htmlFor="street_number">Street No.: </label>
@@ -204,7 +204,8 @@ const ModifyEventForm = (props) => {
             <div className="display-event-date">
               <div className="current-date-container">
                 <p>Current Date:</p>
-                {!newDate && <p>{formatDate(date)}</p>}
+                <p>{formatDate(event.event_date)}</p>
+                {/* {!newDate && <p>{formatDate(date)}</p>} */}
               </div>
               <div className="new-date-container">
                 <label htmlFor="date">New Date:</label>

@@ -17,7 +17,6 @@ const TaskForm = ({ columnId, column }) => {
   function add(title = "", content, expenseBudget, expenseActual) {
     // console.log(`New Task: task_order: ${column.length} columnId: ${columnId}, title: ${title}, content: ${content}`);
     const data = [column.length, columnId, 1, title, content, expenseBudget, expenseActual];
-    console.log('data in TaskForm: ', data)
     // task_order, column_id(columnId), status(1), title, content, due_date(optional)
     addTask(data);
     reset();

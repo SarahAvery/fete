@@ -55,19 +55,31 @@ li.DashbordItem {
   &:nth-child(2n + 1) {
     margin-right: 15px;
   }
+  .btn-container-parent {
+    display: flex;
 
-  .btn-container {
-    width: 100%;
-    height: auto;
-    text-align: center;
-    margin: 10px 0;
+    .btn-container {
+      display: flex;
+      flex-direction: row;
+      height: auto;
+      justify-content: center;
+      margin: 10px 5px;
+      text-align: center;
+      width: 100%;
 
-    a {
-      background-color: rgb(130, 156, 167);
-      color: #fff;
-      display: inline-block;
-      width: auto;
-      box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+      a {
+        background-color: rgb(130, 156, 167);
+        color: #fff;
+        display: inline-block;
+        width: auto;
+        box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+      }
+    }
+    .left {
+      justify-content: flex-end;
+    }
+    .right {
+      justify-content: flex-start;
     }
   }
 }

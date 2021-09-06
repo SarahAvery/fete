@@ -11,7 +11,7 @@ const ProfileContextProvider = ({ children }) => {
     getEvent();
   }, [data]);
 
-  // Using its own route:
+  // Using its own route for a single event's data:
   // const getEvent = async () => {
   //   const params = new URLSearchParams(document.location.search.substring(1));
   //   const eventId = params.get("eventId");
@@ -26,26 +26,6 @@ const ProfileContextProvider = ({ children }) => {
   //       return data[0]
   //     });
   // };
-
-  // Sharing a route:
-  const getEvent = async () => {
-    const params = new URLSearchParams(document.location.search.substring(1));
-    const eventId = params.get("eventId");
-    console.log('eventId in ProfileContext.jsx', eventId)
-
-    apiRequest(`${process.env.REACT_APP_API_URL}/events`, { method: "GET" })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log('data in ProfileContext: ', data)
-        data.forEach(event => {
-          if (event.event_id == eventId) {
-            console.log('event in ProfileContext: ', event)
-            setEvent(event)
-            return event
-          }
-        })
-      });
-  };
 
   /*
   getEvents returned object:
@@ -70,6 +50,25 @@ const ProfileContextProvider = ({ children }) => {
   }
   */
 
+  // Sharing a route and retrieving all events for this user, then iterating to only return the one event:
+  const getEvent = async () => {
+    const params = new URLSearchParams(document.location.search.substring(1));
+    const eventId = params.get("eventId");
+    console.log('eventId in ProfileContext.jsx', eventId)
+
+    apiRequest(`${process.env.REACT_APP_API_URL}/events`, { method: "GET" })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log('data in ProfileContext: ', data)
+        data.forEach(event => {
+          if (event.event_id == eventId) {
+            console.log('event in ProfileContext: ', event)
+            setEvent(event)
+            return event
+          }
+        })
+      });
+  };
 
   const addEvent = async (formData, user) => {
     const userId = user.id;

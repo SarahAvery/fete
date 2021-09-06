@@ -64,6 +64,12 @@ const Profile = () => {
     return phone.includes("-") ? phone : `${phone.slice(0, 3)}-${phone.slice(3, 6)}-${phone.slice(6, 10)}`;
   };
 
+  const formatMoneyOutput = (money) => {
+    return `$${money.toLocaleString("en-US")}`
+  }
+
+  console.log(formatMoneyOutput(100000))
+
   return (
     <Fragment>
       <li className="DashbordItem">
@@ -116,7 +122,7 @@ const Profile = () => {
             </div>
             <h3>Budget: </h3>
             <div className="DashboardItems__progress">
-              { event && <p>Event Budget: {event.expense_budget}</p> }
+              { event && <p>Event Budget: {formatMoneyOutput(event.expense_budget)}</p> }
               { event && <p>Item Expense Total: {event.expense_actual}</p> }
               { event && <Pie className="pie" percentage={budgetPercent} colour="rgb(130, 156, 167)" /> }
             </div>

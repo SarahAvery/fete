@@ -94,10 +94,17 @@ export default function DashboardItem(props) {
               <Pie className="pie" percentage={percent} colour="rgb(130, 156, 167)" />
             </div>
           </div>
-          <div className="btn-container">
+          <div className="btn-container-parent">
+          <div className="btn-container left">
             <Link className="button" to={`/board?eventId=${props.event_id}`}>
               View Board
             </Link>
+          </div>
+          <div className="btn-container right">
+            <Link className="button" to={`/profile?eventId=${props.event_id}`}>
+              Event Profile
+            </Link>
+          </div>
           </div>
         </div>
       </li>

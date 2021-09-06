@@ -23,6 +23,7 @@ const NewEvent = (props) => {
   const [postal, setPostal] = useState();
   const [city, setCity] = useState();
   const [date, setDate] = useState();
+  const [budget, setBudget] = useState();
 
   const formData = {
     eventTitle,
@@ -37,6 +38,7 @@ const NewEvent = (props) => {
     streetType,
     postal,
     city,
+    budget
   };
 
   function addNewEvent(formData, user) {
@@ -130,6 +132,12 @@ const NewEvent = (props) => {
             <div className="city">
               <label htmlFor="city">City: </label>
               <input type="text" name="city" required onChange={(e) => setCity(e.target.value)} />
+            </div>
+          </div>
+          <div className="budget container">
+            <div className="event_budget">
+              <label htmlFor="event_budget">Event Budget: </label>
+              <input type="text" name="event_budget" onChange={(e) => setBudget(e.target.value)} />
             </div>
           </div>
           <div className="datepicker-container">

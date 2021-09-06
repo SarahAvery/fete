@@ -26,6 +26,13 @@ const ModifyEventForm = (props) => {
   const [city, setCity] = useState(event.city);
   const [date, setDate] = useState(event.event_date);
   const [newDate, setNewDate] = useState();
+  const [budget, setBudget] = useState(event.expense_budget);
+  const [currentBudget, setCurrentBudget] = useState(event.expense_budget);
+
+  // set budget to be displayed only on first form render
+  useEffect(() => {
+    setCurrentBudget(budget);
+  }, []);
 
   useEffect(() => {
     if (newDate) {
@@ -46,6 +53,7 @@ const ModifyEventForm = (props) => {
     streetType,
     postal,
     city,
+    budget,
   };
 
   const validate = (formData, eventId) => {
@@ -175,13 +183,24 @@ const ModifyEventForm = (props) => {
               <input type="text" name="city" required value={city} onChange={(e) => setCity(e.target.value)} />
             </div>
           </div>
+
+          <div className="budget container">
+            <div className="current-date-container">
+              <p>Current Budget:</p>
+              <p>{currentBudget}</p>
+            </div>
+            <div className="event_budget">
+              <label htmlFor="event_budget">Update Budget: </label>
+              <input type="text" name="event_budget" onChange={(e) => setBudget(e.target.value)} />
+            </div>
+          </div>
+
           <div className="datepicker-container">
             <div className="display-event-date">
               <div className="current-date-container">
                 <p>Current Date:</p>
                 <p>{formatDate(event.event_date)}</p>
               </div>
-
               <div className="new-date-container">
                 <label htmlFor="date">New Date:</label>
                 <DatePicker

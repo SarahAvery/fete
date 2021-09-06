@@ -5,10 +5,13 @@ const ModifyTaskForm = ({ task }) => {
   const { updateTask, deleteTask } = useEventBoard();
   const [title, setTitle] = useState(task.title);
   const [content, setContent] = useState(task.content);
+  const [expenseBudget, setExpenseBudget] = useState(task.expense_budget);
+  const [expenseActual, setExpenseActual] = useState(task.expense_actual);
+
   const [error, setError] = useState("");
 
   const save = () => {
-    const data = { id: task.id, title, content };
+    const data = { id: task.id, title, content, expense_budget: expenseBudget, expense_actual: expenseActual };
     updateTask(data);
     reset();
   };
@@ -16,15 +19,17 @@ const ModifyTaskForm = ({ task }) => {
   const reset = () => {
     setTitle("");
     setContent("");
+    setExpenseBudget("");
+    setExpenseActual("");
   };
 
-  const validate = (title, content) => {
+  const validate = (title, content, expenseBudget, expenseActual) => {
     if (!content) {
       setError("Please add a description");
       return;
     }
     setError("");
-    save(title, content);
+    save(title, content, expenseBudget, expenseActual);
   };
 
   const onDelete = () => {
@@ -66,10 +71,37 @@ const ModifyTaskForm = ({ task }) => {
               data-testid="task-content-input"
             ></textarea>
 
+
+
+
+          <div className="budget container">
+            <div className="task_expense_budget">
+              <label htmlFor="task_expense_budget">Budget: </label>
+              <input
+                type="text"
+                name="task_expense_budget"
+                value={expenseBudget}
+                onChange={(e) => setExpenseBudget(e.target.value)}
+              />
+            </div>
+
+            <div className="task_expense_actual">
+              <label htmlFor="task_expense_actual">True Cost: </label>
+              <input
+                type="text"
+                name="task_expense_actual"
+                value={expenseActual}
+                onChange={(e) => setExpenseActual(e.target.value)}
+              />
+            </div>
+          </div>
+
+
+
             {error && <span className="error">{error}</span>}
           </div>
           <div className="btn-container">
-            <button className="save-btn" onClick={() => validate(title, content)}>
+            <button className="save-btn" onClick={() => validate(title, content, expenseBudget, expenseActual)}>
               Save
             </button>
             <button className="delete-btn" onClick={() => onDelete()}>

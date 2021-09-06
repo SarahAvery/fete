@@ -4,6 +4,8 @@ import TaskForm from "./TaskForm";
 import Task from "./Task";
 import Column from "./Column";
 import Modal from "../Modal";
+import { Link } from "react-router-dom";
+
 
 import "./EventBoard.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -22,6 +24,9 @@ const EventBoard = () => {
 
   // Initial data
   const { data, updateColumns, setEventBoardData } = useEventBoard();
+  
+  const params = new URLSearchParams(document.location.search.substring(1));
+  const eventId = params.get("eventId");
 
   const [dragging, setDragging] = useState(false);
   const dragItem = useRef();
@@ -102,6 +107,11 @@ const EventBoard = () => {
         <div className="EventBoard">
           <div className="header-banner">
             <h1>{data?.title}</h1>
+            <div className="btn-container right">
+              <Link className="button" to={`/profile?eventId=${eventId}`}>
+                Event Profile
+              </Link>
+            </div>
           </div>
           <div className="board-container">
             <div className="drag-n-drop scrollbar">

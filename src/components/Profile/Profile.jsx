@@ -123,7 +123,7 @@ const Profile = () => {
             <h3>Budget: </h3>
             <div className="DashboardItems__progress">
               { event && <p>Event Budget: {formatMoneyOutput(event.expense_budget)}</p> }
-              { event && <p>Item Expense Total: {event.expense_actual}</p> }
+              { event && <p>Item Expense Total: {formatMoneyOutput(event.expense_actual)}</p> }
               { event && <Pie className="pie" percentage={budgetPercent} colour="rgb(130, 156, 167)" /> }
             </div>
           </div>

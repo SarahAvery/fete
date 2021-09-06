@@ -7,11 +7,6 @@ class RouterRoot extends React.Component {
   static contextType = UserContext;
 
   componentDidUpdate(prevProps) {
-    const { location } = this.props;
-    const { location: locationPrev } = prevProps;
-
-    // console.log(location, locationPrev);
-
     if (!isLoggedIn) {
       this.context.setUser({});
     }

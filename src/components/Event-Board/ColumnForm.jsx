@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useEventBoard } from "../../contexts/EventBoardContext";
-import "../Login-Signup/Forms.scss";
+import "../Forms.scss";
 
 const TaskForm = ({ columnId, column }) => {
   const { addTask } = useEventBoard();
@@ -9,11 +9,8 @@ const TaskForm = ({ columnId, column }) => {
   const [content, setContent] = useState("");
   const [error, setError] = useState("");
 
-
   function add(title = "", content) {
-    // console.log(`New Task: task_order: ${column.length} columnId: ${columnId}, title: ${title}, content: ${content}`);
     const data = [column.length, columnId, 1, title, content];
-    // task_order, column_id(columnId), status(1), title, content, due_date(optional)
     addTask(data);
     reset();
   }
@@ -34,7 +31,6 @@ const TaskForm = ({ columnId, column }) => {
 
   return (
     <div className="add-item-container wrapper">
-      {/* <h2>New Task</h2> */}
       <form autoComplete="off" onSubmit={(e) => e.preventDefault()}>
         <div className="form-group">
           <div>
@@ -74,12 +70,6 @@ const TaskForm = ({ columnId, column }) => {
               Add Task
             </button>
           </div>
-          {/* <button danger onClick={cancel}>
-            Cancel
-          </button>
-          <button confirm onClick={validate}>
-            Save
-          </button> */}
         </div>
       </form>
     </div>

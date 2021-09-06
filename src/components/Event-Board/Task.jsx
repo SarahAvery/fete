@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import Modal from "../Modal";
 import ModifyTaskForm from "./ModifyTaskForm";
 
-// import PropTypes from "prop-types";
-
 const ModifyModal = ({ isOpen, onClose, children }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -12,7 +10,7 @@ const ModifyModal = ({ isOpen, onClose, children }) => {
   );
 };
 
-export default function SwimlaneItem({ item, onDragStart, onDragEnter, className }) {
+export default function Task({ item, onDragStart, onDragEnter, className }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (

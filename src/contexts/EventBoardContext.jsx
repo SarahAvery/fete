@@ -48,8 +48,6 @@ const EventBoardContextProvider = ({ children }) => {
         body: JSON.stringify(data),
         headers: { "Content-Type": "application/json" },
       });
-      // setEventBoardData(data);
-      // getColumns();
     } catch (err) {
       console.log(err);
     }
@@ -64,7 +62,6 @@ const EventBoardContextProvider = ({ children }) => {
         body: JSON.stringify(data),
         headers: { "Content-Type": "application/json" },
       });
-      // setEventBoardData(data);
       getColumns();
     } catch (err) {
       console.log(err);
@@ -91,12 +88,10 @@ const EventBoardContextProvider = ({ children }) => {
     const eventId = params.get("eventId");
 
     try {
-      // console.log("Deleted ", data);
       await apiRequest(`${process.env.REACT_APP_API_URL}/task/${eventId}/delete`, {
         body: JSON.stringify(data),
         headers: { "Content-Type": "application/json" },
       });
-      // setEventBoardData(data);
       getColumns();
     } catch (err) {
       console.log(err);
@@ -108,7 +103,6 @@ const EventBoardContextProvider = ({ children }) => {
     const eventId = params.get("eventId");
 
     try {
-      console.log(data);
       await apiRequest(`${process.env.REACT_APP_API_URL}/board/${eventId}/updateCol`, {
         body: JSON.stringify(data),
         headers: { "Content-Type": "application/json" },

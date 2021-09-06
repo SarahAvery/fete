@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useEventBoard } from "../../contexts/EventBoardContext";
-import "../Login-Signup/Forms.scss";
 
 const ModifyTaskForm = ({ task }) => {
   const { updateTask, deleteTask } = useEventBoard();
@@ -77,12 +76,6 @@ const ModifyTaskForm = ({ task }) => {
               Delete
             </button>
           </div>
-          {/* <button danger onClick={cancel}>
-            Cancel
-          </button>
-          <button confirm onClick={validate}>
-            Save
-          </button> */}
         </div>
       </form>
     </div>

@@ -32,32 +32,19 @@ const Dashboard = () => {
         </div>
         {form && (
           <div>
-            <Modal 
-              isOpen={form.visible} 
-              onClose={() => 
-              setForm({ ...form, visible: false })}>
+            <Modal isOpen={form.visible} onClose={() => setForm({ ...form, visible: false })}>
               <NewEvent closeForm={closeForm} />
             </Modal>
           </div>
         )}
         <ul>
           {events?.map((event) => (
-            <DashboardItem 
-              key={event.event_id} 
-              {...event} 
-              closeForm={closeForm} 
-              openForm={openForm} 
-            />
+            <DashboardItem key={event.event_id} {...event} closeForm={closeForm} openForm={openForm} />
           ))}
         </ul>
       </div>
     </div>
   );
 };
-
-// Dashboard.propTypes = {
-//   events: PropTypes.array,
-//   key: PropTypes.number,
-// };
 
 export default withDashboard(Dashboard);

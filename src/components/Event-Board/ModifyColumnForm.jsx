@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useEventBoard } from "../../contexts/EventBoardContext";
-import "../Login-Signup/Forms.scss";
+import "../Forms.scss";
 
 const ModifyColumnForm = ({ column }) => {
   const { updateColumnName } = useEventBoard();
@@ -10,7 +10,6 @@ const ModifyColumnForm = ({ column }) => {
 
   const save = (title) => {
     const data = { id: column.id, title };
-    // console.log(data);
     updateColumnName(data);
     saved();
     reset();
@@ -38,10 +37,6 @@ const ModifyColumnForm = ({ column }) => {
     save(title);
   };
 
-  // const onDelete = () => {
-  //   deleteColumn({ id: column.id });
-  // };
-
   return (
     <div className="modify-column-container wrapper">
       <h2>Column Name</h2>
@@ -60,17 +55,11 @@ const ModifyColumnForm = ({ column }) => {
               data-testid="col-title-input"
             />
             <p>{message && <span className={btnName}>{message}</span>}</p>
-            {/* <p>{error && <span className="error">{error}</span>}</p> */}
-            {/* {message && <span className="saved">{message}</span>} */}
           </div>
           <div className="btn-container">
             <button className="save-btn" onClick={() => validate(title)}>
               Save
             </button>
-
-            {/* <button className="delete-btn" onClick={() => onDelete()}>
-              Delete
-            </button> */}
           </div>
         </div>
       </form>

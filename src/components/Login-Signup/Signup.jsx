@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import Button from "../Button";
 
-import "../Login-Signup/Forms.scss";
-// import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
 import { authManager, isLoggedIn } from "../../utils/authUtils";
 import { history } from "../Application";
@@ -30,8 +28,8 @@ const Signup = (props) => {
         .then((data) => {
           if (data.authenticated) {
             // email exists but password doesn't match
-            setEmailError(true)
-            return
+            setEmailError(true);
+            return;
           }
           setUser(data);
           history.push(RouteList.dashboard);
@@ -60,15 +58,10 @@ const Signup = (props) => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            { emailError && <span className="error">This email is already registered. Please login.</span>}
+            {emailError && <span className="error">This email is already registered. Please login.</span>}
             <div>
               <label htmlFor="password">password: </label>
-              <input 
-                type="password" 
-                name="password" 
-                onChange={(e) => setPassword(e.target.value)} 
-                required 
-              />
+              <input type="password" name="password" onChange={(e) => setPassword(e.target.value)} required />
             </div>
             <div>
               <label htmlFor="confirm-password">confirm password: </label>
@@ -81,10 +74,7 @@ const Signup = (props) => {
               {passError && <span className="error">Password does not match</span>}
             </div>
             <div className="btn-container">
-              {<Button 
-                onClick={() => registerUser({ email, password })}>
-                Register
-                </Button>}
+              {<Button onClick={() => registerUser({ email, password })}>Register</Button>}
             </div>
           </div>
         </form>

@@ -2,8 +2,10 @@ import React from "react";
 
 const cleanPercentage = (percentage) => {
   const tooLow = !Number.isFinite(+percentage) || percentage < 0;
-  const tooHigh = percentage > 100;
-  return tooLow ? 0 : tooHigh ? 100 : +percentage;
+  // Remove too high check so we can display when an event is overbudget
+  // const tooHigh = percentage > 100;
+  // return tooLow ? 0 : tooHigh ? 100 : +percentage;
+  return tooLow ? 0 : +percentage;
 };
 
 const Circle = ({ colour, pct }) => {

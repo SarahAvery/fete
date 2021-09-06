@@ -26,12 +26,20 @@ const TaskForm = ({ columnId, column }) => {
   };
 
   function validate(title, content, expenseBudget, expenseActual) {
+    let cleanBudget = formatMoneyInput(expenseBudget)
+    let cleanActual = formatMoneyInput(expenseActual)
     if (!content) {
       setError("Please add a description");
       return;
     }
     setError("");
-    add(title, content, expenseBudget, expenseActual);
+    add(title, content, cleanBudget, cleanActual);
+  }
+
+  const formatMoneyInput = (moneyInput) => {
+    let input = String(moneyInput)
+    input = input.includes('$') ? input = input.slice(1) : input
+    return parseInt(input.replace(',',''))
   }
 
   return (

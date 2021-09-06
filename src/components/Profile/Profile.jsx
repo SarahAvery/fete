@@ -27,6 +27,7 @@ const Profile = () => {
 
   const [completionPercent, setCompletionPercent] = useState();
   const [budgetPercent, setBudgetPercent] = useState();
+  const [isOpen, setIsOpen] = useState({ visible: false });
 
   useEffect(() => {
     if (event) {
@@ -34,8 +35,6 @@ const Profile = () => {
       setBudgetPercent(Math.round((parseInt(event.expense_actual) / parseInt(event.expense_budget)) * 100));
     }
   }, [event]);
-
-  const [isOpen, setIsOpen] = useState({ visible: false });
 
   const openForm = () => {
     setIsOpen({ visible: true });
@@ -51,6 +50,10 @@ const Profile = () => {
 
   const formatPhoneState = (phone) => {
     return phone.includes("-") ? phone : `${phone.slice(0, 3)}-${phone.slice(3, 6)}-${phone.slice(6, 10)}`;
+  };
+
+  const formatMoneyOutput = (money) => {
+    return `$${money.toLocaleString("en-US")}`;
   };
 
   return (
@@ -119,12 +122,12 @@ const Profile = () => {
 
                     <div className="info-section">
                       <p className="subtitle">Event Budget:</p>
-                      {event && <p>{event.expense_budget}</p>}
+                      {event && <p>{formatMoneyOutput(event.expense_budget)}</p>}
                     </div>
 
                     <div className="info-section">
                       <p className="subtitle">Expense Total:</p>
-                      {event && <p>{event.expense_actual}</p>}
+                      {event && <p>{formatMoneyOutput(event.expense_actual)}</p>}
                     </div>
 
                     <div className="progress-circle">

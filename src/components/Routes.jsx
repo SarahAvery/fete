@@ -10,6 +10,7 @@ import NewEvent from "./Dashboard/NewEvent";
 import ProtectedRoute from "./ProtectedRoute";
 import CoreRoute from "./CoreRoute";
 import HomePage from "./HomePage/HomePage";
+import Profile from "./Profile/Profile";
 
 export const RouteList = {
   dashboard: "/dashboard",
@@ -18,6 +19,7 @@ export const RouteList = {
   login: "/login",
   board: "/board",
   newevent: "/newevent",
+  profile: "/profile",
 };
 
 export default (
@@ -30,6 +32,7 @@ export default (
     <ProtectedRoute path={RouteList.board} component={EventBoard} />
     <ProtectedRoute path={RouteList.dashboard} component={Dashboard} />
     <ProtectedRoute path={RouteList.newevent} component={NewEvent} />
+    <ProtectedRoute path={RouteList.profile} component={Profile} />
 
     <Route path="*">
       <h3>404 not found</h3>

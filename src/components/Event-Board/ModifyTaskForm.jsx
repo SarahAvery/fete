@@ -11,7 +11,7 @@ const ModifyTaskForm = ({ task }) => {
   const [error, setError] = useState("");
 
   const save = () => {
-    const data = { id: task.id, title, content, expense_budget: expenseBudget, expense_actual: expenseActual };
+    const data = { id: task.id, title, content, expense_budget: formatMoneyInput(expenseBudget), expense_actual: formatMoneyInput(expenseActual) };
     updateTask(data);
     reset();
   };
@@ -23,18 +23,24 @@ const ModifyTaskForm = ({ task }) => {
     setExpenseActual("");
   };
 
-  const validate = (title, content, expenseBudget, expenseActual) => {
+  const validate = (content) => {
     if (!content) {
       setError("Please add a description");
       return;
     }
     setError("");
-    save(title, content, expenseBudget, expenseActual);
+    save();
   };
 
   const onDelete = () => {
     deleteTask({ id: task.id });
   };
+
+  const formatMoneyInput = (moneyInput) => {
+    let input = String(moneyInput)
+    input = input.includes('$') ? input = input.slice(1) : input
+    return parseInt(input.replace(',',''))
+  }
 
   return (
     <div className="modify-task-container wrapper">
@@ -70,10 +76,6 @@ const ModifyTaskForm = ({ task }) => {
               value={content}
               data-testid="task-content-input"
             ></textarea>
-
-
-
-
           <div className="budget container">
             <div className="task_expense_budget">
               <label htmlFor="task_expense_budget">Budget: </label>
@@ -84,7 +86,6 @@ const ModifyTaskForm = ({ task }) => {
                 onChange={(e) => setExpenseBudget(e.target.value)}
               />
             </div>
-
             <div className="task_expense_actual">
               <label htmlFor="task_expense_actual">True Cost: </label>
               <input
@@ -95,13 +96,10 @@ const ModifyTaskForm = ({ task }) => {
               />
             </div>
           </div>
-
-
-
             {error && <span className="error">{error}</span>}
           </div>
           <div className="btn-container">
-            <button className="save-btn" onClick={() => validate(title, content, expenseBudget, expenseActual)}>
+            <button className="save-btn" onClick={() => validate(content)}>
               Save
             </button>
             <button className="delete-btn" onClick={() => onDelete()}>

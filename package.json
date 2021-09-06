@@ -6,13 +6,10 @@
     "@babel/code-frame": "7.14.5",
     "babel": "6.23.0",
     "classnames": "2.3.1",
-    "cors": "2.8.5",
-    "jquery": "3.6.0",
     "jsonwebtoken": "8.5.1",
     "node": "16.6.1",
-    "normalize.css": "8.0.1",
     "react": "16.9.0",
-    "react-datepicker": "^4.2.1",
+    "react-datepicker": "4.2.1",
     "react-dom": "16.9.0",
     "react-router-dom": "5.2.0",
     "react-scripts": "4.0.0",
@@ -20,9 +17,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --verbose",
-    "eject": "react-scripts eject"
+    "build": "react-scripts build"
    
   },
   "proxy": "http://localhost:8002",
@@ -39,6 +34,7 @@
     ]
   },
   "devDependencies": {
+    "cors": "2.8.5",
     "react-test-renderer": "17.0.2",
     "@testing-library/react-hooks": "7.0.1",
     "react-hooks-testing-library": "0.6.0",

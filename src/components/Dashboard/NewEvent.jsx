@@ -46,6 +46,11 @@ const NewEvent = (props) => {
     closeForm();
   }
 
+  const formatMoneyInput = (moneyInput) => {
+    let input = moneyInput.includes('$') ? moneyInput = moneyInput.slice(1) : moneyInput
+    setBudget(parseInt((input.replace(',',''))))
+  }
+
   return (
     <div className="new-event-container wrapper">
       <h2>New Event</h2>
@@ -137,7 +142,7 @@ const NewEvent = (props) => {
           <div className="budget container">
             <div className="event_budget">
               <label htmlFor="event_budget">Event Budget: </label>
-              <input type="text" name="event_budget" onChange={(e) => setBudget(e.target.value)} />
+              <input type="text" name="event_budget" onChange={(e) => formatMoneyInput(e.target.value)} />
             </div>
           </div>
           <div className="datepicker-container">

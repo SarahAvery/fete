@@ -66,6 +66,10 @@ const ModifyEventForm = (props) => {
     closeForm();
   };
 
+  const formatMoneyOutput = (money) => {
+    return `$${money.toLocaleString("en-US")}`
+  }
+
   return (
     <div className="new-event-container wrapper">
       <h2>Update Event</h2>
@@ -186,8 +190,7 @@ const ModifyEventForm = (props) => {
 
           <div className="budget container">
             <div className="current-date-container">
-              <p>Current Budget:</p>
-              <p>{currentBudget}</p>
+              <p>Current Budget: {formatMoneyOutput(currentBudget)}</p>
             </div>
             <div className="event_budget">
               <label htmlFor="event_budget">Update Budget: </label>

@@ -6,7 +6,6 @@ import Column from "./Column";
 import Modal from "../Modal";
 import { Link } from "react-router-dom";
 
-
 import "./EventBoard.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -24,7 +23,7 @@ const EventBoard = () => {
 
   // Initial data
   const { data, updateColumns, setEventBoardData } = useEventBoard();
-  
+
   const params = new URLSearchParams(document.location.search.substring(1));
   const eventId = params.get("eventId");
 

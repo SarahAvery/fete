@@ -1,0 +1,130 @@
+.Profile {
+  width: 100%;
+  padding-bottom: 60px;
+  .wrapper {
+    flex-wrap: wrap;
+  }
+
+  .header-banner {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    margin: 30px 0;
+    padding-top: 50px;
+
+    h1 {
+      font-family: "Merriweather", serif;
+    }
+
+    p {
+      display: flex;
+    }
+    i {
+      color: grey;
+      align-self: center;
+    }
+  }
+
+  .profile-container {
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid rgb(130, 156, 167);
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  }
+  section {
+    padding: 10px 8px;
+    width: 100%;
+
+    h2 {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+
+  .info-section {
+    display: flex;
+
+    p {
+      padding: 4px;
+    }
+    p.subtitle {
+      font-weight: bolder;
+      width: auto;
+    }
+  }
+
+  .profile-info {
+    border-bottom: 1px solid rgb(130, 156, 167);
+  }
+
+  .progress-info {
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+    }
+
+    .content {
+      width: 50%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .tasks-complete {
+      width: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .progress-circle {
+        flex-grow: 0;
+      }
+    }
+
+    .budget,
+    .tasks-complete {
+      padding: 8px;
+      width: auto;
+      // border-radius: 4px;
+      // border: 1px solid rgb(130, 156, 167);
+      // box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .progress-circle {
+    flex-grow: 1;
+
+    svg {
+      margin: 0 auto;
+      width: 100%;
+
+      g {
+        transform-origin: center;
+        transform: rotate(-90deg) translate(0px, -25px);
+      }
+    }
+  }
+
+  .pie {
+    margin: 0 auto;
+  }
+
+  .btn-container {
+    display: flex;
+    height: auto;
+    justify-content: center;
+    margin: 10px 5px;
+    text-align: center;
+    width: 100%;
+
+    a {
+      background-color: rgb(130, 156, 167);
+      color: #fff;
+      display: inline-block;
+      width: auto;
+      box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+      margin: 0 10px;
+    }
+  }
+}

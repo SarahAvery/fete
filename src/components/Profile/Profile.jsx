@@ -34,18 +34,14 @@ const Profile = () => {
 
   const [completionPercent, setCompletionPercent] = useState();
   const [budgetPercent, setBudgetPercent] = useState();
+  const [isOpen, setIsOpen] = useState({ visible: false });
 
   useEffect(() => {
     if (event) {
-      // console.log('event defined: ', event)
       setCompletionPercent(Math.round((parseInt(event.completed_tasks) / parseInt(event.total_tasks)) * 100))
       setBudgetPercent(Math.round((parseInt(event.expense_actual) / parseInt(event.expense_budget)) * 100))
-      // console.log('completionPercent defined: ', completionPercent)
-      // console.log('budgetPercent defined: ', budgetPercent)
     }
   }, [event])
-
-  const [isOpen, setIsOpen] = useState({ visible: false });
 
   const openForm = () => {
     setIsOpen({ visible: true });
@@ -67,8 +63,6 @@ const Profile = () => {
   const formatMoneyOutput = (money) => {
     return `$${money.toLocaleString("en-US")}`
   }
-
-  console.log(formatMoneyOutput(100000))
 
   return (
     <Fragment>

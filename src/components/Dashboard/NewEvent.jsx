@@ -164,8 +164,4 @@ const NewEvent = (props) => {
   );
 };
 
-NewEvent.propTypes = {
-  // onNewEvent: PropTypes.func,
-};
-
 export default NewEvent;

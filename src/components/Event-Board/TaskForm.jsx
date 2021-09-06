@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useEventBoard } from "../../contexts/EventBoardContext";
-import "../Login-Signup/Forms.scss";
+import "../Forms.scss";
 
 const TaskForm = ({ columnId, column }) => {
   const { addTask } = useEventBoard();

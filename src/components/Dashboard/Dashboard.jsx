@@ -47,9 +47,4 @@ const Dashboard = () => {
   );
 };
 
-// Dashboard.propTypes = {
-//   events: PropTypes.array,
-//   key: PropTypes.number,
-// };
-
 export default withDashboard(Dashboard);

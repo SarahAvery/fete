@@ -57,11 +57,6 @@ const ModifyEventForm = (props) => {
   };
 
   const validate = (formData, eventId) => {
-    // if (!formData) {
-    //   // setError("Please fill in the missing fields");
-    //   return;
-    // }
-    // setError("");
     updateEvent(formData, eventId);
     closeForm();
   };
@@ -205,7 +200,6 @@ const ModifyEventForm = (props) => {
               <div className="current-date-container">
                 <p>Current Date:</p>
                 <p>{formatDate(event.event_date)}</p>
-                {/* {!newDate && <p>{formatDate(date)}</p>} */}
               </div>
               <div className="new-date-container">
                 <label htmlFor="date">New Date:</label>
@@ -226,10 +220,6 @@ const ModifyEventForm = (props) => {
       </form>
     </div>
   );
-};
-
-ModifyEventForm.propTypes = {
-  // onNewEvent: PropTypes.func,
 };
 
 export default ModifyEventForm;

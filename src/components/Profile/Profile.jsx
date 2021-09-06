@@ -1,5 +1,5 @@
 import React, { useState, Fragment, useEffect } from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import Modal from "../Modal";
 import ModifyEventForm from "../Dashboard/ModifyEventForm";
 import { useProfile, withProfile } from "../../contexts/ProfileContext";
@@ -29,26 +29,21 @@ const ModifyModal = ({ isOpen, onClose, children }) => {
 const Profile = () => {
   const params = new URLSearchParams(document.location.search.substring(1));
   const eventId = params.get("eventId");
-  // console.log('eventId in Profile.jsx', eventId)
 
   const { event } = useProfile();
 
   const [completionPercent, setCompletionPercent] = useState();
   const [budgetPercent, setBudgetPercent] = useState();
 
-
   useEffect(() => {
     if (event) {
-      console.log('event defined: ', event)
+      // console.log('event defined: ', event)
       setCompletionPercent(Math.round((parseInt(event.completed_tasks) / parseInt(event.total_tasks)) * 100))
       setBudgetPercent(Math.round((parseInt(event.expense_actual) / parseInt(event.expense_budget)) * 100))
-      console.log('completionPercent defined: ', completionPercent)
-      console.log('budgetPercent defined: ', budgetPercent)
+      // console.log('completionPercent defined: ', completionPercent)
+      // console.log('budgetPercent defined: ', budgetPercent)
     }
   }, [event])
-
-
-
 
   const [isOpen, setIsOpen] = useState({ visible: false });
 
@@ -68,8 +63,6 @@ const Profile = () => {
   const formatPhoneState = (phone) => {
     return phone.includes("-") ? phone : `${phone.slice(0, 3)}-${phone.slice(3, 6)}-${phone.slice(6, 10)}`;
   };
-
-
 
   return (
     <Fragment>
@@ -141,8 +134,8 @@ const Profile = () => {
   );
 }
 
-Profile.propTypes = {
+// Profile.propTypes = {
 
-};
+// };
 
 export default withProfile(Profile);

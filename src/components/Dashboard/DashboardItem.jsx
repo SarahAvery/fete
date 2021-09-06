@@ -7,14 +7,6 @@ import Pie from "./Circle";
 import "./Dashboard.scss";
 import { Link } from "react-router-dom";
 
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-  integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
-  crossorigin="anonymous"
-  referrerpolicy="no-referrer"
-/>;
-
 const ModifyModal = ({ isOpen, onClose, children }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -51,7 +43,7 @@ export default function DashboardItem(props) {
         <div className="DashboardItem__content">
           <div className="DashboardItem__titleBox">
             <h3>{props.title}</h3>
-            <i className="fas fa-ellipsis-h" onClick={() => openForm()}></i>
+            <i className="fas fa-pen fa-sm" onClick={() => openForm()}></i>
             <ModifyModal isOpen={isOpen.visible} onClose={() => setIsOpen({ ...isOpen, visible: false })}>
               <ModifyEventForm
                 event={props}
@@ -94,17 +86,13 @@ export default function DashboardItem(props) {
               <Pie className="pie" percentage={percent} colour="rgb(130, 156, 167)" />
             </div>
           </div>
-          <div className="btn-container-parent">
-          <div className="btn-container left">
+          <div className="btn-container ">
             <Link className="button" to={`/board?eventId=${props.event_id}`}>
               View Board
             </Link>
-          </div>
-          <div className="btn-container right">
             <Link className="button" to={`/profile?eventId=${props.event_id}`}>
               Event Profile
             </Link>
-          </div>
           </div>
         </div>
       </li>

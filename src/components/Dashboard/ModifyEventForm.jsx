@@ -70,6 +70,11 @@ const ModifyEventForm = (props) => {
     return `$${money.toLocaleString("en-US")}`
   }
 
+  const formatMoneyInput = (moneyInput) => {
+    let input = moneyInput.includes('$') ? moneyInput = moneyInput.slice(1) : moneyInput
+    setBudget(parseInt((input.replace(',',''))))
+  }
+
   return (
     <div className="new-event-container wrapper">
       <h2>Update Event</h2>
@@ -194,7 +199,7 @@ const ModifyEventForm = (props) => {
             </div>
             <div className="event_budget">
               <label htmlFor="event_budget">Update Budget: </label>
-              <input type="text" name="event_budget" onChange={(e) => setBudget(e.target.value)} />
+              <input type="text" name="event_budget" onChange={(e) => formatMoneyInput(e.target.value)} />
             </div>
           </div>
 

@@ -25,8 +25,6 @@ const Login = () => {
       });
   }
 
-  console.log("error State: ", error);
-
   return (
     <div className="login-container wrapper">
       <h2>Login</h2>
@@ -44,30 +42,19 @@ const Login = () => {
                 required
                 onChange={(e) => setEmail(e.target.value)}
               />
-              {/* <p id="error-msg"> */}
               {error.email && <span className="error">This email was not found. Please signup.</span>}
-              {/* </p> */}
             </div>
             <div>
               <label htmlFor="password">password: </label>
               <input type="password" name="password" required onChange={(e) => setPassword(e.target.value)} />
-              {/* <p id="error-msg"> */}
               {error.authenticated && <span className="error">Incorrect password</span>}
-              {/* </p> */}
             </div>
-            <div className="btn-container">
-              {<Button onClick={() => loginUser({ email, password })}>Login</Button>}
-              {/* <button type="submit">login</button> */}
-            </div>
+            <div className="btn-container">{<Button onClick={() => loginUser({ email, password })}>Login</Button>}</div>
           </div>
         </form>
       )}
     </div>
   );
-};
-
-Login.propTypes = {
-  // onLogin: PropTypes.func,
 };
 
 export default Login;

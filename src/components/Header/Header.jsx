@@ -4,8 +4,6 @@ import { authManager, isLoggedIn } from "../../utils/authUtils";
 import "./Header.scss";
 import { RouteList } from "../Routes";
 
-// import PropTypes from "prop-types";
-
 const Header = () => {
   const isAuthed = isLoggedIn();
 
@@ -28,9 +26,6 @@ const Header = () => {
                   {!isAuthed && <Link to={RouteList.signup}>Signup</Link>}
                   {isAuthed && <Link onClick={() => authManager.logout()}>Logout</Link>}
                 </li>
-
-                {/* <li> {isAuthed && <Link to={RouteList.dashboard}>Dashboard</Link>}</li> */}
-                {/* <li>{isAuthed && <Link onClick={() => authManager.logout()}>Logout</Link>}</li> */}
               </ul>
             </nav>
           </div>
@@ -39,7 +34,5 @@ const Header = () => {
     </>
   );
 };
-
-// Header.propTypes = {};
 
 export default Header;

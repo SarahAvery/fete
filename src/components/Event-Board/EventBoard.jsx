@@ -1,8 +1,8 @@
 import React, { Fragment, useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import TaskForm from "./TaskForm";
-import SwimlaneItem from "./SwimlaneItem";
-import Swimlane from "./Swimlane";
+import Task from "./Task";
+import Column from "./Column";
 import Modal from "../Modal";
 
 import "./EventBoard.scss";
@@ -10,7 +10,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import { useEventBoard, withEventBoard } from "../../contexts/EventBoardContext";
-// import { RouteList } from "../Routes";
 
 const EventBoard = () => {
   // Form
@@ -30,7 +29,6 @@ const EventBoard = () => {
 
   // clean up dragStart
   const handleDragEnd = React.useCallback((evt) => {
-    console.log("ending drag");
     setDragging(false);
     dragNode.current.removeEventListener("dragend", handleDragEnd);
     dragItem.current = null;
@@ -45,7 +43,6 @@ const EventBoard = () => {
 
   const handleDragStart = React.useCallback(
     (e, params) => {
-      console.log("drag starting...", params);
       dragItem.current = params;
 
       dragNode.current = e.target;
@@ -73,11 +70,9 @@ const EventBoard = () => {
   };
 
   const handleDragEnter = (e, params) => {
-    console.log("entering drag..", params);
     const currItem = dragItem.current;
 
     if (e.target !== dragNode.current) {
-      console.log("target is not the same");
       setEventBoardData((oldList) => {
         // deep copy
         let newList = JSON.parse(JSON.stringify(oldList.items));
@@ -107,19 +102,13 @@ const EventBoard = () => {
         <div className="EventBoard">
           <div className="header-banner">
             <h1>{data?.title}</h1>
-
-            {/* <div className="btn-container">
-              <Link className="button" to={RouteList.dashboard}>
-                Events
-              </Link>
-            </div> */}
           </div>
           <div className="board-container">
             <div className="drag-n-drop scrollbar">
               {!!data.items?.length &&
                 data.items.map((column, columnIndex) => {
                   return (
-                    <Swimlane
+                    <Column
                       onDragEnter={
                         dragging && !column.items.length
                           ? (e) => handleDragEnter(e, { columnIndex, itemIndex: 0 })
@@ -131,7 +120,7 @@ const EventBoard = () => {
                     >
                       {column.items.map((item, itemIndex) => {
                         return (
-                          <SwimlaneItem
+                          <Task
                             item={item}
                             draggable
                             onDragStart={(e) => {
@@ -163,7 +152,7 @@ const EventBoard = () => {
                           <TaskForm columnId={column.id} column={column.items} />
                         </Modal>
                       </div>
-                    </Swimlane>
+                    </Column>
                   );
                 })}
             </div>

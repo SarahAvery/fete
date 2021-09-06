@@ -19,7 +19,7 @@ export default function Swimlane({ column, children, onDragEnter, title, id }) {
     <div className="column" onDragEnter={onDragEnter}>
       <div className="column-title">
         <p className="title">{title}</p>
-        <i className="fas fa-ellipsis-h options-btn" onClick={(e) => setIsOpen(true)}></i>
+        <i className="fas fa-pen fa-xs options-btn" onClick={(e) => setIsOpen(true)}></i>
         <ModifyModal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <ModifyColumnForm column={column} />
         </ModifyModal>

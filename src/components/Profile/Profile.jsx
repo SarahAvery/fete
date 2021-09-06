@@ -4,19 +4,12 @@ import Modal from "../Modal";
 import ModifyEventForm from "../Dashboard/ModifyEventForm";
 import { useProfile, withProfile } from "../../contexts/ProfileContext";
 
-
-
 import Pie from "../Dashboard/Circle";
-import "../Dashboard/Dashboard.scss";
-import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-  integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
-  crossorigin="anonymous"
-  referrerpolicy="no-referrer"
-/>;
+import "./Profile.scss";
+import { Link } from "react-router-dom";
 
 const ModifyModal = ({ isOpen, onClose, children }) => {
   return (
@@ -37,13 +30,10 @@ const Profile = () => {
 
   useEffect(() => {
     if (event) {
-      // console.log('event defined: ', event)
-      setCompletionPercent(Math.round((parseInt(event.completed_tasks) / parseInt(event.total_tasks)) * 100))
-      setBudgetPercent(Math.round((parseInt(event.expense_actual) / parseInt(event.expense_budget)) * 100))
-      // console.log('completionPercent defined: ', completionPercent)
-      // console.log('budgetPercent defined: ', budgetPercent)
+      setCompletionPercent(Math.round((parseInt(event.completed_tasks) / parseInt(event.total_tasks)) * 100));
+      setBudgetPercent(Math.round((parseInt(event.expense_actual) / parseInt(event.expense_budget)) * 100));
     }
-  }, [event])
+  }, [event]);
 
   const [isOpen, setIsOpen] = useState({ visible: false });
 
@@ -56,7 +46,6 @@ const Profile = () => {
   };
 
   const formatDateOutput = (timestamptz) => {
-    // console.log('date (timestamptz): ', timestamptz) // => 2016-06-23T02:10:25.000Z
     return new Date(timestamptz).toDateString();
   };
 
@@ -66,73 +55,105 @@ const Profile = () => {
 
   return (
     <Fragment>
-      <li className="DashbordItem">
-        <div className="DashboardItem__content">
-          <div className="DashboardItem__titleBox">
-            { event && <h3>{event.title}</h3> }
-            <i className="fas fa-ellipsis-h" onClick={() => openForm()}></i>
+      <div className="Profile">
+        <div className="wrapper">
+          <div className="header-banner">
+            {event && <h1>{event.title}</h1>}
+            <p>
+              <i className="fas fa-pen fa-sm" onClick={() => openForm()}></i>
+            </p>
             <ModifyModal isOpen={isOpen.visible} onClose={() => setIsOpen({ ...isOpen, visible: false })}>
-              { event && <ModifyEventForm
-                event={event}
-                closeForm={closeForm}
-                openForm={openForm}
-                dateFormat={formatDateOutput}
-                phoneFormat={formatPhoneState}
-              /> }
+              {event && (
+                <ModifyEventForm
+                  event={event}
+                  closeForm={closeForm}
+                  openForm={openForm}
+                  dateFormat={formatDateOutput}
+                  phoneFormat={formatPhoneState}
+                />
+              )}
             </ModifyModal>
           </div>
-          <div className="DashboardItems__container">
-            <div className="DashboardItems__info">
-              <h3>Contact Info</h3>
-              <div className="info-section">
-                <p className="subtitle">Names:</p>
-                { event && <p>
-                   {event.first_name} & {event.second_name}
-                </p> }
+          <div className="profile-container">
+            <section className="profile-info">
+              <div className="container">
+                <h2>Contact Info</h2>
+
+                <div className="info-section">
+                  <p className="subtitle">Names:</p>
+                  {event && (
+                    <p>
+                      {event.first_name} & {event.second_name}
+                    </p>
+                  )}
+                </div>
+                <div className="info-section">
+                  <p className="subtitle">Date:</p>
+                  {event && <p>{formatDateOutput(event.event_date)}</p>}
+                </div>
+                <div className="info-section">
+                  <p className="subtitle">Email:</p>
+                  {event && <p>{event.email}</p>}
+                </div>
+                <div className="info-section">
+                  <p className="subtitle">Phone:</p>
+                  {event && <p>{formatPhoneState(event.phone)}</p>}
+                </div>
+                <div className="info-section">
+                  <p className="subtitle">Address:</p>
+                  {event && (
+                    <p>
+                      {event.unit} {event.street_number}, {event.street_name} {event.street_type}, {event.postal_code},{" "}
+                      {event.city}
+                    </p>
+                  )}
+                </div>
               </div>
-              <div className="info-section">
-                <p className="subtitle">Date:</p>
-                { event && <p>{formatDateOutput(event.event_date)}</p> }
+            </section>
+
+            <section className="progress-info">
+              <div className="container">
+                <div className="content">
+                  <div className="budget">
+                    <h2>Budget</h2>
+
+                    <div className="info-section">
+                      <p className="subtitle">Event Budget:</p>
+                      {event && <p>{event.expense_budget}</p>}
+                    </div>
+
+                    <div className="info-section">
+                      <p className="subtitle">Expense Total:</p>
+                      {event && <p>{event.expense_actual}</p>}
+                    </div>
+
+                    <div className="progress-circle">
+                      {event && <Pie className="pie" percentage={budgetPercent} colour="rgb(130, 156, 167)" />}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="content">
+                  <div className="tasks-complete">
+                    <h2>Tasks Completed</h2>
+                    <div className="progress-circle">
+                      <Pie className="pie" percentage={completionPercent} colour="rgb(130, 156, 167)" />
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="info-section">
-                <p className="subtitle">Email:</p>
-                { event && <p>{event.email}</p> }
-              </div>
-              <div className="info-section">
-                <p className="subtitle">Phone:</p>
-                { event && <p>{formatPhoneState(event.phone)}</p> }
-              </div>
-              <div className="info-section">
-                <p className="subtitle">Address:</p>
-                { event && <p>
-                  {event.unit} {event.street_number}, {event.street_name} {event.street_type}, {event.postal_code},{" "}
-                  {event.city}
-                </p> }
-              </div>
+            </section>
+            <div className="btn-container">
+              <Link className="button" to={`/board?eventId=${eventId}`}>
+                View Board
+              </Link>
             </div>
-            <h3>Progress: </h3>
-            <div className="DashboardItems__progress">
-              <Pie className="pie" percentage={completionPercent} colour="rgb(130, 156, 167)" />
-            </div>
-            <h3>Budget: </h3>
-            <div className="DashboardItems__progress">
-              { event && <p>Event Budget: {event.expense_budget}</p> }
-              { event && <p>Item Expense Total: {event.expense_actual}</p> }
-              { event && <Pie className="pie" percentage={budgetPercent} colour="rgb(130, 156, 167)" /> }
-            </div>
-          </div>
-          <div className="btn-container-parent">
-          <div className="btn-container">
-            <Link className="button" to={`/board?eventId=${eventId}`}>
-              View Board
-            </Link>
-          </div>
           </div>
         </div>
-      </li>
+      </div>
     </Fragment>
   );
-}
+};
 
 // Profile.propTypes = {
 

@@ -19,10 +19,6 @@ const Dashboard = () => {
     setForm({ visible: false });
   };
 
-  useEffect(() => {
-    getEvents();
-  }, [data]);
-
   return (
     <div className="Dashboard ">
       <div className="wrapper">

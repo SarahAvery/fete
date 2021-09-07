@@ -38,7 +38,6 @@ const Text = ({ percentage }) => {
 const Pie = ({ percentage, colour }) => {
   const pct = cleanPercentage(percentage);
 
-  console.log(colour);
   let circleBackground = "lightgrey";
   let circleColor = colour;
 

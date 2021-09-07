@@ -249,7 +249,8 @@
   }
 }
 
-.new-event-container {
+.new-event-container,
+.modify-column-container {
   .datepicker-container {
     margin: 10px 0;
 
@@ -286,6 +287,7 @@
 
     button {
       box-shadow: none;
+      margin: 0 auto;
     }
     .react-datepicker-popper[data-placement^="top"] .react-datepicker__triangle {
       &::after {

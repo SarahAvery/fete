@@ -118,6 +118,7 @@ const EventBoard = () => {
                 data.items.map((column, columnIndex) => {
                   return (
                     <Column
+                      onClose={() => setForm({ ...form, visible: false })}
                       onDragEnter={
                         dragging && !column.items.length
                           ? (e) => handleDragEnter(e, { columnIndex, itemIndex: 0 })
@@ -158,7 +159,11 @@ const EventBoard = () => {
                           isOpen={form.visible && form.column === columnIndex}
                           onClose={() => setForm({ ...form, visible: false })}
                         >
-                          <TaskForm columnId={column.id} column={column.items} />
+                          <TaskForm
+                            columnId={column.id}
+                            column={column.items}
+                            onClose={() => setForm({ ...form, visible: false })}
+                          />
                         </Modal>
                       </div>
                     </Column>

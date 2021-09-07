@@ -19,7 +19,7 @@ const ModifyColumnForm = ({ column }) => {
     setTitle(title);
     setTimeout(() => {
       setMessage("");
-    }, 4000);
+    }, 1000);
   };
 
   const saved = () => {

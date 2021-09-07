@@ -12,7 +12,7 @@ const ModifyModal = ({ isOpen, onClose, children }) => {
   );
 };
 
-export default function Swimlane({ column, children, onDragEnter, title, id }) {
+export default function Column({ column, children, onDragEnter, title, id, onClose }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -21,7 +21,7 @@ export default function Swimlane({ column, children, onDragEnter, title, id }) {
         <p className="title">{title}</p>
         <i className="fas fa-pen fa-xs options-btn" onClick={(e) => setIsOpen(true)}></i>
         <ModifyModal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-          <ModifyColumnForm column={column} />
+          <ModifyColumnForm column={column} onClose={onClose} />
         </ModifyModal>
       </div>
 

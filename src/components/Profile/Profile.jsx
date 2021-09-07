@@ -5,8 +5,8 @@ import ModifyEventForm from "../Dashboard/ModifyEventForm";
 import { useProfile, withProfile } from "../../contexts/ProfileContext";
 
 import Pie from "../Dashboard/Circle";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import "./Profile.scss";
 import { Link } from "react-router-dom";

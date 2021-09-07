@@ -2,30 +2,42 @@ import React, { useState } from "react";
 import { useEventBoard } from "../../contexts/EventBoardContext";
 import "../Forms.scss";
 
-const TaskForm = ({ columnId, column }) => {
+const TaskForm = ({ columnId, column, onClose }) => {
   const { addTask } = useEventBoard();
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [error, setError] = useState("");
+  const [btnName, setbtnName] = useState("");
+  const [message, setMessage] = useState("");
 
   function add(title = "", content) {
     const data = [column.length, columnId, 1, title, content];
     addTask(data);
+    saved();
     reset();
+    onClose();
   }
 
   const reset = () => {
     setTitle("");
     setContent("");
+    setTimeout(() => {
+      setMessage("");
+    }, 1000);
+  };
+
+  const saved = () => {
+    setbtnName("saved");
+    setMessage("Saved!");
   };
 
   function validate(title, content) {
     if (!content) {
-      setError("Please add a description");
+      setMessage("Please add a description");
+      setbtnName("error");
       return;
     }
-    setError("");
+    setMessage("");
     add(title, content);
   }
 
@@ -63,7 +75,7 @@ const TaskForm = ({ columnId, column }) => {
               data-testid="task-content-input"
             ></textarea>
 
-            {error && <span className="error">{error}</span>}
+            {message && <span className={btnName}>{message}</span>}
           </div>
           <div className="btn-container">
             <button className="add-task-btn" onClick={() => validate(title, content)}>

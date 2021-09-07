@@ -48,17 +48,17 @@ Each event has its own kanban-style board, which shows all the tasks for the eve
 
 ### Front-End
 
-babel/code-frame: 7.14.5
-babel: 6.23.0
-classnames: 2.3.1
-jsonwebtoken: 8.5.1
-node: 16.6.1
-react: 16.9.0
-react-datepicker: 4.2.1
-react-dom: 16.9.0
-react-router-dom: 5.2.0
-react-scripts: 4.0.0
-sass: 1.37.5
+- babel/code-frame: 7.14.5
+- babel: 6.23.0
+- classnames: 2.3.1
+- jsonwebtoken: 8.5.1
+- node: 16.6.1
+- react: 16.9.0
+- react-datepicker: 4.2.1
+- react-dom: 16.9.0
+- react-router-dom: 5.2.0
+- react-scripts: 4.0.0
+- sass: 1.37.5
 
 ### Future Goals
 

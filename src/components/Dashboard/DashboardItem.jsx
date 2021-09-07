@@ -71,7 +71,7 @@ export default function DashboardItem(props) {
               </div>
               <div className="info-section">
                 <p className="subtitle">Phone:</p>
-                <p>{props.phone}</p>
+                <p>{formatPhoneState(props.phone)}</p>
               </div>
               <div className="info-section">
                 <p className="subtitle">Address:</p>

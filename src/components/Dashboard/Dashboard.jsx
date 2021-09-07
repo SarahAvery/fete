@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DashboardItem from "./DashboardItem";
 import { useDashboard, withDashboard } from "../../contexts/DashboardContext";
 import NewEvent from "./NewEvent";
@@ -9,7 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const Dashboard = () => {
   const [form, setForm] = useState({ visible: false });
-  const { events } = useDashboard();
+  const { events, getEvents, data } = useDashboard();
 
   const openForm = () => {
     setForm({ visible: true });

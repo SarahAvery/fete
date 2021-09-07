@@ -6,15 +6,37 @@ export const DashboardContext = React.createContext();
 const DashboardContextProvider = ({ children }) => {
   const [events, setEvents] = useState();
   const [data, setDashboardData] = useState();
+  const [event, setSingleEvent] = useState();
+  const [profileData, setProfileData] = useState();
 
   useEffect(() => {
     getEvents();
   }, [data]);
 
+  useEffect(() => {
+    getEvent();
+  }, [profileData]);
+
   const getEvents = () => {
     apiRequest(`${process.env.REACT_APP_API_URL}/events`, { method: "GET" })
       .then((res) => res.json())
       .then((data) => setEvents(data));
+  };
+
+  const getEvent = async () => {
+    const params = new URLSearchParams(document.location.search.substring(1));
+    const eventId = params.get("eventId");
+
+    apiRequest(`${process.env.REACT_APP_API_URL}/events`, { method: "GET" })
+      .then((res) => res.json())
+      .then((data) => {
+        data.forEach(event => {
+          if (String(event.event_id) === eventId) {
+            setSingleEvent(event)
+            return event
+          }
+        })
+      });
   };
 
   const addEvent = async (formData, user) => {
@@ -28,6 +50,7 @@ const DashboardContextProvider = ({ children }) => {
         body: JSON.stringify({ ...formData, userId }),
       });
       setDashboardData(formData);
+      setProfileData(formData)
     } catch {
       console.log("ERROR in addEvent function inside NewEvent component");
     }
@@ -41,6 +64,8 @@ const DashboardContextProvider = ({ children }) => {
         headers: { "Content-Type": "application/json" },
       });
       setDashboardData(data);
+      setProfileData(data)
+
     } catch (err) {
       console.log(err);
     }
@@ -54,13 +79,15 @@ const DashboardContextProvider = ({ children }) => {
         headers: { "Content-Type": "application/json" },
       });
       setDashboardData(data);
+      setProfileData(data)
+
     } catch (err) {
       console.log(err);
     }
   };
 
   return (
-    <DashboardContext.Provider value={{ events, getEvents, setEvents, addEvent, updateEvent, deleteEvent }}>
+    <DashboardContext.Provider value={{ data, profileData, event, getEvent, events, getEvents, setEvents, addEvent, updateEvent, deleteEvent }}>
       {children}
     </DashboardContext.Provider>
   );

@@ -191,7 +191,6 @@ const ModifyEventForm = (props) => {
               <input type="text" name="city" required value={city} onChange={(e) => setCity(e.target.value)} />
             </div>
           </div>
-
           <div className="budget container">
             <div className="current-date-container">
               <p>Current Budget: {formatMoneyOutput(currentBudget)}</p>
@@ -201,7 +200,6 @@ const ModifyEventForm = (props) => {
               <input type="text" name="event_budget" onChange={(e) => formatMoneyInput(e.target.value)} />
             </div>
           </div>
-
           <div className="datepicker-container">
             <div className="display-event-date">
               <div className="current-date-container">
@@ -220,11 +218,11 @@ const ModifyEventForm = (props) => {
             </div>
           </div>
           <div className="btn-container">
-            <button className="save-btn" onClick={() => validate(formData, event.event_id)}>
-              Update
-            </button>
             <button className="delete-btn" onClick={() => onDelete()}>
               Delete
+            </button>
+            <button className="save-btn" onClick={() => validate(formData, event.event_id)}>
+              Update
             </button>
           </div>
         </div>

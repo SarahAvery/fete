@@ -37,11 +37,21 @@ const Text = ({ percentage }) => {
 
 const Pie = ({ percentage, colour }) => {
   const pct = cleanPercentage(percentage);
+
+  console.log(colour);
+  let circleBackground = "lightgrey";
+  let circleColor = colour;
+
+  if (percentage > 100) {
+    circleColor = "rgb(228, 97, 97)";
+    circleBackground = "rgb(228, 97, 97)";
+  }
+
   return (
     <svg width={200} height={150}>
       <g>
-        <Circle colour="lightgrey" />
-        <Circle colour={colour} pct={pct} />
+        <Circle colour={circleBackground} />
+        <Circle colour={circleColor} pct={pct} />
       </g>
       <Text percentage={pct} />
     </svg>

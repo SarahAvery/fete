@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { apiRequest } from "../../src/utils/apiUtils";
 
 export const DashboardContext = React.createContext();
@@ -9,6 +9,13 @@ const DashboardContextProvider = ({ children }) => {
   const [event, setSingleEvent] = useState();
   const [profileData, setProfileData] = useState();
 
+  useEffect(() => {
+    getEvents();
+  }, [data]);
+
+  useEffect(() => {
+    getEvent();
+  }, [profileData]);
 
   const getEvents = () => {
     apiRequest(`${process.env.REACT_APP_API_URL}/events`, { method: "GET" })

@@ -20,11 +20,7 @@ const Profile = () => {
   const params = new URLSearchParams(document.location.search.substring(1));
   const eventId = params.get("eventId");
 
-  const { event, getEvent, profileData } = useDashboard();
-
-  useEffect(() => {
-    getEvent();
-  }, [profileData]);
+  const { event } = useDashboard();
 
   const [completionPercent, setCompletionPercent] = useState();
   const [budgetPercent, setBudgetPercent] = useState();

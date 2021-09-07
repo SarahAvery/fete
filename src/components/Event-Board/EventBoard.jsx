@@ -107,7 +107,7 @@ const EventBoard = () => {
           <div className="header-banner">
             <h1>{data?.title}</h1>
             <div className="btn-container right">
-              <Link className="button" to={`/profile?eventId=${eventId}`}>
+              <Link className="new-event-btn button" to={`/profile?eventId=${eventId}`}>
                 Event Profile
               </Link>
             </div>

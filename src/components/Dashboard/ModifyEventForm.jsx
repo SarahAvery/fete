@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Button from "../Button";
 import { useDashboard } from "../../contexts/DashboardContext";
 import DatePicker from "react-datepicker";
 
@@ -32,7 +31,7 @@ const ModifyEventForm = (props) => {
   // set budget to be displayed only on first form render
   useEffect(() => {
     setCurrentBudget(budget);
-  }, []);
+  }, [budget]);
 
   useEffect(() => {
     if (newDate) {
@@ -67,13 +66,13 @@ const ModifyEventForm = (props) => {
   };
 
   const formatMoneyOutput = (money) => {
-    return `$${money.toLocaleString("en-US")}`
-  }
+    return `$${money.toLocaleString("en-US")}`;
+  };
 
   const formatMoneyInput = (moneyInput) => {
-    let input = moneyInput.includes('$') ? moneyInput = moneyInput.slice(1) : moneyInput
-    setBudget(parseInt((input.replace(',',''))))
-  }
+    let input = moneyInput.includes("$") ? (moneyInput = moneyInput.slice(1)) : moneyInput;
+    setBudget(parseInt(input.replace(",", "")));
+  };
 
   return (
     <div className="new-event-container wrapper">
@@ -215,15 +214,19 @@ const ModifyEventForm = (props) => {
                   wrapperClassName="datePicker"
                   selected={newDate}
                   onChange={(date) => setNewDate(date)}
-                  dateFormat="yyyy-mm-dd"
+                  dateFormat="yyyy-MM-dd"
                 />
               </div>
             </div>
           </div>
           <div className="btn-container">
-            {<Button onClick={() => validate(formData, event.event_id)}>Update</Button>}
+            <button className="save-btn" onClick={() => validate(formData, event.event_id)}>
+              Update
+            </button>
+            <button className="delete-btn" onClick={() => onDelete()}>
+              Delete
+            </button>
           </div>
-          <div className="btn-container">{<Button onClick={() => onDelete()}>Delete</Button>}</div>
         </div>
       </form>
     </div>

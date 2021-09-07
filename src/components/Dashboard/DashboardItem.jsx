@@ -29,7 +29,6 @@ export default function DashboardItem(props) {
   };
 
   const formatDateOutput = (timestamptz) => {
-    // console.log('date (timestamptz): ', timestamptz) // => 2016-06-23T02:10:25.000Z
     return new Date(timestamptz).toDateString();
   };
 

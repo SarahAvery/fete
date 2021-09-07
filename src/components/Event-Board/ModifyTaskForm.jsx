@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useEventBoard } from "../../contexts/EventBoardContext";
 
-const ModifyTaskForm = ({ task }) => {
+const ModifyTaskForm = ({ task, onClose }) => {
   const { updateTask, deleteTask } = useEventBoard();
   const [title, setTitle] = useState(task.title);
   const [content, setContent] = useState(task.content);
@@ -11,9 +11,16 @@ const ModifyTaskForm = ({ task }) => {
   const [error, setError] = useState("");
 
   const save = () => {
-    const data = { id: task.id, title, content, expense_budget: formatMoneyInput(expenseBudget), expense_actual: formatMoneyInput(expenseActual) };
+    const data = {
+      id: task.id,
+      title,
+      content,
+      expense_budget: formatMoneyInput(expenseBudget),
+      expense_actual: formatMoneyInput(expenseActual),
+    };
     updateTask(data);
     reset();
+    onClose();
   };
 
   const reset = () => {
@@ -37,10 +44,10 @@ const ModifyTaskForm = ({ task }) => {
   };
 
   const formatMoneyInput = (moneyInput) => {
-    let input = String(moneyInput)
-    input = input.includes('$') ? input = input.slice(1) : input
-    return parseInt(input.replace(',',''))
-  }
+    let input = String(moneyInput);
+    input = input.includes("$") ? (input = input.slice(1)) : input;
+    return parseInt(input.replace(",", ""));
+  };
 
   return (
     <div className="modify-task-container wrapper">
@@ -76,26 +83,26 @@ const ModifyTaskForm = ({ task }) => {
               value={content}
               data-testid="task-content-input"
             ></textarea>
-          <div className="budget container">
-            <div className="task_expense_budget">
-              <label htmlFor="task_expense_budget">Budget: </label>
-              <input
-                type="text"
-                name="task_expense_budget"
-                value={expenseBudget}
-                onChange={(e) => setExpenseBudget(e.target.value)}
-              />
+            <div className="budget container">
+              <div className="task_expense_budget">
+                <label htmlFor="task_expense_budget">Budget: </label>
+                <input
+                  type="text"
+                  name="task_expense_budget"
+                  value={expenseBudget}
+                  onChange={(e) => setExpenseBudget(e.target.value)}
+                />
+              </div>
+              <div className="task_expense_actual">
+                <label htmlFor="task_expense_actual">True Cost: </label>
+                <input
+                  type="text"
+                  name="task_expense_actual"
+                  value={expenseActual}
+                  onChange={(e) => setExpenseActual(e.target.value)}
+                />
+              </div>
             </div>
-            <div className="task_expense_actual">
-              <label htmlFor="task_expense_actual">True Cost: </label>
-              <input
-                type="text"
-                name="task_expense_actual"
-                value={expenseActual}
-                onChange={(e) => setExpenseActual(e.target.value)}
-              />
-            </div>
-          </div>
             {error && <span className="error">{error}</span>}
           </div>
           <div className="btn-container">

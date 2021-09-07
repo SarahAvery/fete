@@ -26,8 +26,8 @@ const TaskForm = ({ columnId, column }) => {
   };
 
   function validate(title, content, expenseBudget, expenseActual) {
-    let cleanBudget = formatMoneyInput(expenseBudget)
-    let cleanActual = formatMoneyInput(expenseActual)
+    let cleanBudget = formatMoneyInput(expenseBudget);
+    let cleanActual = formatMoneyInput(expenseActual);
     if (!content) {
       setError("Please add a description");
       return;
@@ -37,10 +37,10 @@ const TaskForm = ({ columnId, column }) => {
   }
 
   const formatMoneyInput = (moneyInput) => {
-    let input = String(moneyInput)
-    input = input.includes('$') ? input = input.slice(1) : input
-    return parseInt(input.replace(',',''))
-  }
+    let input = String(moneyInput);
+    input = input.includes("$") ? (input = input.slice(1)) : input;
+    return parseInt(input.replace(",", ""));
+  };
 
   return (
     <div className="add-item-container wrapper">
@@ -88,7 +88,7 @@ const TaskForm = ({ columnId, column }) => {
               />
             </div>
             <div className="task_expense_actual">
-              <label htmlFor="task_expense_actual">True Cost: </label>
+              <label htmlFor="task_expense_actual">Cost: </label>
               <input
                 type="text"
                 name="task_expense_actual"

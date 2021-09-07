@@ -99,11 +99,11 @@ const ModifyTaskForm = ({ task }) => {
             {error && <span className="error">{error}</span>}
           </div>
           <div className="btn-container">
-            <button className="save-btn" onClick={() => validate(content)}>
-              Save
-            </button>
             <button className="delete-btn" onClick={() => onDelete()}>
               Delete
+            </button>
+            <button className="save-btn" onClick={() => validate(content)}>
+              Save
             </button>
           </div>
         </div>

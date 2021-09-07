@@ -28,6 +28,7 @@
     padding: 30px 5%;
     padding-top: 50px;
 
+
     h1 {
       font-family: "Merriweather", serif;
       color: rgb(48, 48, 48);
@@ -38,6 +39,10 @@
       display: inline-flex;
       .button {
         background-color: rgb(130, 156, 167);
+        color: #fff;
+        display: inline-block;
+        margin-right: 20px;
+        box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
       }
     }
   }

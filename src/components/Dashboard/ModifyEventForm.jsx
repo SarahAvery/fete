@@ -31,7 +31,7 @@ const ModifyEventForm = (props) => {
   // set budget to be displayed only on first form render
   useEffect(() => {
     setCurrentBudget(budget);
-  }, []);
+  }, [budget]);
 
   useEffect(() => {
     if (newDate) {
@@ -212,7 +212,7 @@ const ModifyEventForm = (props) => {
                   wrapperClassName="datePicker"
                   selected={newDate}
                   onChange={(date) => setNewDate(date)}
-                  dateFormat="yyyy-mm-dd"
+                  dateFormat="yyyy-MM-dd"
                 />
               </div>
             </div>
@@ -221,10 +221,8 @@ const ModifyEventForm = (props) => {
             <button className="delete-btn" onClick={() => onDelete()}>
               Delete
             </button>
-          </div>
-          <div className="btn-container">
             <button className="save-btn" onClick={() => validate(formData, event.event_id)}>
-              Save
+              Update
             </button>
           </div>
         </div>

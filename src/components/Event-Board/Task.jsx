@@ -20,7 +20,7 @@ export default function Task({ item, onDragStart, onDragEnter, className }) {
           <p className="item__title">{item.title}</p>
           <i className="fas fa-pen options-btn fa-xs" onClick={(e) => setIsOpen(true)}></i>
           <ModifyModal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-            <ModifyTaskForm task={item} />
+            <ModifyTaskForm task={item} onClose={() => setIsOpen(false)} />
           </ModifyModal>
         </div>
         <p className="item__desc">{item.content} </p>

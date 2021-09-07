@@ -38,7 +38,7 @@ const NewEvent = (props) => {
     streetType,
     postal,
     city,
-    budget
+    budget,
   };
 
   function addNewEvent(formData, user) {
@@ -47,9 +47,9 @@ const NewEvent = (props) => {
   }
 
   const formatMoneyInput = (moneyInput) => {
-    let input = moneyInput.includes('$') ? moneyInput = moneyInput.slice(1) : moneyInput
-    setBudget(parseInt((input.replace(',',''))))
-  }
+    let input = moneyInput.includes("$") ? (moneyInput = moneyInput.slice(1)) : moneyInput;
+    setBudget(parseInt(input.replace(",", "")));
+  };
 
   return (
     <div className="new-event-container wrapper">
@@ -153,7 +153,7 @@ const NewEvent = (props) => {
               wrapperClassName="datePicker"
               selected={date}
               onChange={(date) => setDate(date)}
-              dateFormat="yyyy-mm-dd"
+              dateFormat="yyyy-MM-dd"
             />
           </div>
           <div className="btn-container">

@@ -4,12 +4,6 @@
   height: 100%;
   position: relative;
   padding-top: 50px;
-
-  // min-height: 100vh;
-
-  button {
-    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
-  }
 }
 
 .signup-container,
@@ -87,7 +81,7 @@
   button {
     background-color: rgb(130, 156, 167);
     color: rgb(255, 255, 255);
-    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    margin: 0 20px;
   }
   button.add-task-btn {
     background-color: rgb(130, 156, 167);
@@ -99,7 +93,7 @@
 
   button.save-btn {
     background-color: rgb(110, 160, 110);
-    width: 70px !important;
+    min-width: 70px !important;
   }
 
   #error-msg {
@@ -149,12 +143,10 @@
 .modify-task-container {
   .btn-container {
     display: flex;
+    // width: 100%;
+  }
+  button {
     width: auto;
-
-    button {
-      margin: 0 10px;
-      width: auto;
-    }
   }
 }
 

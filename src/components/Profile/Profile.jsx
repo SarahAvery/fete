@@ -1,15 +1,12 @@
 import React, { useState, Fragment, useEffect } from "react";
-// import PropTypes from "prop-types";
 import Modal from "../Modal";
 import ModifyEventForm from "../Dashboard/ModifyEventForm";
-import { useProfile, withProfile } from "../../contexts/ProfileContext";
 
 import Pie from "../Dashboard/Circle";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import "./Profile.scss";
 import { Link } from "react-router-dom";
+import { useDashboard, withDashboard } from "../../contexts/DashboardContext";
 
 const ModifyModal = ({ isOpen, onClose, children }) => {
   return (
@@ -23,7 +20,11 @@ const Profile = () => {
   const params = new URLSearchParams(document.location.search.substring(1));
   const eventId = params.get("eventId");
 
-  const { event } = useProfile();
+  const { event, getEvent, profileData } = useDashboard();
+
+  useEffect(() => {
+    getEvent();
+  }, [profileData]);
 
   const [completionPercent, setCompletionPercent] = useState();
   const [budgetPercent, setBudgetPercent] = useState();
@@ -162,4 +163,4 @@ const Profile = () => {
 
 // };
 
-export default withProfile(Profile);
+export default withDashboard(Profile);

@@ -218,11 +218,11 @@ const ModifyEventForm = (props) => {
             </div>
           </div>
           <div className="btn-container">
-            <button className="delete-btn" onClick={() => onDelete()}>
-              Delete
-            </button>
             <button className="save-btn" onClick={() => validate(formData, event.event_id)}>
               Update
+            </button>
+            <button className="delete-btn" onClick={() => onDelete()}>
+              Delete
             </button>
           </div>
         </div>

@@ -76,8 +76,8 @@ export default function DashboardItem(props) {
               <div className="info-section">
                 <p className="subtitle">Address:</p>
                 <p>
-                  {props.unit} {props.street_number}, {props.street_name} {props.street_type}, {props.postal_code},{" "}
-                  {props.city}
+                  {props.unit ? props.unit + " - " : null} {props.street_number}, {props.street_name}{" "}
+                  {props.street_type}, {props.postal_code}, {props.city}
                 </p>
               </div>
             </div>

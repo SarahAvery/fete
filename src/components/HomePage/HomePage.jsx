@@ -3,8 +3,8 @@ import { isLoggedIn } from "../../utils/authUtils";
 import { Redirect } from "react-router-dom";
 import { RouteList } from "../Routes";
 import "./HomePage.scss";
-import imgPaint from "../../assets/paint.jpg";
-import imgWave from "../../assets/wave.jpg";
+import board from "../../assets/board.png";
+import dashboard from "../../assets/dashboard.png";
 
 const HomePage = () => {
   const isAuthed = isLoggedIn();
@@ -28,7 +28,7 @@ const HomePage = () => {
           <div className="home-container">
             <section>
               <div className="image-container">
-                <img src={imgWave} alt="" />
+                <img src={board} alt="" />
               </div>
               <div className="para-container">
                 <p className="para"> See all your current events in one place</p>
@@ -40,7 +40,7 @@ const HomePage = () => {
                 <p className="para">Keep track of all the steps leading up to the big day</p>
               </div>
               <div className="image-container">
-                <img src={imgPaint} alt="" />
+                <img src={dashboard} alt="" />
               </div>
             </section>
 

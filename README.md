@@ -20,15 +20,15 @@ Each event has its own kanban-style board, which shows all the tasks for the eve
 
 #### Dashboard
 
-!["Dashboard"]()
+!["Dashboard"](https://github.com/SarahAvery/finals/blob/main/src/assets/dashboard.png?raw=true)
 
 #### Event Board
 
-!["Board"]()
+!["Board"](https://github.com/SarahAvery/finals/blob/main/src/assets/board.png?raw=true)
 
 #### Event Profile
 
-!["Event Profile"]()
+!["Event Profile"](https://github.com/SarahAvery/finals/blob/main/src/assets/event-profile.png?raw=true)
 
 ## Getting Started
 

@@ -14,10 +14,6 @@ Each event has its own kanban-style board, which shows all the tasks for the eve
 
 ## Product
 
-#### Home Page
-
-!["Home Page"]()
-
 #### Dashboard
 
 !["Dashboard"](https://github.com/SarahAvery/finals/blob/main/src/assets/dashboard.png?raw=true)
